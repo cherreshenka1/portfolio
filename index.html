@@ -120,42 +120,80 @@
 
     <section id="experience" class="bg-zinc-900 py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-5xl font-black tracking-[-0.07em] mb-12">Опыт</h2>
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+          <div>
+            <p class="text-sm uppercase tracking-[0.3em] text-blue-300 mb-4 font-bold">Career path</p>
+            <h2 class="text-5xl font-black tracking-[-0.07em]">Опыт</h2>
+          </div>
+          <p class="max-w-xl text-zinc-400 leading-8">
+            Ниже — 4 компании, где я работал, и какие задачи закрывал:
+            от продуктового frontend до автоматизации, аналитики и интеграций.
+          </p>
+        </div>
+
         <div class="grid lg:grid-cols-2 gap-8">
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-3xl p-8">
+          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-blue-500/40 transition">
+            <p class="text-sm uppercase tracking-[0.25em] text-blue-300 mb-4 font-bold">Marketplace / Automation</p>
             <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Маркетплейс «Первый Селлер»</h3>
             <p class="text-blue-400 mb-4">Разработчик чат-ботов и автоматизатор процессов</p>
-            <p class="text-zinc-400 leading-7">
+            <p class="text-zinc-400 leading-7 mb-6">
               Telegram-уведомления, webhook-интеграции, выгрузки в таблицы,
               парсинг конкурентов и дашборды для продавцов.
             </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Telegram Bot</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Webhooks</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Python / Parsing</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Google Sheets / Excel</span>
+            </div>
           </article>
 
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-3xl p-8">
+          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-violet-500/40 transition">
+            <p class="text-sm uppercase tracking-[0.25em] text-violet-300 mb-4 font-bold">Digital agency / E-commerce</p>
             <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Digital Agency St</h3>
-            <p class="text-blue-400 mb-4">Frontend-разработчик</p>
-            <p class="text-zinc-400 leading-7">
+            <p class="text-violet-300 mb-4">Frontend-разработчик</p>
+            <p class="text-zinc-400 leading-7 mb-6">
               Калькуляторы, слайдеры, формы, Яндекс.Метрика/GA,
               оптимизация LCP/Core Web Vitals и поддержка e-commerce проектов.
             </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">React UI</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Core Web Vitals</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Analytics</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">E-commerce</span>
+            </div>
           </article>
 
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-3xl p-8">
+          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-cyan-500/40 transition">
+            <p class="text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 font-bold">React / REST API / Refactoring</p>
             <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Digital-агентство Prostudio</h3>
-            <p class="text-blue-400 mb-4">Стажёр Frontend-разработчик</p>
-            <p class="text-zinc-400 leading-7">
+            <p class="text-cyan-300 mb-4">Стажёр Frontend-разработчик</p>
+            <p class="text-zinc-400 leading-7 mb-6">
               Промо-страницы и лендинги на React, интеграция с REST API,
               рефакторинг legacy jQuery-кода, Jest-тесты и адаптация UI-китов.
             </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">React</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">REST API</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Jest</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">jQuery → React</span>
+            </div>
           </article>
 
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-3xl p-8">
+          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-emerald-500/40 transition">
+            <p class="text-sm uppercase tracking-[0.25em] text-emerald-300 mb-4 font-bold">Landing pages / WordPress / Figma</p>
             <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Веб-студия D-project</h3>
-            <p class="text-blue-400 mb-4">Junior Frontend-разработчик / верстальщик</p>
-            <p class="text-zinc-400 leading-7">
+            <p class="text-emerald-300 mb-4">Junior Frontend-разработчик / верстальщик</p>
+            <p class="text-zinc-400 leading-7 mb-6">
               Адаптивная вёрстка по Figma, доработка WordPress-шаблонов,
               WebP, минификация CSS/JS, lazy loading и исправление мобильных UI-багов.
             </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">HTML / CSS</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Figma</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">WordPress</span>
+              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">WebP / Lazy Loading</span>
+            </div>
           </article>
         </div>
       </div>
