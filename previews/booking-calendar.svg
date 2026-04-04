@@ -1,0 +1,10 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#F4EFE8"/>
+  <circle cx="980" cy="160" r="180" fill="#F8D8C8"/>
+  <circle cx="220" cy="160" r="180" fill="#D5E8DD"/>
+  <rect x="100" y="120" width="1000" height="500" rx="40" fill="#FFFFFF" opacity="0.8"/>
+  <rect x="140" y="180" width="560" height="360" rx="32" fill="#F8F5F0"/>
+  <rect x="740" y="180" width="320" height="360" rx="32" fill="#172033"/>
+  <text x="140" y="620" fill="#172033" font-family="Inter, Arial" font-size="56" font-weight="800">Smart Booking Calendar</text>
+  <text x="140" y="670" fill="#CD7E5F" font-family="Inter, Arial" font-size="28" font-weight="600">service schedule • slots • bookings</text>
+</svg>

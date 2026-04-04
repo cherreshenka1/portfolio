@@ -1,0 +1,9 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#030712"/>
+  <circle cx="180" cy="160" r="170" fill="#22C55E" opacity="0.14"/>
+  <circle cx="1020" cy="620" r="220" fill="#0EA5E9" opacity="0.12"/>
+  <rect x="70" y="110" width="360" height="530" rx="34" fill="#0F172A"/>
+  <rect x="470" y="110" width="660" height="530" rx="34" fill="#111827"/>
+  <text x="110" y="590" fill="#F8FAFC" font-family="Inter, Arial" font-size="54" font-weight="800">Support Ticket Center</text>
+  <text x="110" y="640" fill="#4ADE80" font-family="Inter, Arial" font-size="28" font-weight="600">SLA • search • operator chat</text>
+</svg>

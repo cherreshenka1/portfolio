@@ -1,291 +1,312 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Артём Бычков | Frontend-разработчик</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', system-ui, sans-serif; }
-    .hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%); }
-  </style>
-</head>
-<body class="bg-zinc-950 text-white">
-  <!-- NAV -->
-  <nav class="fixed top-0 w-full bg-zinc-950/90 backdrop-blur-md z-50 border-b border-zinc-800">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold tracking-tight">Артём Бычков</div>
-      <div class="flex gap-8 text-sm font-medium">
-        <a href="#about" class="hover:text-blue-400 transition">Обо мне</a>
-        <a href="#experience" class="hover:text-blue-400 transition">Опыт</a>
-        <a href="#projects" class="hover:text-blue-400 transition">Проекты</a>
-        <a href="#skills" class="hover:text-blue-400 transition">Навыки</a>
-        <a href="#contact" class="hover:text-blue-400 transition">Контакты</a>
-      </div>
-    </div>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Портфолио Артёма Бычкова — frontend-разработка, React, автоматизация, SQL, дашборды и клиентские интерфейсы."
+    />
+    <title>Артём Бычков | Frontend-разработчик</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
-  <!-- HERO -->
-  <header class="hero-bg min-h-screen flex items-center pt-20">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h1 class="text-6xl font-bold leading-none mb-4">Привет, я Артём</h1>
-        <p class="text-3xl text-blue-400 mb-6">Frontend-разработчик • 2+ года опыта</p>
-        <p class="text-xl text-zinc-400 mb-10">Создаю быстрые, красивые и удобные интерфейсы. React, TypeScript, оптимизация, автоматизация процессов.</p>
-        <div class="flex gap-4">
-          <a href="#projects" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-semibold flex items-center gap-2 transition">
-            <i class="fa-solid fa-rocket"></i> Посмотреть проекты
-          </a>
-          <a href="https://t.me/cherreshenkaw" target="_blank" class="px-8 py-4 border border-zinc-400 hover:border-white rounded-2xl font-semibold transition">Telegram</a>
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      .hero-bg {
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 24%),
+          radial-gradient(circle at top right, rgba(139, 92, 246, 0.16), transparent 22%),
+          linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
+      }
+
+      .project-card {
+        transition:
+          transform 240ms ease,
+          border-color 240ms ease,
+          box-shadow 240ms ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(96, 165, 250, 0.5);
+        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.45);
+      }
+    </style>
+  </head>
+  <body class="bg-zinc-950 text-white">
+    <nav class="fixed top-0 w-full bg-zinc-950/85 backdrop-blur-md z-50 border-b border-zinc-800">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center gap-6">
+        <div class="text-2xl font-black tracking-[-0.06em]">Артём Бычков</div>
+        <div class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="#about" class="hover:text-blue-400 transition">Обо мне</a>
+          <a href="#experience" class="hover:text-blue-400 transition">Опыт</a>
+          <a href="#projects" class="hover:text-blue-400 transition">Проекты</a>
+          <a href="#skills" class="hover:text-blue-400 transition">Навыки</a>
+          <a href="#contact" class="hover:text-blue-400 transition">Контакты</a>
         </div>
       </div>
-      <div class="flex justify-center">
-        <!-- Замени на свою фото из резюме -->
-        <div class="w-80 h-80 bg-zinc-800 rounded-3xl overflow-hidden border-8 border-zinc-700 shadow-2xl">
-          <img src="https://raw.githubusercontent.com/cherreshenka1/portfolio/main/photo_2026-03-26_17-35-05.jpg" alt="Артём Бычков" class="w-full h-full object-cover">
-        </div>
-      </div>
-    </div>
-  </header>
+    </nav>
 
-  <!-- ABOUT - РАЗВЁРНУТАЯ ВЕРСИЯ -->
-<section id="about" class="max-w-7xl mx-auto px-6 py-24">
-  <div class="max-w-3xl">
-    <h2 class="text-4xl font-semibold mb-8">Обо мне</h2>
-    
-    <p class="text-lg text-zinc-400 leading-relaxed mb-6">
-      Мне 20 лет, я — Frontend-разработчик с 2 годами и 2 месяцами коммерческого опыта. 
-      Специализируюсь на создании современных, быстрых и удобных пользовательских интерфейсов. 
-      Работал в маркетплейсах, digital-агентствах и веб-студиях, где занимался как чистой вёрсткой, 
-      так и полноценной разработкой на React.
-    </p>
-
-    <p class="text-lg text-zinc-400 leading-relaxed mb-6">
-      Моя основная специализация — <span class="text-blue-400 font-medium">React и современный frontend</span>. 
-      Я создаю интерактивные элементы (калькуляторы, слайдеры, формы), оптимизирую производительность сайтов 
-      (LCP, Core Web Vitals), интегрирую фронтенд с бэкендом через REST API и автоматизирую бизнес-процессы. 
-      Также имею опыт разработки Telegram-ботов и дашбордов для маркетплейсов.
-    </p>
-
-    <p class="text-lg text-zinc-400 leading-relaxed mb-6">
-      Владею современным стеком технологий: 
-      <strong>React, JavaScript (ES6+), TypeScript, HTML5, CSS3, Tailwind</strong>, 
-      работаю с Figma, Git, Jest, REST API. 
-      Дополнительно использую Python (pandas) для автоматизации отчётов и парсинга данных конкурентов. 
-      Хорошо знаком с аналитикой (Яндекс Метрика, Google Analytics) и дизайн-системами.
-    </p>
-
-    <p class="text-lg text-zinc-400 leading-relaxed">
-      Готов к полной удалённой работе, частичной занятости, проектной работе и стажировкам. 
-      Открыт к переезду и командировкам. 
-      Постоянно развиваюсь: прохожу курсы Яндекс Практикума, изучаю лучшие практики и новые инструменты. 
-      Английский — B1 (читаю документацию и общаюсь на технические темы).
-    </p>
-
-  </div>
-</section>
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="bg-zinc-900 py-24">
-  <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-4xl font-semibold mb-12">Опыт работы</h2>
-    
-    <div class="space-y-12">
-      
-      <div>
-        <div class="flex justify-between items-baseline mb-2">
-          <h3 class="text-2xl font-semibold">Маркетплейс «Первый Селлер»</h3>
-          <span class="text-zinc-400">6 месяцев • Екатеринбург</span>
-        </div>
-        <p class="text-blue-400">Разработчик чат-ботов и автоматизатор процессов</p>
-      </div>
-
-      <div>
-        <div class="flex justify-between items-baseline mb-2">
-          <h3 class="text-2xl font-semibold">Digital Agency St</h3>
-          <span class="text-zinc-400">9 месяцев • Санкт-Петербург</span>
-        </div>
-        <p class="text-blue-400">Фронтенд-разработчик</p>
-      </div>
-
-      <div>
-        <div class="flex justify-between items-baseline mb-2">
-          <h3 class="text-2xl font-semibold">Digital-агентство Prostudio</h3>
-          <span class="text-zinc-400">4 месяца • Санкт-Петербург</span>
-        </div>
-        <p class="text-blue-400">Стажёр-фронтенд-разработчик</p>
-      </div>
-
-      <div>
-        <div class="flex justify-between items-baseline mb-2">
-          <h3 class="text-2xl font-semibold">Веб-студия D-project</h3>
-          <span class="text-zinc-400">8 месяцев • Москва</span>
-        </div>
-        <p class="text-blue-400">Младший фронтенд-разработчик / верстальщик</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="max-w-7xl mx-auto px-6 py-24">
-    <h2 class="text-4xl font-semibold mb-12">Проекты</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <!-- Проект 1 -->
-      <div class="bg-zinc-900 rounded-3xl overflow-hidden group">
-        <img src="https://via.placeholder.com/800x500/0f172a/64748b?text=Медицинский+лендинг" alt="Медицинский центр" class="w-full h-64 object-cover group-hover:scale-105 transition">
-        <div class="p-8">
-          <h3 class="text-2xl font-semibold mb-2">Адаптивный лендинг медицинского центра</h3>
-          <p class="text-zinc-400 text-sm mb-4">Веб-студия D-project • Вёрстка + WordPress + оптимизация</p>
-          <p class="text-zinc-500 mb-6">Figma → адаптивная вёрстка, WebP, lazy loading, минификация. Исправление багов на мобильных.</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">HTML5</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">CSS3</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">WordPress</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Figma</span>
-          </div>
-          <a href="#" class="mt-6 inline-flex items-center gap-2 text-blue-400 hover:text-white">GitHub →</a>
-        </div>
-      </div>
-
-      <!-- Проект 2 -->
-      <div class="bg-zinc-900 rounded-3xl overflow-hidden group">
-        <img src="https://via.placeholder.com/800x500/0f172a/64748b?text=React+Промо-лендинг" alt="Промо-страница" class="w-full h-64 object-cover group-hover:scale-105 transition">
-        <div class="p-8">
-          <h3 class="text-2xl font-semibold mb-2">Промо-страница на React + REST API</h3>
-          <p class="text-zinc-400 text-sm mb-4">Digital-агентство Prostudio • Стажёр</p>
-          <p class="text-zinc-500 mb-6">Рефакторинг jQuery → React, тесты Jest, UI-kit, интеграция с бэкендом.</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">React</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Jest</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">REST API</span>
-          </div>
-          <a href="#" class="mt-6 inline-flex items-center gap-2 text-blue-400 hover:text-white">GitHub →</a>
-        </div>
-      </div>
-
-      <!-- Проект 3 (с живым демо-калькулятором) -->
-      <div class="bg-zinc-900 rounded-3xl overflow-hidden group">
-        <img src="https://via.placeholder.com/800x500/0f172a/64748b?text=Интерактивный+калькулятор" alt="Калькулятор" class="w-full h-64 object-cover group-hover:scale-105 transition">
-        <div class="p-8">
-          <h3 class="text-2xl font-semibold mb-2">Интерактивный калькулятор + аналитика</h3>
-          <p class="text-zinc-400 text-sm mb-4">Digital Agency St • Фронтенд-разработчик</p>
-          <p class="text-zinc-500 mb-6">Калькуляторы, слайдеры, формы. Подключение Яндекс.Метрика + Google Analytics, LCP-оптимизация.</p>
-          <a onclick="document.getElementById('calc-modal').classList.remove('hidden')" class="cursor-pointer text-blue-400 hover:text-white flex items-center gap-2">Открыть живой демо-калькулятор →</a>
-        </div>
-      </div>
-
-      <!-- Проект 4 -->
-      <div class="bg-zinc-900 rounded-3xl overflow-hidden group">
-        <img src="https://via.placeholder.com/800x500/0f172a/64748b?text=Дашборд+маркетплейса" alt="Дашборд" class="w-full h-64 object-cover group-hover:scale-105 transition">
-        <div class="p-8">
-          <h3 class="text-2xl font-semibold mb-2">Дашборд продаж маркетплейса + Telegram-бот</h3>
-          <p class="text-zinc-400 text-sm mb-4">«Первый Селлер» • Автоматизатор</p>
-          <p class="text-zinc-500 mb-6">Веб-хуки, парсинг конкурентов, выгрузка в Google Sheets, уведомления.</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">React</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">REST API</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Google Sheets</span>
-          </div>
-          <a href="#" class="mt-6 inline-flex items-center gap-2 text-blue-400 hover:text-white">GitHub →</a>
-        </div>
-      </div>
-
-      <!-- Проект 5 -->
-      <div class="bg-zinc-900 rounded-3xl overflow-hidden group">
-        <img src="https://via.placeholder.com/800x500/0f172a/64748b?text=Интернет-магазин" alt="Магазин" class="w-full h-64 object-cover group-hover:scale-105 transition">
-        <div class="p-8">
-          <h3 class="text-2xl font-semibold mb-2">Оптимизированный интернет-магазин</h3>
-          <p class="text-zinc-400 text-sm mb-4">Digital Agency St • Поддержка и доработки</p>
-          <p class="text-zinc-500 mb-6">Интерактивные элементы, аналитика, Core Web Vitals, снижение LCP.</p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">React</span>
-            <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Yandex Metrika</span>
-          </div>
-          <a href="#" class="mt-6 inline-flex items-center gap-2 text-blue-400 hover:text-white">GitHub →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="bg-zinc-900 py-24">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-4xl font-semibold mb-12">Навыки</h2>
-      <div class="flex flex-wrap gap-4">
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">React</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">JavaScript</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">TypeScript</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">HTML5 / CSS3</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">REST API</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Git / GitHub</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Jest</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Figma</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">WordPress</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Python (pandas)</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Яндекс.Метрика & GA</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="py-24 text-center">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-4xl font-semibold mb-6">Давай работать вместе</h2>
-      <p class="text-xl text-zinc-400 mb-10">bychkov.artem.24@gmail.com • @cherreshenkaw</p>
-      <a href="https://t.me/cherreshenkaw" target="_blank" class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 rounded-3xl text-lg font-semibold hover:bg-blue-500 transition">
-        Написать в Telegram <i class="fa-brands fa-telegram"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-black py-8 text-center text-xs text-zinc-500">© 2026 Артём Бычков • Портфолио обновлено март 2026</footer>
-
-  <!-- Модальное окно с живым калькулятором (проект 3) -->
-  <div id="calc-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
-    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8">
-      <h3 class="text-2xl font-semibold mb-6 flex justify-between">Калькулятор стоимости <span onclick="document.getElementById('calc-modal').classList.add('hidden')" class="cursor-pointer text-zinc-400">✕</span></h3>
-      <div class="space-y-6">
+    <header class="hero-bg min-h-screen flex items-center pt-24">
+      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
         <div>
-          <label class="block text-sm mb-2">Выберите услугу</label>
-          <select id="service" class="w-full bg-zinc-800 rounded-2xl p-4 text-white">
-            <option value="5000">Лендинг — 5 000 ₽</option>
-            <option value="12000">Интернет-магазин — 12 000 ₽</option>
-            <option value="8000">Корпоративный сайт — 8 000 ₽</option>
-          </select>
+          <p class="text-sm uppercase tracking-[0.35em] text-blue-300 mb-6 font-bold">
+            Frontend / React / Automation
+          </p>
+          <h1 class="text-6xl md:text-8xl font-black leading-[0.9] tracking-[-0.08em] mb-6">
+            Привет, я Артём
+          </h1>
+          <p class="text-3xl text-blue-400 mb-6 font-semibold">
+            Frontend-разработчик • 2+ года опыта
+          </p>
+          <p class="text-xl text-zinc-400 mb-10 max-w-2xl leading-8">
+            Делаю интерфейсы на React, клиентские сервисы, дашборды,
+            калькуляторы, формы, интеграции с REST API и проекты с SQL/автоматизацией.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#projects"
+              class="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-semibold inline-flex items-center justify-center gap-2 transition"
+            >
+              <i class="fa-solid fa-rocket"></i> Смотреть проекты
+            </a>
+            <a
+              href="https://t.me/cherreshenkaw"
+              target="_blank"
+              rel="noreferrer"
+              class="px-8 py-4 border border-zinc-500 hover:border-white rounded-2xl font-semibold text-center transition"
+            >
+              Telegram
+            </a>
+          </div>
         </div>
-        <div>
-          <label class="block text-sm mb-2">Количество страниц</label>
-          <input type="range" id="pages" min="1" max="20" value="5" class="w-full accent-blue-500">
-          <div class="flex justify-between text-xs text-zinc-400"><span>1</span><span id="pages-value">5</span><span>20</span></div>
-        </div>
-        <div class="flex justify-between items-baseline">
-          <span class="text-zinc-400">Итого:</span>
-          <span id="total" class="text-5xl font-bold text-blue-400">25 000 ₽</span>
+
+        <div class="flex justify-center lg:justify-end">
+          <div
+            class="w-80 h-80 md:w-96 md:h-96 bg-zinc-900 rounded-[2rem] overflow-hidden border-8 border-zinc-800 shadow-2xl"
+          >
+            <img
+              src="photo_2026-03-26_17-35-05.jpg"
+              alt="Артём Бычков"
+              class="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </div>
-      <button onclick="alert('Заявка отправлена! (демо)')" class="mt-8 w-full py-5 bg-blue-600 rounded-3xl font-semibold">Отправить заявку</button>
-    </div>
-  </div>
+    </header>
 
-  <script>
-    // Tailwind script already loaded
-    document.getElementById('pages').addEventListener('input', function() {
-      const pages = parseInt(this.value);
-      document.getElementById('pages-value').textContent = pages;
-      const base = parseInt(document.getElementById('service').value);
-      document.getElementById('total').textContent = (base * pages) + ' ₽';
-    });
-    document.getElementById('service').addEventListener('change', function() {
-      const pages = parseInt(document.getElementById('pages').value);
-      const base = parseInt(this.value);
-      document.getElementById('total').textContent = (base * pages) + ' ₽';
-    });
-  </script>
-</body>
+    <section id="about" class="max-w-7xl mx-auto px-6 py-24">
+      <div class="max-w-4xl">
+        <h2 class="text-5xl font-black tracking-[-0.07em] mb-8">Обо мне</h2>
+        <p class="text-lg text-zinc-400 leading-8 mb-6">
+          Мне 20 лет, я Frontend-разработчик с 2+ годами коммерческого опыта.
+          Работал в маркетплейсе, digital-агентствах и веб-студии: делал React-интерфейсы,
+          лендинги, интернет-магазины, дашборды, формы, калькуляторы и REST API интеграции.
+        </p>
+        <p class="text-lg text-zinc-400 leading-8">
+          Сильные стороны: performance, адаптивная вёрстка, аналитика, Telegram/webhook
+          автоматизация, SQL-подход к данным и аккуратная реализация UI из Figma.
+        </p>
+      </div>
+    </section>
+
+    <section id="experience" class="bg-zinc-900 py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-5xl font-black tracking-[-0.07em] mb-12">Опыт</h2>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <article class="border border-zinc-800 bg-zinc-950/40 rounded-3xl p-8">
+            <p class="text-sm uppercase tracking-[0.3em] text-blue-300 mb-4">
+              Сентябрь 2025 — Февраль 2026
+            </p>
+            <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Маркетплейс «Первый Селлер»</h3>
+            <p class="text-blue-400 mb-4">Разработчик чат-ботов и автоматизатор процессов</p>
+            <p class="text-zinc-400 leading-7">
+              Telegram-уведомления, webhook-интеграции, выгрузки в таблицы,
+              парсинг конкурентов и дашборды для продавцов.
+            </p>
+          </article>
+
+          <article class="border border-zinc-800 bg-zinc-950/40 rounded-3xl p-8">
+            <p class="text-sm uppercase tracking-[0.3em] text-blue-300 mb-4">
+              Январь 2025 — Сентябрь 2025
+            </p>
+            <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Digital Agency St</h3>
+            <p class="text-blue-400 mb-4">Frontend-разработчик</p>
+            <p class="text-zinc-400 leading-7">
+              Калькуляторы, слайдеры, формы, Яндекс.Метрика/GA,
+              оптимизация LCP/Core Web Vitals и поддержка e-commerce проектов.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="max-w-7xl mx-auto px-6 py-24">
+      <h2 class="text-5xl font-black tracking-[-0.07em] mb-5">Проекты</h2>
+      <p class="text-zinc-400 max-w-3xl mb-12 leading-8">
+        Рабочие pet-проекты с live demo и исходным кодом на GitHub.
+      </p>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
+          <img src="previews/react-store-lab.svg" alt="React Store Lab" class="w-full h-60 object-cover" />
+          <div class="p-8">
+            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">React Store Lab</h3>
+            <p class="text-zinc-400 text-sm mb-4">React + Router + localStorage</p>
+            <p class="text-zinc-500 mb-6 leading-7">
+              Мини-маркетплейс с каталогом, поиском, фильтрами, корзиной,
+              сменой темы и анимацией добавления товара.
+            </p>
+            <div class="flex gap-5">
+              <a href="https://cherreshenka1.github.io/react-promo-landing/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
+              <a href="https://github.com/cherreshenka1/react-promo-landing" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
+          <img src="previews/marketplace-dashboard.svg" alt="Marketplace Sales Dashboard" class="w-full h-60 object-cover" />
+          <div class="p-8">
+            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Marketplace Sales Dashboard</h3>
+            <p class="text-zinc-400 text-sm mb-4">React + Chart.js + localStorage</p>
+            <p class="text-zinc-500 mb-6 leading-7">
+              Дашборд продаж с KPI, графиками, заказами,
+              экспортом в Excel и Telegram-style уведомлениями.
+            </p>
+            <div class="flex gap-5">
+              <a href="https://cherreshenka1.github.io/marketplace-sales-dashboard/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
+              <a href="https://github.com/cherreshenka1/marketplace-sales-dashboard" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
+          <img src="previews/optimized-store.svg" alt="Optimized E-Commerce Store" class="w-full h-60 object-cover" />
+          <div class="p-8">
+            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Optimized E-Commerce Store</h3>
+            <p class="text-zinc-400 text-sm mb-4">Performance + Analytics</p>
+            <p class="text-zinc-500 mb-6 leading-7">
+              Интернет-магазин со слайдерами, доставкой, корзиной,
+              lazy loading, Web Vitals и имитацией аналитики.
+            </p>
+            <div class="flex gap-5">
+              <a href="https://cherreshenka1.github.io/optimized-ecommerce-store/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
+              <a href="https://github.com/cherreshenka1/optimized-ecommerce-store" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
+          <img src="previews/interactive-calculator.svg" alt="Interactive Calculator" class="w-full h-60 object-cover" />
+          <div class="p-8">
+            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Interactive Calculator</h3>
+            <p class="text-zinc-400 text-sm mb-4">Forms + Validation + Animations</p>
+            <p class="text-zinc-500 mb-6 leading-7">
+              Несколько типов калькуляторов, live-расчёт,
+              сохранение результатов и форма заявки с валидацией.
+            </p>
+            <div class="flex gap-5">
+              <a href="https://cherreshenka1.github.io/interactive-calculator/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
+              <a href="https://github.com/cherreshenka1/interactive-calculator" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
+          <img src="previews/booking-calendar.svg" alt="Smart Booking Calendar" class="w-full h-60 object-cover" />
+          <div class="p-8">
+            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Smart Booking Calendar</h3>
+            <p class="text-zinc-400 text-sm mb-4">Booking UI + Time Slots</p>
+            <p class="text-zinc-500 mb-6 leading-7">
+              Онлайн-запись с выбором услуги, дат, свободных слотов,
+              формой клиента и списком ближайших бронирований.
+            </p>
+            <div class="flex gap-5">
+              <a href="https://cherreshenka1.github.io/smart-booking-calendar/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
+              <a href="https://github.com/cherreshenka1/smart-booking-calendar" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
+          <img src="previews/support-ticket-center.svg" alt="Support Ticket Center" class="w-full h-60 object-cover" />
+          <div class="p-8">
+            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Support Ticket Center</h3>
+            <p class="text-zinc-400 text-sm mb-4">Helpdesk UI + SLA + Chat</p>
+            <p class="text-zinc-500 mb-6 leading-7">
+              Центр обращений с тикетами, поиском, фильтрами,
+              SLA-индикаторами, сменой статуса и чатом оператора.
+            </p>
+            <div class="flex gap-5">
+              <a href="https://cherreshenka1.github.io/support-ticket-center/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
+              <a href="https://github.com/cherreshenka1/support-ticket-center" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden xl:col-span-3">
+          <img src="previews/marketplace-ops-crm.svg" alt="Marketplace Ops CRM" class="w-full h-72 object-cover" />
+          <div class="p-8">
+            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Marketplace Ops CRM</h3>
+            <p class="text-zinc-400 text-sm mb-4">React + SQL.js + SQLite/WASM</p>
+            <p class="text-zinc-500 mb-6 leading-7 max-w-4xl">
+              Операционная CRM маркетплейса с заказами, продавцами, товарами,
+              webhook/Telegram событиями, KPI и SQL-консолью в браузере.
+            </p>
+            <div class="flex gap-5">
+              <a href="https://cherreshenka1.github.io/marketplace-ops-crm/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
+              <a href="https://github.com/cherreshenka1/marketplace-ops-crm" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="bg-zinc-900 py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-5xl font-black tracking-[-0.07em] mb-12">Навыки</h2>
+        <div class="flex flex-wrap gap-4">
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">React</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">JavaScript</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">HTML5 / CSS3</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Tailwind CSS</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">REST API</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">SQL</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Python / pandas</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Jest</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Git / GitHub</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Figma</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">WordPress</span>
+          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Yandex Metrika / GA</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 text-center">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-5xl font-black tracking-[-0.07em] mb-6">Давай работать вместе</h2>
+        <p class="text-xl text-zinc-400 mb-10">bychkov.artem.24@gmail.com • @cherreshenkaw</p>
+        <a
+          href="https://t.me/cherreshenkaw"
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 rounded-3xl text-lg font-semibold hover:bg-blue-500 transition"
+        >
+          Написать в Telegram <i class="fa-brands fa-telegram"></i>
+        </a>
+      </div>
+    </section>
+
+    <footer class="bg-black py-8 text-center text-xs text-zinc-500">
+      © 2026 Артём Бычков • Портфолио обновлено в апреле 2026
+    </footer>
+  </body>
 </html>

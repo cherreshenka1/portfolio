@@ -1,0 +1,11 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#020617"/>
+  <rect x="64" y="64" width="1072" height="622" rx="40" fill="#0F172A"/>
+  <rect x="104" y="126" width="200" height="500" rx="28" fill="#111827"/>
+  <rect x="342" y="126" width="754" height="220" rx="28" fill="url(#g)"/>
+  <rect x="342" y="378" width="360" height="248" rx="28" fill="#111827"/>
+  <rect x="736" y="378" width="360" height="248" rx="28" fill="#111827"/>
+  <text x="120" y="600" fill="#E5E7EB" font-family="Inter, Arial" font-size="54" font-weight="800">Sales Dashboard</text>
+  <text x="120" y="650" fill="#38BDF8" font-family="Inter, Arial" font-size="28" font-weight="600">KPI • charts • telegram alerts</text>
+  <defs><linearGradient id="g" x1="342" y1="126" x2="1096" y2="346"><stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#14B8A6"/></linearGradient></defs>
+</svg>
