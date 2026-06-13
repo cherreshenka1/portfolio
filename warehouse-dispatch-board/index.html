@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Пульт склада: сборка заказов, маршруты курьеров, приоритеты отгрузки и контроль задержек." />
+    <title>Warehouse Dispatch Board | Portfolio demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap");
+      :root {
+        --accent: #a3e635;
+        --accent-2: #65a30d;
+        --bg: #0b0c09;
+        --paper: #d9ff3f;
+        --panel: #11140e;
+        --text: #f8ffe8;
+        --muted: #bdc7a4;
+        --border: #4d5b20;
+        --radius: 0px;
+        --shadow: 8px 8px 0 rgba(217,255,63,.28);
+        --button-text: #090b06;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Space Grotesk", "Inter", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+          radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 30%),
+          linear-gradient(135deg, color-mix(in srgb, var(--bg) 92%, white), var(--bg));
+      }
+      a { color: inherit; text-decoration: none; }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        padding: 18px clamp(18px, 4vw, 54px);
+        border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(18px);
+      }
+      .back-link, .chrome-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .page {
+        width: min(1440px, calc(100% - 36px));
+        margin: 0 auto;
+        padding: clamp(24px, 4vw, 56px) 0 64px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 440px);
+        gap: 24px;
+        align-items: stretch;
+      }
+      .hero-copy, .control-panel, .panel, .stat-card, .flow-step {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+      .hero-copy { padding: clamp(28px, 5vw, 60px); }
+      .brand-icon {
+        width: 58px;
+        height: 58px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: calc(var(--radius) * .72 + 10px);
+        background: var(--accent);
+        color: var(--button-text);
+        font-size: 24px;
+        margin-bottom: 34px;
+      }
+      h1 {
+        margin: 0;
+        max-width: 860px;
+        font-size: clamp(42px, 7.2vw, 104px);
+        line-height: .9;
+        letter-spacing: -.075em;
+        font-weight: 900;
+      }
+      .description {
+        max-width: 780px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: clamp(16px, 2vw, 20px);
+        line-height: 1.7;
+      }
+      .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+      .chips span {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 10px 14px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .control-panel {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 360px;
+      }
+      .metric-label, label span {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 900;
+      }
+      .metric-line { display: flex; align-items: end; gap: 10px; margin-top: 12px; }
+      #mainMetric { font-size: clamp(44px, 5vw, 70px); line-height: .9; letter-spacing: -.07em; font-weight: 900; }
+      #mainUnit { color: var(--accent); font-size: 22px; font-weight: 900; padding-bottom: 8px; }
+      #metricHint { color: var(--muted); line-height: 1.6; margin-top: 18px; }
+      input[type="range"] { width: 100%; accent-color: var(--accent); margin-top: 12px; }
+      .run-button {
+        border: 0;
+        border-radius: calc(var(--radius) * .72 + 10px);
+        background: var(--accent);
+        color: var(--button-text);
+        padding: 16px 18px;
+        font: inherit;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+      .stat-card { padding: 20px; }
+      .stat-card span { color: var(--accent); font-weight: 900; font-size: 12px; }
+      .stat-card strong { display: block; margin-top: 12px; font-size: 20px; line-height: 1.15; letter-spacing: -.04em; }
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
+        grid-template-areas:
+          "queue chart"
+          "flow flow";
+        gap: 24px;
+        margin-top: 24px;
+      }
+      .queue-panel { grid-area: queue; }
+      .chart-panel { grid-area: chart; }
+      .flow-panel { grid-area: flow; }
+      .panel { padding: 24px; }
+      .panel-head { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+      h2 { margin: 0; font-size: clamp(24px, 3vw, 34px); letter-spacing: -.05em; }
+      .panel-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
+      #filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+      .status-button {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        padding: 9px 12px;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .status-button.active { background: var(--accent); border-color: var(--accent); color: var(--button-text); }
+      #items { display: grid; gap: 12px; }
+      .item-row {
+        border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+        border-radius: calc(var(--radius) * .8 + 8px);
+        background: color-mix(in srgb, var(--paper) 72%, transparent);
+        padding: 16px;
+      }
+      .row-top { display: flex; justify-content: space-between; gap: 16px; }
+      .item-row h3 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
+      .item-row p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+      .item-row em {
+        align-self: flex-start;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent) 17%, transparent);
+        color: var(--accent);
+        padding: 7px 10px;
+        font-style: normal;
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      .progress { height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--border) 42%, transparent); margin-top: 14px; overflow: hidden; }
+      .progress b { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+      #chart { height: 280px; display: flex; align-items: end; gap: 12px; padding-top: 18px; }
+      .chart-col { display: flex; flex: 1; flex-direction: column; justify-content: end; align-items: center; gap: 10px; height: 100%; }
+      .bar { width: 100%; min-height: 20px; border-radius: calc(var(--radius) * .45 + 5px) calc(var(--radius) * .45 + 5px) 4px 4px; background: linear-gradient(180deg, var(--accent), var(--accent-2)); }
+      .chart-col span { color: var(--muted); font-size: 11px; font-weight: 900; }
+      .flow-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+      .flow-step { padding: 18px; box-shadow: none; }
+      .flow-step span { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; border-radius: 999px; background: var(--accent); color: var(--button-text); font-weight: 900; }
+      .flow-step strong { display: block; margin-top: 14px; line-height: 1.25; }
+      .dashboard-visual, .phone-visual, .map-visual, .schedule-visual, .road-visual {
+        min-height: 260px;
+        margin-top: 30px;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) * .9 + 8px);
+        background: color-mix(in srgb, var(--paper) 72%, transparent);
+        overflow: hidden;
+      }
+      .dashboard-visual { display: grid; grid-template-columns: .85fr 1.15fr; gap: 18px; padding: 22px; }
+      .visual-bars { display: flex; align-items: end; gap: 8px; height: 100%; }
+      .visual-bars i, .mini-bars i { flex: 1; border-radius: 999px 999px 4px 4px; background: var(--accent); opacity: .78; }
+      .visual-lines { display: grid; gap: 10px; align-content: center; }
+      .visual-lines p { margin: 0; display: flex; justify-content: space-between; gap: 12px; border: 1px solid var(--border); border-radius: calc(var(--radius) * .65 + 6px); padding: 12px; color: var(--muted); }
+      .visual-lines b { color: var(--accent); }
+      .phone-visual { width: min(330px, 100%); margin-left: auto; margin-right: auto; padding: 22px; text-align: center; border-radius: 42px; }
+      .phone-top { width: 82px; height: 8px; margin: 0 auto 24px; border-radius: 999px; background: var(--border); }
+      .ring { width: 150px; height: 150px; display: grid; place-items: center; margin: 0 auto; border-radius: 50%; background: conic-gradient(var(--accent) 72%, color-mix(in srgb, var(--border) 55%, transparent) 0); }
+      .ring span { width: 112px; height: 112px; display: grid; place-items: center; border-radius: 50%; background: var(--paper); font-size: 30px; font-weight: 900; }
+      .mini-bars { height: 72px; display: flex; align-items: end; gap: 7px; margin-top: 22px; }
+      .map-visual { position: relative; min-height: 300px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 15%, transparent), transparent), var(--paper); }
+      .map-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 38px 38px; opacity: .42; }
+      .map-visual span { position: absolute; display: inline-flex; border-radius: 999px; background: var(--accent); color: var(--button-text); padding: 10px 12px; font-weight: 900; box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 28%, transparent); }
+      .schedule-visual { display: grid; gap: 10px; padding: 18px; }
+      .schedule-visual div { display: grid; grid-template-columns: 80px 1fr; gap: 12px; border-left: 6px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); border-radius: 12px; padding: 16px; }
+      .schedule-visual span { color: var(--muted); font-weight: 900; }
+      .road-visual { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 18px; align-items: stretch; }
+      .road-visual div { border: 1px dashed var(--border); border-radius: 18px; padding: 16px; background: color-mix(in srgb, var(--accent) 7%, transparent); }
+      .road-visual span { color: var(--accent); font-weight: 900; }
+      .road-visual strong { display: block; margin-top: 12px; line-height: 1.2; }
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 50;
+        max-width: 360px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        transform: translateY(18px);
+        opacity: 0;
+        pointer-events: none;
+        transition: .24s ease;
+      }
+      .toast.show { transform: translateY(0); opacity: 1; }
+      .toast p { margin: 0; }
+      .toast .muted { margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+      body.terminal .page { border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding-left: 20px; padding-right: 20px; }
+      body.terminal h1 { text-transform: uppercase; max-width: 760px; }
+      body.terminal .workspace { grid-template-columns: 1fr 1fr; }
+      body.terminal .hero-copy::after { content: "auto reconciliation / risk watch / cash forecast"; display: block; margin-top: 28px; color: var(--accent); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+
+      body.kanban .hero { grid-template-columns: 300px 1fr; grid-template-areas: "control copy"; }
+      body.kanban .hero-copy { grid-area: copy; }
+      body.kanban .control-panel { grid-area: control; }
+      body.kanban .workspace { grid-template-columns: 1fr; grid-template-areas: "queue" "chart" "flow"; }
+      body.kanban #items { grid-template-columns: repeat(4, minmax(190px, 1fr)); align-items: start; }
+      body.kanban .item-row { min-height: 150px; }
+
+      body.tickets::before { background: linear-gradient(90deg, rgba(255,247,237,.05) 1px, transparent 1px), linear-gradient(var(--bg), var(--bg)); background-size: 28px 28px; }
+      body.tickets .hero { grid-template-columns: 1fr; }
+      body.tickets .hero-copy { display: grid; grid-template-columns: 1fr minmax(280px, 430px); gap: 34px; align-items: center; }
+      body.tickets .control-panel { min-height: auto; }
+      body.tickets .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      body.tickets #items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      body.tickets .item-row { background: #fff7ed; color: #24130b; border-style: dashed; }
+      body.tickets .item-row p { color: #8a4b24; }
+
+      body.brutalist .hero-copy, body.brutalist .control-panel, body.brutalist .panel, body.brutalist .stat-card, body.brutalist .flow-step { border-width: 2px; text-transform: uppercase; }
+      body.brutalist .hero { grid-template-columns: .9fr 1.1fr; }
+      body.brutalist h1 { letter-spacing: -.045em; }
+      body.brutalist .workspace { grid-template-columns: .9fr 1.1fr; }
+      body.brutalist .status-button, body.brutalist .run-button { border-radius: 0; }
+
+      body.wellness .hero { grid-template-columns: minmax(280px, 430px) 1fr; grid-template-areas: "control copy"; }
+      body.wellness .hero-copy { grid-area: copy; }
+      body.wellness .control-panel { grid-area: control; }
+      body.wellness .workspace { grid-template-columns: .8fr 1.2fr; }
+      body.wellness h1 { letter-spacing: -.06em; }
+
+      body.roadmap .hero { grid-template-columns: 1fr; }
+      body.roadmap .hero-copy { display: grid; grid-template-columns: 1fr minmax(320px, 560px); gap: 30px; }
+      body.roadmap .stats { grid-template-columns: repeat(4, 1fr); }
+      body.roadmap .workspace { grid-template-columns: 1fr; grid-template-areas: "flow" "queue" "chart"; }
+      body.roadmap .flow-grid { grid-template-columns: repeat(5, 1fr); }
+
+      body.maproom .hero { grid-template-columns: 1.05fr .95fr; }
+      body.maproom .workspace { grid-template-columns: .95fr 1.05fr; }
+      body.maproom .panel, body.maproom .hero-copy, body.maproom .control-panel { backdrop-filter: blur(16px); }
+
+      body.clinic .hero { grid-template-columns: 1fr 390px; }
+      body.clinic .workspace { grid-template-columns: 1.1fr .9fr; }
+      body.clinic .item-row { border-left: 6px solid var(--accent); }
+      body.clinic #chart { background: color-mix(in srgb, var(--accent) 5%, white); border-radius: 18px; padding: 16px; }
+
+      body.production .page { width: min(1320px, calc(100% - 28px)); }
+      body.production .hero { grid-template-columns: 1fr; }
+      body.production .hero-copy { border-top: 8px solid var(--accent); }
+      body.production .workspace { grid-template-columns: 1.2fr .8fr; }
+      body.production .stat-card strong { color: var(--accent); }
+
+      body.editorial .hero { grid-template-columns: 1fr; }
+      body.editorial .hero-copy { display: grid; grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr); gap: 34px; align-items: center; }
+      body.editorial .workspace { grid-template-columns: .75fr 1.25fr; }
+      body.editorial #items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      body.editorial .panel-head { border-bottom: 1px solid var(--border); padding-bottom: 18px; }
+
+      @media (max-width: 980px) {
+        .hero, body.kanban .hero, body.tickets .hero-copy, body.wellness .hero, body.roadmap .hero-copy, body.editorial .hero-copy, .workspace {
+          display: block;
+        }
+        .control-panel, .panel, .stats, .workspace { margin-top: 18px; }
+        .stats, .flow-grid, body.tickets #items, body.kanban #items, body.editorial #items, .road-visual { grid-template-columns: 1fr; }
+        .panel-head { display: block; }
+        #filters { justify-content: flex-start; margin-top: 14px; }
+        h1 { font-size: clamp(40px, 14vw, 76px); }
+      }
+    </style>
+  </head>
+  <body class="brutalist">
+    <nav class="topbar">
+      <a href="../index.html#projects" class="back-link"><i class="fa-solid fa-arrow-left"></i> Портфолио</a>
+      <span class="chrome-label">Dispatch wall · Warehouse UI + Route Batching</span>
+    </nav>
+
+    <main class="page">
+      <section class="hero">
+        <article class="hero-copy">
+          <div>
+            <div class="brand-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <h1>Warehouse Dispatch Board</h1>
+            <p class="description">Пульт склада: сборка заказов, маршруты курьеров, приоритеты отгрузки и контроль задержек.</p>
+            <div class="chips">
+              <span>Диспетчеризация склада</span>
+              <span>склад, логистика, e-commerce</span>
+            </div>
+          </div>
+          <div class="dashboard-visual">
+    <div class="visual-bars"><i style="height:42%"></i><i style="height:45%"></i><i style="height:58%"></i><i style="height:72%"></i><i style="height:61%"></i><i style="height:83%"></i><i style="height:96%"></i></div>
+    <div class="visual-lines"><p><span>Заказ W-881</span><b>Пикинг</b></p><p><span>Заказ W-913</span><b>Срочно</b></p><p><span>Заказ W-917</span><b>Упаковка</b></p></div>
+  </div>
+        </article>
+
+        <aside class="control-panel">
+          <div>
+            <span class="metric-label">Заказов в очереди</span>
+            <div class="metric-line">
+              <strong id="mainMetric"></strong>
+              <span id="mainUnit"></span>
+            </div>
+            <p id="metricHint"></p>
+          </div>
+          <label>
+            <span>Срочных заказов</span>
+            <input id="volume" type="range" min="0" max="60" value="21" />
+          </label>
+          <button id="runButton" class="run-button"><i class="fa-solid fa-bolt"></i> Собрать рейсы</button>
+        </aside>
+      </section>
+
+      <section class="stats"><article class="stat-card">
+        <span>01</span>
+        <strong>5 рейсов</strong>
+      </article><article class="stat-card">
+        <span>02</span>
+        <strong>17 минут до SLA</strong>
+      </article><article class="stat-card">
+        <span>03</span>
+        <strong>24 ячейки</strong>
+      </article><article class="stat-card">
+        <span>04</span>
+        <strong>6 задержек</strong>
+      </article></section>
+
+      <section class="workspace">
+        <article class="panel queue-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Рабочая очередь</h2>
+              <p>Фильтр меняет список и пересчитывает видимый процесс.</p>
+            </div>
+            <div id="filters"></div>
+          </div>
+          <div id="items"></div>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Динамика недели</h2>
+              <p>График реагирует на объём входящих задач.</p>
+            </div>
+          </div>
+          <div id="chart"></div>
+        </article>
+
+        <article class="panel flow-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Автоматизированный сценарий</h2>
+              <p>Импорт данных, правила, уведомления и контроль результата.</p>
+            </div>
+            <p id="selectedStatus"></p>
+          </div>
+          <div class="flow-grid"><article class="flow-step">
+        <span>1</span>
+        <strong>Заказы</strong>
+      </article><article class="flow-step">
+        <span>2</span>
+        <strong>Батчинг</strong>
+      </article><article class="flow-step">
+        <span>3</span>
+        <strong>Пикинг</strong>
+      </article><article class="flow-step">
+        <span>4</span>
+        <strong>Маршруты</strong>
+      </article><article class="flow-step">
+        <span>5</span>
+        <strong>Отгрузка</strong>
+      </article></div>
+        </article>
+      </section>
+    </main>
+
+    <div id="toast" class="toast">
+      <p><strong>Автоматизация запущена</strong></p>
+      <p id="toastText" class="muted"></p>
+    </div>
+
+    <script>
+      const demo = {"slug":"warehouse-dispatch-board","title":"Warehouse Dispatch Board","short":"Диспетчеризация склада","stack":"Warehouse UI + Route Batching","icon":"fa-solid fa-boxes-stacked","accent":"#a3e635","accent2":"#65a30d","description":"Пульт склада: сборка заказов, маршруты курьеров, приоритеты отгрузки и контроль задержек.","audience":"склад, логистика, e-commerce","actionLabel":"Собрать рейсы","primaryMetric":"Заказов в очереди","unit":"","base":138,"sliderLabel":"Срочных заказов","sliderMin":0,"sliderMax":60,"sliderValue":21,"multiplier":1.8,"kpis":["5 рейсов","17 минут до SLA","24 ячейки","6 задержек"],"statuses":["Пикинг","Упаковка","Срочно","Отгружен"],"items":[["Заказ W-881","Зона A","Пикинг",42],["Заказ W-913","Зона C","Срочно",18],["Заказ W-917","Зона B","Упаковка",67],["Заказ W-922","Док 2","Отгружен",100]],"flow":["Заказы","Батчинг","Пикинг","Маршруты","Отгрузка"],"chart":[42,45,58,72,61,83,96]};
+      let selected = "Все";
+      const volume = document.querySelector("#volume");
+      const mainMetric = document.querySelector("#mainMetric");
+      const mainUnit = document.querySelector("#mainUnit");
+      const visualMetric = document.querySelector("#visualMetric");
+      const metricHint = document.querySelector("#metricHint");
+      const filters = document.querySelector("#filters");
+      const items = document.querySelector("#items");
+      const chart = document.querySelector("#chart");
+      const selectedStatus = document.querySelector("#selectedStatus");
+      const toast = document.querySelector("#toast");
+      const toastText = document.querySelector("#toastText");
+
+      function formatNumber(value) {
+        return Math.round(value).toLocaleString("ru-RU");
+      }
+
+      function currentValue() {
+        return demo.base + Number(volume.value) * demo.multiplier;
+      }
+
+      function renderMetric() {
+        const value = formatNumber(currentValue());
+        mainMetric.textContent = value;
+        mainUnit.textContent = demo.unit;
+        if (visualMetric) visualMetric.textContent = value + demo.unit;
+        metricHint.textContent = demo.sliderLabel + ": " + volume.value + ". Автопрогноз пересчитан по текущей нагрузке.";
+      }
+
+      function renderFilters() {
+        const all = ["Все", ...demo.statuses];
+        filters.innerHTML = all.map((status) => {
+          const active = status === selected ? " active" : "";
+          return '<button class="status-button' + active + '" data-status="' + status + '">' + status + '</button>';
+        }).join("");
+      }
+
+      function renderItems() {
+        const boost = Number(volume.value) / Number(demo.sliderMax);
+        const visible = demo.items.filter((item) => selected === "Все" || item[2] === selected);
+        items.innerHTML = visible.map((item) => {
+          const progress = Math.min(100, Math.round(item[3] + boost * 12));
+          return '<article class="item-row">' +
+            '<div class="row-top">' +
+              '<div><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>' +
+              '<em>' + item[2] + '</em>' +
+            '</div>' +
+            '<div class="progress"><b style="width:' + progress + '%"></b></div>' +
+          '</article>';
+        }).join("") || '<div class="item-row"><h3>Нет задач</h3><p>Переключите фильтр или запустите автоматизацию.</p></div>';
+        selectedStatus.textContent = selected === "Все" ? "Показаны все статусы" : "Фокус: " + selected;
+      }
+
+      function renderChart() {
+        const lift = Number(volume.value) / Number(demo.sliderMax) * 14;
+        chart.innerHTML = demo.chart.map((value, index) => {
+          const height = Math.min(100, value + lift);
+          return '<div class="chart-col">' +
+            '<div class="bar" style="height:' + height + '%; opacity:' + (0.62 + index * .05) + '"></div>' +
+            '<span>' + ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"][index] + '</span>' +
+          '</div>';
+        }).join("");
+      }
+
+      function render() {
+        renderMetric();
+        renderFilters();
+        renderItems();
+        renderChart();
+      }
+
+      filters.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-status]");
+        if (!button) return;
+        selected = button.dataset.status;
+        render();
+      });
+
+      volume.addEventListener("input", render);
+      document.querySelector("#runButton").addEventListener("click", () => {
+        const recommended = demo.flow[Math.min(demo.flow.length - 1, Math.floor(Number(volume.value) / Number(demo.sliderMax) * demo.flow.length))];
+        toastText.textContent = "Следующий приоритет: " + recommended + ". Текущий прогноз: " + formatNumber(currentValue()) + demo.unit + ".";
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2800);
+      });
+
+      render();
+    </script>
+  </body>
+</html>
