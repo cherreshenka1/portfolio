@@ -3,520 +3,840 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Портфолио Артёма Бычкова — frontend-разработка, React, автоматизация, SQL, дашборды и клиентские интерфейсы."
-    />
+    <meta name="description" content="Портфолио Артёма Бычкова: frontend-разработка, React-интерфейсы, CRM, личные кабинеты, дашборды и автоматизация бизнес-процессов." />
+    <meta property="og:title" content="Артём Бычков | Frontend-разработчик" />
+    <meta property="og:description" content="Делаю понятные интерфейсы для бизнеса: кабинеты, CRM, дашборды, формы и автоматизацию рутины." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#f7f3ea" />
     <title>Артём Бычков | Frontend-разработчик</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
-
+      :root {
+        --paper: #f7f3ea;
+        --paper-2: #fffaf1;
+        --ink: #171717;
+        --muted: #6b6258;
+        --line: #ded4c4;
+        --card: #fffdf7;
+        --accent: #2457d6;
+        --accent-2: #163a92;
+        --green: #2f6d55;
+        --radius: 22px;
+        --shadow: 0 24px 80px rgba(57, 47, 35, .12);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
-        font-family: "Inter", system-ui, sans-serif;
-      }
-
-      .hero-bg {
+        margin: 0;
+        font-family: "Manrope", system-ui, sans-serif;
+        color: var(--ink);
         background:
-          radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 24%),
-          radial-gradient(circle at top right, rgba(139, 92, 246, 0.16), transparent 22%),
-          linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
+          linear-gradient(90deg, rgba(23,23,23,.035) 1px, transparent 1px),
+          linear-gradient(var(--paper), var(--paper));
+        background-size: 40px 40px;
       }
-
-      .project-card {
-        transition:
-          transform 240ms ease,
-          border-color 240ms ease,
-          box-shadow 240ms ease;
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: .38;
+        background-image:
+          radial-gradient(circle at 20% 10%, rgba(36,87,214,.12), transparent 26%),
+          radial-gradient(circle at 86% 0%, rgba(47,109,85,.11), transparent 26%);
       }
-
-      .project-card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(96, 165, 250, 0.5);
-        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.45);
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+      .skip-link {
+        position: absolute;
+        left: 18px;
+        top: -48px;
+        background: var(--ink);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 12px;
+        z-index: 100;
+      }
+      .skip-link:focus { top: 18px; }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        border-bottom: 1px solid rgba(23,23,23,.1);
+        background: rgba(247,243,234,.86);
+        backdrop-filter: blur(18px);
+      }
+      .nav-inner {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .brand {
+        font-family: "Onest", system-ui, sans-serif;
+        font-weight: 800;
+        letter-spacing: -.04em;
+        font-size: 23px;
+      }
+      .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-weight: 700; font-size: 14px; }
+      .nav-links a:hover { color: var(--ink); }
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid var(--ink);
+        border-radius: 999px;
+        padding: 11px 16px;
+        font-weight: 800;
+      }
+      .hero {
+        min-height: calc(100dvh - 72px);
+        padding: 72px 0 48px;
+        display: grid;
+        align-items: center;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(310px, .72fr);
+        gap: 52px;
+        align-items: center;
+      }
+      .availability {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--green);
+        font-weight: 800;
+        margin-bottom: 26px;
+      }
+      .availability::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 6px rgba(47,109,85,.12);
+      }
+      h1 {
+        margin: 0;
+        max-width: 820px;
+        font-family: "Onest", system-ui, sans-serif;
+        font-size: clamp(44px, 7.3vw, 96px);
+        line-height: .92;
+        letter-spacing: -.075em;
+        text-wrap: balance;
+      }
+      .hero-copy {
+        max-width: 690px;
+        margin: 28px 0 0;
+        color: var(--muted);
+        font-size: clamp(17px, 2vw, 21px);
+        line-height: 1.7;
+      }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 999px;
+        padding: 15px 20px;
+        font-weight: 900;
+        transition: transform .2s ease, background .2s ease, color .2s ease;
+      }
+      .button:active { transform: translateY(1px) scale(.99); }
+      .button.primary { background: var(--ink); color: white; }
+      .button.primary:hover { background: var(--accent); }
+      .button.secondary { border: 1px solid var(--line); background: rgba(255,255,255,.45); color: var(--ink); }
+      .button.secondary:hover { border-color: var(--ink); }
+      .portrait-wrap {
+        position: relative;
+        border-radius: 34px;
+        padding: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .portrait-wrap img {
+        aspect-ratio: 4 / 5;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 26px;
+      }
+      .portrait-note {
+        position: absolute;
+        left: -28px;
+        bottom: 28px;
+        width: min(270px, 78%);
+        padding: 18px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 40px rgba(57,47,35,.14);
+        font-weight: 800;
+        line-height: 1.35;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        overflow: hidden;
+        background: var(--line);
+        margin-top: 54px;
+      }
+      .metric {
+        background: rgba(255,253,247,.78);
+        padding: 22px;
+      }
+      .metric strong {
+        display: block;
+        font-family: "Onest", system-ui, sans-serif;
+        font-size: 34px;
+        letter-spacing: -.06em;
+      }
+      .metric span { color: var(--muted); font-size: 13px; font-weight: 800; }
+      section { padding: 92px 0; }
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, .9fr) minmax(260px, .6fr);
+        gap: 32px;
+        align-items: end;
+        margin-bottom: 36px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-family: "Onest", system-ui, sans-serif;
+        font-size: clamp(36px, 5vw, 68px);
+        line-height: .96;
+        letter-spacing: -.065em;
+        text-wrap: balance;
+      }
+      .section-head p { margin: 0; color: var(--muted); line-height: 1.7; }
+      .services {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .service-card {
+        min-height: 250px;
+        padding: 24px;
+        border-radius: var(--radius);
+        background: var(--card);
+        border: 1px solid var(--line);
+        box-shadow: 0 14px 45px rgba(57,47,35,.07);
+      }
+      .service-card i { color: var(--accent); font-size: 26px; }
+      .service-card h3 { margin: 28px 0 12px; font-size: 21px; letter-spacing: -.04em; }
+      .service-card p { margin: 0; color: var(--muted); line-height: 1.62; }
+      .case-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+      .case-card {
+        overflow: hidden;
+        border-radius: 28px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 60px rgba(57,47,35,.08);
+      }
+      .case-card:hover .case-media img { transform: scale(1.025); }
+      .case-media {
+        display: block;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: #ebe1d1;
+      }
+      .case-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .35s ease;
+      }
+      .case-body { padding: 24px; }
+      .case-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+      .case-meta span {
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: #f1eadf;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+      }
+      .case-body h3 {
+        margin: 0;
+        font-family: "Onest", system-ui, sans-serif;
+        font-size: 28px;
+        letter-spacing: -.055em;
+      }
+      .case-body p { color: var(--muted); line-height: 1.62; }
+      .case-impact {
+        color: var(--ink) !important;
+        font-weight: 700;
+        border-left: 3px solid var(--accent);
+        padding-left: 14px;
+      }
+      .case-actions { display: flex; gap: 18px; margin-top: 20px; font-weight: 900; }
+      .case-actions a:first-child { color: var(--accent); }
+      .project-shelf {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .project-shelf .case-body h3 { font-size: 22px; }
+      .process {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .profile-card, .timeline {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--card);
+        box-shadow: 0 18px 60px rgba(57,47,35,.07);
+      }
+      .profile-card { padding: 26px; position: sticky; top: 100px; }
+      .profile-card h3 { margin: 0 0 12px; font-size: 25px; letter-spacing: -.04em; }
+      .profile-card p { color: var(--muted); line-height: 1.65; }
+      .timeline { padding: 8px; }
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        gap: 24px;
+        padding: 24px;
+        border-radius: 22px;
+      }
+      .timeline-item + .timeline-item { border-top: 1px solid var(--line); }
+      .timeline-item time { color: var(--muted); font-weight: 900; }
+      .timeline-item h3 { margin: 0 0 8px; font-size: 23px; letter-spacing: -.04em; }
+      .timeline-item p { margin: 0; color: var(--muted); line-height: 1.65; }
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .skills span {
+        padding: 12px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255,255,255,.45);
+        font-weight: 800;
+        color: #4d463f;
+      }
+      .contact {
+        padding-bottom: 36px;
+      }
+      .contact-card {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 24px;
+        align-items: end;
+        padding: clamp(28px, 5vw, 56px);
+        border-radius: 34px;
+        background: #171717;
+        color: #fffaf1;
+        box-shadow: var(--shadow);
+      }
+      .contact-card h2 { color: inherit; margin: 0; font-size: clamp(38px, 6vw, 78px); line-height: .95; letter-spacing: -.07em; }
+      .contact-card p { max-width: 620px; color: #d8cfc0; line-height: 1.7; }
+      .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+      .contact-links a { background: #fffaf1; color: #171717; }
+      footer {
+        padding: 28px 0 42px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      @media (max-width: 980px) {
+        .hero-grid, .section-head, .process, .contact-card { grid-template-columns: 1fr; }
+        .services, .metrics { grid-template-columns: repeat(2, 1fr); }
+        .case-grid, .project-shelf { grid-template-columns: 1fr; }
+        .portrait-note { position: static; width: auto; margin-top: 12px; }
+        .profile-card { position: static; }
+        .timeline-item { grid-template-columns: 1fr; gap: 10px; }
+      }
+      @media (max-width: 680px) {
+        .container { width: min(100% - 24px, 1180px); }
+        .nav-links { display: none; }
+        .hero { padding-top: 42px; }
+        .services, .metrics { grid-template-columns: 1fr; }
+        section { padding: 64px 0; }
       }
     </style>
   </head>
-  <body class="bg-zinc-950 text-white">
-    <nav class="fixed top-0 w-full bg-zinc-950/85 backdrop-blur-md z-50 border-b border-zinc-800">
-      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center gap-6">
-        <div class="text-2xl font-black tracking-[-0.06em]">Артём Бычков</div>
-        <div class="hidden md:flex gap-8 text-sm font-medium">
-          <a href="#about" class="hover:text-blue-400 transition">Обо мне</a>
-          <a href="#experience" class="hover:text-blue-400 transition">Опыт</a>
-          <a href="#projects" class="hover:text-blue-400 transition">Проекты</a>
-          <a href="#skills" class="hover:text-blue-400 transition">Навыки</a>
-          <a href="#contact" class="hover:text-blue-400 transition">Контакты</a>
+  <body>
+    <a class="skip-link" href="#main">К контенту</a>
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#main">Артём Бычков</a>
+        <div class="nav-links">
+          <a href="#work">Проекты</a>
+          <a href="#services">Что закрываю</a>
+          <a href="#experience">Опыт</a>
+          <a href="#contact">Контакты</a>
         </div>
+        <a class="nav-cta" href="https://t.me/cherreshenkaw" target="_blank" rel="noreferrer">Telegram <i class="fa-brands fa-telegram"></i></a>
       </div>
     </nav>
 
-    <header class="hero-bg min-h-screen flex items-center pt-24">
-      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
-        <div>
-          <p class="text-sm uppercase tracking-[0.35em] text-blue-300 mb-6 font-bold">
-            Frontend / React / Automation
-          </p>
-          <h1 class="text-6xl md:text-8xl font-black leading-[0.9] tracking-[-0.08em] mb-6">
-            Привет, я Артём
-          </h1>
-          <p class="text-3xl text-blue-400 mb-6 font-semibold">
-            Frontend-разработчик • 2+ года опыта
-          </p>
-          <p class="text-xl text-zinc-400 mb-10 max-w-2xl leading-8">
-            Делаю интерфейсы на React, клиентские сервисы, дашборды,
-            калькуляторы, формы, интеграции с REST API и проекты с SQL/автоматизацией.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a
-              href="#projects"
-              class="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-semibold inline-flex items-center justify-center gap-2 transition"
-            >
-              <i class="fa-solid fa-rocket"></i> Смотреть проекты
-            </a>
-            <a
-              href="https://t.me/cherreshenkaw"
-              target="_blank"
-              rel="noreferrer"
-              class="px-8 py-4 border border-zinc-500 hover:border-white rounded-2xl font-semibold text-center transition"
-            >
-              Telegram
-            </a>
-          </div>
-        </div>
-
-        <div class="flex justify-center lg:justify-end">
-          <div
-            class="w-80 h-80 md:w-96 md:h-96 bg-zinc-900 rounded-[2rem] overflow-hidden border-8 border-zinc-800 shadow-2xl"
-          >
-            <img
-              src="IMG_6567.JPG"
-              alt="Артём Бычков"
-              class="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section id="about" class="max-w-7xl mx-auto px-6 py-24">
-      <div class="max-w-4xl">
-        <h2 class="text-5xl font-black tracking-[-0.07em] mb-8">Обо мне</h2>
-        <p class="text-lg text-zinc-400 leading-8 mb-6">
-          Мне 20 лет, я Frontend-разработчик с 2+ годами коммерческого опыта.
-          Работал в маркетплейсе, digital-агентствах и веб-студии: делал React-интерфейсы,
-          лендинги, интернет-магазины, дашборды, формы, калькуляторы и REST API интеграции.
-        </p>
-        <p class="text-lg text-zinc-400 leading-8">
-          Сильные стороны: performance, адаптивная вёрстка, аналитика, Telegram/webhook
-          автоматизация, SQL-подход к данным и аккуратная реализация UI из Figma.
-        </p>
-      </div>
-    </section>
-
-    <section id="experience" class="bg-zinc-900 py-24">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+    <main id="main">
+      <header class="hero">
+        <div class="container hero-grid">
           <div>
-            <p class="text-sm uppercase tracking-[0.3em] text-blue-300 mb-4 font-bold">Career path</p>
-            <h2 class="text-5xl font-black tracking-[-0.07em]">Опыт</h2>
+            <div class="availability">Открыт к frontend-задачам и проектной работе</div>
+            <h1>Делаю понятные интерфейсы для бизнеса, где важны данные, скорость и аккуратность.</h1>
+            <p class="hero-copy">Я frontend-разработчик с коммерческим опытом. Собираю кабинеты, CRM, дашборды, формы, калькуляторы и автоматизацию рутинных процессов: от первого прототипа до адаптива и публикации.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="#work">Смотреть кейсы</a>
+              <a class="button secondary" href="mailto:bychkov.artem.24@gmail.com">Написать на email</a>
+            </div>
+            <div class="metrics">
+              <div class="metric"><strong>2+</strong><span>года коммерческого опыта</span></div>
+              <div class="metric"><strong>18</strong><span>живых демо и проектов</span></div>
+              <div class="metric"><strong>10</strong><span>сценариев автоматизации</span></div>
+              <div class="metric"><strong>1</strong><span>человек, который доводит до результата</span></div>
+            </div>
           </div>
-          <p class="max-w-xl text-zinc-400 leading-8">
-            Ниже — 4 компании, где я работал, и какие задачи закрывал:
-            от продуктового frontend до автоматизации, аналитики и интеграций.
-          </p>
+          <aside class="portrait-wrap" aria-label="Фото Артёма Бычкова">
+            <img src="IMG_6567.JPG" alt="Артём Бычков" />
+            <div class="portrait-note">Не просто верстаю экраны. Помогаю превратить задачу бизнеса в интерфейс, которым реально можно пользоваться.</div>
+          </aside>
         </div>
+      </header>
 
-        <div class="grid lg:grid-cols-2 gap-8">
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-blue-500/40 transition">
-            <p class="text-sm uppercase tracking-[0.25em] text-blue-300 mb-4 font-bold">Marketplace / Automation</p>
-            <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Маркетплейс «Первый Селлер»</h3>
-            <p class="text-blue-400 mb-4">Разработчик чат-ботов и автоматизатор процессов</p>
-            <p class="text-zinc-400 leading-7 mb-6">
-              Telegram-уведомления, webhook-интеграции, выгрузки в таблицы,
-              парсинг конкурентов и дашборды для продавцов.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Telegram Bot</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Webhooks</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Python / Parsing</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Google Sheets / Excel</span>
-            </div>
-          </article>
-
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-violet-500/40 transition">
-            <p class="text-sm uppercase tracking-[0.25em] text-violet-300 mb-4 font-bold">Digital agency / E-commerce</p>
-            <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Digital Agency St</h3>
-            <p class="text-violet-300 mb-4">Frontend-разработчик</p>
-            <p class="text-zinc-400 leading-7 mb-6">
-              Калькуляторы, слайдеры, формы, Яндекс.Метрика/GA,
-              оптимизация LCP/Core Web Vitals и поддержка e-commerce проектов.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">React UI</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Core Web Vitals</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Analytics</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">E-commerce</span>
-            </div>
-          </article>
-
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-cyan-500/40 transition">
-            <p class="text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 font-bold">React / REST API / Refactoring</p>
-            <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Digital-агентство Prostudio</h3>
-            <p class="text-cyan-300 mb-4">Стажёр Frontend-разработчик</p>
-            <p class="text-zinc-400 leading-7 mb-6">
-              Промо-страницы и лендинги на React, интеграция с REST API,
-              рефакторинг legacy jQuery-кода, Jest-тесты и адаптация UI-китов.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">React</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">REST API</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Jest</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">jQuery → React</span>
-            </div>
-          </article>
-
-          <article class="border border-zinc-800 bg-zinc-950/40 rounded-[2rem] p-8 hover:border-emerald-500/40 transition">
-            <p class="text-sm uppercase tracking-[0.25em] text-emerald-300 mb-4 font-bold">Landing pages / WordPress / Figma</p>
-            <h3 class="text-3xl font-bold tracking-[-0.06em] mb-3">Веб-студия D-project</h3>
-            <p class="text-emerald-300 mb-4">Junior Frontend-разработчик / верстальщик</p>
-            <p class="text-zinc-400 leading-7 mb-6">
-              Адаптивная вёрстка по Figma, доработка WordPress-шаблонов,
-              WebP, минификация CSS/JS, lazy loading и исправление мобильных UI-багов.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">HTML / CSS</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">Figma</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">WordPress</span>
-              <span class="text-xs px-4 py-2 bg-zinc-800 rounded-3xl">WebP / Lazy Loading</span>
-            </div>
-          </article>
+      <section id="services">
+        <div class="container">
+          <div class="section-head">
+            <h2>Что я могу закрыть для команды</h2>
+            <p>Работодателю важно не только знание React, а способность брать понятную часть продукта и доводить её до рабочего состояния.</p>
+          </div>
+          <div class="services">
+            <article class="service-card">
+    <i class="fa-solid fa-table-columns"></i>
+    <h3>Кабинеты и CRM</h3>
+    <p>Списки, фильтры, карточки, статусы, формы, роли и понятные рабочие очереди.</p>
+  </article>
+            <article class="service-card">
+    <i class="fa-solid fa-chart-line"></i>
+    <h3>Дашборды и данные</h3>
+    <p>KPI, графики, таблицы, экспорт, подсветка рисков и интерфейсы для принятия решений.</p>
+  </article>
+            <article class="service-card">
+    <i class="fa-solid fa-pen-to-square"></i>
+    <h3>Формы и заявки</h3>
+    <p>Калькуляторы, квизы, валидация, сохранение состояния и аккуратный путь до отправки.</p>
+  </article>
+            <article class="service-card">
+    <i class="fa-solid fa-bolt"></i>
+    <h3>Автоматизация рутины</h3>
+    <p>Telegram/webhook-сценарии, таблицы, уведомления, парсинг и интерфейсы поверх процессов.</p>
+  </article>
+          </div>
         </div>
+      </section>
+
+      <section id="work">
+        <div class="container">
+          <div class="section-head">
+            <h2>Избранные кейсы</h2>
+            <p>Я оставил проекты не как абстрактную сетку, а как набор сценариев: что болит у пользователя и как интерфейс помогает это решить.</p>
+          </div>
+          <div class="case-grid">
+            <article class="case-card featured-case">
+    <a href="https://cherreshenka1.github.io/marketplace-ops-crm/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Marketplace Ops CRM">
+      <img src="previews/marketplace-ops-crm.svg" alt="Marketplace Ops CRM preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>CRM маркетплейса</span>
+        <span>React, SQL.js, SQLite/WASM</span>
       </div>
-    </section>
-
-    <section id="projects" class="max-w-7xl mx-auto px-6 py-24">
-      <h2 class="text-5xl font-black tracking-[-0.07em] mb-5">Проекты</h2>
-      <p class="text-zinc-400 max-w-3xl mb-12 leading-8">
-        Рабочие pet-проекты, сайты и наглядные автоматизации с live demo и исходным кодом на GitHub.
-      </p>
-
-      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/react-store-lab.svg" alt="React Store Lab" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">React Store Lab</h3>
-            <p class="text-zinc-400 text-sm mb-4">React + Router + localStorage</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Мини-маркетплейс с каталогом, поиском, фильтрами, корзиной, сменой темы и анимацией добавления товара.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/react-promo-landing/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/react-promo-landing" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/marketplace-dashboard.svg" alt="Marketplace Sales Dashboard" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Marketplace Sales Dashboard</h3>
-            <p class="text-zinc-400 text-sm mb-4">React + Chart.js + localStorage</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Дашборд продаж с KPI, графиками, заказами, экспортом в Excel и Telegram-style уведомлениями.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/marketplace-sales-dashboard/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/marketplace-sales-dashboard" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/optimized-store.svg" alt="Optimized E-Commerce Store" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Optimized E-Commerce Store</h3>
-            <p class="text-zinc-400 text-sm mb-4">Performance + Analytics</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Интернет-магазин со слайдерами, доставкой, корзиной, lazy loading, Web Vitals и имитацией аналитики.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/optimized-ecommerce-store/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/optimized-ecommerce-store" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/interactive-calculator.svg" alt="Interactive Calculator" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Interactive Calculator</h3>
-            <p class="text-zinc-400 text-sm mb-4">Forms + Validation + Animations</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Несколько типов калькуляторов, live-расчёт, сохранение результатов и форма заявки с валидацией.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/interactive-calculator/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/interactive-calculator" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/booking-calendar.svg" alt="Smart Booking Calendar" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Smart Booking Calendar</h3>
-            <p class="text-zinc-400 text-sm mb-4">Booking UI + Time Slots</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Онлайн-запись с выбором услуги, дат, свободных слотов, формой клиента и списком ближайших бронирований.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/smart-booking-calendar/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/smart-booking-calendar" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/support-ticket-center.svg" alt="Support Ticket Center" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Support Ticket Center</h3>
-            <p class="text-zinc-400 text-sm mb-4">Helpdesk UI + SLA + Chat</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Центр обращений с тикетами, поиском, фильтрами, SLA-индикаторами, сменой статуса и чатом оператора.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/support-ticket-center/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/support-ticket-center" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/email-campaign-studio.svg" alt="Email Campaign Studio" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Email Campaign Studio</h3>
-            <p class="text-zinc-400 text-sm mb-4">Email templates + Segments + Preview</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Конструктор email-рассылок с шаблонами, A/B темой письма, сегментами аудитории, preview и прогнозом метрик кампании.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/email-campaign-studio/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/email-campaign-studio" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden xl:col-span-2">
-          <img src="previews/marketplace-ops-crm.svg" alt="Marketplace Ops CRM" class="w-full h-72 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Marketplace Ops CRM</h3>
-            <p class="text-zinc-400 text-sm mb-4">React + SQL.js + SQLite/WASM</p>
-            <p class="text-zinc-500 mb-6 leading-7 max-w-4xl">
-              Операционная CRM маркетплейса с заказами, продавцами, товарами, webhook/Telegram событиями, KPI и SQL-консолью в браузере.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/marketplace-ops-crm/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/marketplace-ops-crm" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/cashflow-command-center.svg" alt="Cashflow Command Center" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Cashflow Command Center</h3>
-            <p class="text-zinc-400 text-sm mb-4">Finance UI + Invoice Automation</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Визуальная автоматизация движения денег: счета, оплаты, просрочки, прогноз кассы и действия менеджера.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/cashflow-command-center/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/cashflow-command-center" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/hiring-pipeline-lab.svg" alt="Hiring Pipeline Lab" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Hiring Pipeline Lab</h3>
-            <p class="text-zinc-400 text-sm mb-4">HR Pipeline + Candidate Scoring</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Наглядный конвейер подбора: кандидаты, статусы, скоринг резюме, расписание интервью и узкие места.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/hiring-pipeline-lab/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/hiring-pipeline-lab" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/restaurant-prep-planner.svg" alt="Restaurant Prep Planner" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Restaurant Prep Planner</h3>
-            <p class="text-zinc-400 text-sm mb-4">Food Ops + Demand Forecast</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Автоматизация кухни: прогноз спроса, заготовки, закупки, стоп-лист и сменные задачи для команды.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/restaurant-prep-planner/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/restaurant-prep-planner" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/warehouse-dispatch-board.svg" alt="Warehouse Dispatch Board" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Warehouse Dispatch Board</h3>
-            <p class="text-zinc-400 text-sm mb-4">Warehouse UI + Route Batching</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Пульт склада: сборка заказов, маршруты курьеров, приоритеты отгрузки и контроль задержек.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/warehouse-dispatch-board/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/warehouse-dispatch-board" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/habit-coach-dashboard.svg" alt="Habit Coach Dashboard" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Habit Coach Dashboard</h3>
-            <p class="text-zinc-400 text-sm mb-4">Health UI + Personal Automation</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Персональный план: привычки, тренировки, восстановление, серия дней и автоматические рекомендации.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/habit-coach-dashboard/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/habit-coach-dashboard" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/academy-progress-map.svg" alt="Academy Progress Map" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Academy Progress Map</h3>
-            <p class="text-zinc-400 text-sm mb-4">EdTech UI + Learning Analytics</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              EdTech-кабинет: модули, дедлайны, автопроверка, риск отставания и персональные следующие шаги.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/academy-progress-map/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/academy-progress-map" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/real-estate-lead-room.svg" alt="Real Estate Lead Room" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Real Estate Lead Room</h3>
-            <p class="text-zinc-400 text-sm mb-4">CRM UI + Lead Scoring</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Комната сделок: заявки, бюджет, интересы, авто-скоринг, подбор объектов и задачи менеджера.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/real-estate-lead-room/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/real-estate-lead-room" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/clinic-flow-console.svg" alt="Clinic Flow Console" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Clinic Flow Console</h3>
-            <p class="text-zinc-400 text-sm mb-4">Healthcare UI + Schedule Automation</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Консоль клиники: приём, окна врачей, ожидание, повторные визиты и автоматические напоминания.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/clinic-flow-console/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/clinic-flow-console" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/event-budget-studio.svg" alt="Event Budget Studio" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Event Budget Studio</h3>
-            <p class="text-zinc-400 text-sm mb-4">Event Ops + Budget Control</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Планировщик мероприятий: смета, подрядчики, дедлайны, платежи и риск выхода за бюджет.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/event-budget-studio/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/event-budget-studio" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card bg-zinc-900/70 border border-zinc-800 rounded-[2rem] overflow-hidden">
-          <img src="previews/content-calendar-ops.svg" alt="Content Calendar Ops" class="w-full h-60 object-cover" />
-          <div class="p-8">
-            <h3 class="text-2xl font-bold tracking-[-0.06em] mb-3">Content Calendar Ops</h3>
-            <p class="text-zinc-400 text-sm mb-4">Marketing Ops + Publishing Queue</p>
-            <p class="text-zinc-500 mb-6 leading-7">
-              Операционный календарь контента: идеи, редактура, публикации, каналы, дедлайны и прогноз охвата.
-            </p>
-            <div class="flex flex-wrap gap-5">
-              <a href="https://cherreshenka1.github.io/portfolio/content-calendar-ops/" target="_blank" rel="noreferrer" class="text-blue-400 hover:text-white">Live →</a>
-              <a href="https://github.com/cherreshenka1/portfolio/tree/main/content-calendar-ops" target="_blank" rel="noreferrer" class="text-zinc-300 hover:text-white">GitHub →</a>
-            </div>
-          </div>
-        </article>
+      <h3>Marketplace Ops CRM</h3>
+      <p>Заказы, продавцы, товары, webhook-события, KPI и SQL-консоль в браузере.</p>
+      <p class="case-impact">Самый сильный проект для разговора про данные, операции и автоматизацию.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/marketplace-ops-crm/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/marketplace-ops-crm" target="_blank" rel="noreferrer">GitHub</a>
       </div>
-    </section>
-
-    <section id="skills" class="bg-zinc-900 py-24">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-5xl font-black tracking-[-0.07em] mb-12">Навыки</h2>
-        <div class="flex flex-wrap gap-4">
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">React</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">JavaScript</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">HTML5 / CSS3</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Tailwind CSS</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">REST API</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">SQL</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Python / pandas</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Jest</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Git / GitHub</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Figma</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">WordPress</span>
-        <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Yandex Metrika / GA</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Email Templates</span>
-          <span class="px-6 py-3 bg-zinc-800 rounded-3xl text-sm">Email Campaigns</span>
+    </div>
+  </article>
+<article class="case-card featured-case">
+    <a href="https://cherreshenka1.github.io/portfolio/cashflow-command-center/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Cashflow Command Center">
+      <img src="previews/cashflow-command-center.svg" alt="Cashflow Command Center preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Финансы</span>
+        <span>Invoice automation, forecast</span>
+      </div>
+      <h3>Cashflow Command Center</h3>
+      <p>Пульт для счетов, оплат, просрочек и прогноза кассы.</p>
+      <p class="case-impact">Менеджер видит, какие счета зависли, кому надо напомнить об оплате и сколько денег реально придёт на этой неделе.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/cashflow-command-center/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/cashflow-command-center" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card featured-case">
+    <a href="https://cherreshenka1.github.io/portfolio/clinic-flow-console/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Clinic Flow Console">
+      <img src="previews/clinic-flow-console.svg" alt="Clinic Flow Console preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Клиника</span>
+        <span>Schedule, patient flow</span>
+      </div>
+      <h3>Clinic Flow Console</h3>
+      <p>Расписание врачей, ожидание и повторные визиты.</p>
+      <p class="case-impact">Администратор видит, где образуется очередь, какие окна свободны и кому нужно отправить напоминание.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/clinic-flow-console/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/clinic-flow-console" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card featured-case">
+    <a href="https://cherreshenka1.github.io/portfolio/restaurant-prep-planner/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Restaurant Prep Planner">
+      <img src="previews/restaurant-prep-planner.svg" alt="Restaurant Prep Planner preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Ресторан</span>
+        <span>Prep list, demand forecast</span>
+      </div>
+      <h3>Restaurant Prep Planner</h3>
+      <p>План заготовок, закупок и стоп-листа для смены.</p>
+      <p class="case-impact">Шеф видит, что готовить заранее, чего не хватит к вечеру и какие задачи нужно распределить по цехам.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/restaurant-prep-planner/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/restaurant-prep-planner" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card featured-case">
+    <a href="https://cherreshenka1.github.io/portfolio/academy-progress-map/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Academy Progress Map">
+      <img src="previews/academy-progress-map.svg" alt="Academy Progress Map preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>EdTech</span>
+        <span>Progress, review queue</span>
+      </div>
+      <h3>Academy Progress Map</h3>
+      <p>Карта обучения, дедлайны и риск отставания.</p>
+      <p class="case-impact">Наставник видит, кому нужен фидбек, где группа замедлилась и какой следующий урок лучше открыть.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/academy-progress-map/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/academy-progress-map" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card featured-case">
+    <a href="https://cherreshenka1.github.io/portfolio/warehouse-dispatch-board/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Warehouse Dispatch Board">
+      <img src="previews/warehouse-dispatch-board.svg" alt="Warehouse Dispatch Board preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Склад</span>
+        <span>Dispatch, route batching</span>
+      </div>
+      <h3>Warehouse Dispatch Board</h3>
+      <p>Отгрузки, сборка заказов, маршруты и задержки.</p>
+      <p class="case-impact">Диспетчер видит срочные заказы, собирает их в рейсы и держит SLA под контролем.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/warehouse-dispatch-board/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/warehouse-dispatch-board" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="contact" class="py-24 text-center">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-5xl font-black tracking-[-0.07em] mb-6">Давай работать вместе</h2>
-        <p class="text-xl text-zinc-400 mb-10">bychkov.artem.24@gmail.com • @cherreshenkaw</p>
-        <a
-          href="https://t.me/cherreshenkaw"
-          target="_blank"
-          rel="noreferrer"
-          class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 rounded-3xl text-lg font-semibold hover:bg-blue-500 transition"
-        >
-          Написать в Telegram <i class="fa-brands fa-telegram"></i>
-        </a>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Ещё проекты и прототипы</h2>
+            <p>Разные домены, чтобы было видно: я могу менять визуальный язык под задачу, а не красить один шаблон.</p>
+          </div>
+          <div class="project-shelf">
+            <article class="case-card">
+    <a href="https://cherreshenka1.github.io/react-promo-landing/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть React Store Lab">
+      <img src="previews/react-store-lab.svg" alt="React Store Lab preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Интернет-магазин</span>
+        <span>React, Router, localStorage</span>
       </div>
-    </section>
+      <h3>React Store Lab</h3>
+      <p>Каталог, фильтры, корзина и сохранение состояния для небольшого магазина.</p>
+      <p class="case-impact">Показывает работу с состоянием, карточками товаров и привычным e-commerce flow.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/react-promo-landing/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/react-promo-landing" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/marketplace-sales-dashboard/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Marketplace Sales Dashboard">
+      <img src="previews/marketplace-sales-dashboard.svg" alt="Marketplace Sales Dashboard preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Дашборд продаж</span>
+        <span>React, Chart.js, localStorage</span>
+      </div>
+      <h3>Marketplace Sales Dashboard</h3>
+      <p>KPI, графики, заказы, экспорт и уведомления для продавца маркетплейса.</p>
+      <p class="case-impact">Хороший пример интерфейса, где важны данные, фильтры и быстрое чтение статусов.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/marketplace-sales-dashboard/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/marketplace-sales-dashboard" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/optimized-ecommerce-store/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Optimized E-Commerce Store">
+      <img src="previews/optimized-ecommerce-store.svg" alt="Optimized E-Commerce Store preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Performance shop</span>
+        <span>Performance, analytics</span>
+      </div>
+      <h3>Optimized E-Commerce Store</h3>
+      <p>Магазин с корзиной, доставкой, lazy loading, Web Vitals и аналитикой.</p>
+      <p class="case-impact">Показывает, что интерфейс можно делать не только красивым, но и быстрым.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/optimized-ecommerce-store/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/optimized-ecommerce-store" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/interactive-calculator/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Interactive Calculator">
+      <img src="previews/interactive-calculator.svg" alt="Interactive Calculator preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Калькуляторы</span>
+        <span>Forms, validation, animations</span>
+      </div>
+      <h3>Interactive Calculator</h3>
+      <p>Live-расчёт, сохранение результатов и форма заявки с валидацией.</p>
+      <p class="case-impact">Практичный формат для лендингов, услуг, квизов и коммерческих форм.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/interactive-calculator/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/interactive-calculator" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/smart-booking-calendar/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Smart Booking Calendar">
+      <img src="previews/smart-booking-calendar.svg" alt="Smart Booking Calendar preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Онлайн-запись</span>
+        <span>Booking UI, time slots</span>
+      </div>
+      <h3>Smart Booking Calendar</h3>
+      <p>Выбор услуги, даты, свободного слота, клиента и ближайших записей.</p>
+      <p class="case-impact">Понятный пользовательский сценарий для сервиса записи или личного кабинета.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/smart-booking-calendar/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/smart-booking-calendar" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/support-ticket-center/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Support Ticket Center">
+      <img src="previews/support-ticket-center.svg" alt="Support Ticket Center preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Helpdesk</span>
+        <span>SLA, filters, operator chat</span>
+      </div>
+      <h3>Support Ticket Center</h3>
+      <p>Тикеты, поиск, SLA-индикаторы, статусы и чат оператора.</p>
+      <p class="case-impact">Показывает работу с очередями, приоритетами и состояниями поддержки.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/support-ticket-center/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/support-ticket-center" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/email-campaign-studio/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Email Campaign Studio">
+      <img src="previews/email-campaign-studio.svg" alt="Email Campaign Studio preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Маркетинг</span>
+        <span>Templates, segments, preview</span>
+      </div>
+      <h3>Email Campaign Studio</h3>
+      <p>Шаблоны, A/B тема письма, сегменты аудитории и прогноз метрик.</p>
+      <p class="case-impact">Пример интерфейса для настройки кампаний и быстрого предпросмотра результата.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/email-campaign-studio/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/email-campaign-studio" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/portfolio/hiring-pipeline-lab/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Hiring Pipeline Lab">
+      <img src="previews/hiring-pipeline-lab.svg" alt="Hiring Pipeline Lab preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>HR</span>
+        <span>Candidate scoring, kanban</span>
+      </div>
+      <h3>Hiring Pipeline Lab</h3>
+      <p>Воронка найма с кандидатами, интервью и приоритетами.</p>
+      <p class="case-impact">Рекрутер быстро понимает, кого сегодня двигать дальше, где кандидат застрял и какие интервью надо назначить.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/hiring-pipeline-lab/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/hiring-pipeline-lab" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/portfolio/habit-coach-dashboard/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Habit Coach Dashboard">
+      <img src="previews/habit-coach-dashboard.svg" alt="Habit Coach Dashboard preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Wellness</span>
+        <span>Habits, daily plan</span>
+      </div>
+      <h3>Habit Coach Dashboard</h3>
+      <p>Личный план привычек, тренировок и восстановления.</p>
+      <p class="case-impact">Пользователь открывает день и видит не графики ради графиков, а понятный план: что уже сделано и что поможет не сорваться.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/habit-coach-dashboard/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/habit-coach-dashboard" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/portfolio/real-estate-lead-room/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Real Estate Lead Room">
+      <img src="previews/real-estate-lead-room.svg" alt="Real Estate Lead Room preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Недвижимость</span>
+        <span>Lead scoring, property match</span>
+      </div>
+      <h3>Real Estate Lead Room</h3>
+      <p>Квалификация заявок и подбор объектов под клиента.</p>
+      <p class="case-impact">Менеджер видит горячих лидов, бюджет, интересы и какие объекты предложить первыми.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/real-estate-lead-room/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/real-estate-lead-room" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/portfolio/event-budget-studio/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Event Budget Studio">
+      <img src="previews/event-budget-studio.svg" alt="Event Budget Studio preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Ивенты</span>
+        <span>Budget, vendors, deadlines</span>
+      </div>
+      <h3>Event Budget Studio</h3>
+      <p>Смета, подрядчики, платежи и риск выхода за бюджет.</p>
+      <p class="case-impact">Продюсер видит, какие подрядчики ждут оплаты, где перерасход и что критично закрыть до дня события.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/event-budget-studio/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/event-budget-studio" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+<article class="case-card">
+    <a href="https://cherreshenka1.github.io/portfolio/content-calendar-ops/" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть Content Calendar Ops">
+      <img src="previews/content-calendar-ops.svg" alt="Content Calendar Ops preview" loading="lazy" />
+    </a>
+    <div class="case-body">
+      <div class="case-meta">
+        <span>Контент</span>
+        <span>Publishing queue, calendar</span>
+      </div>
+      <h3>Content Calendar Ops</h3>
+      <p>Контент-план, публикации, каналы и прогноз охвата.</p>
+      <p class="case-impact">Редактор видит идеи, статусы, дедлайны и понимает, чем закрыть неделю без хаоса в чатах.</p>
+      <div class="case-actions">
+        <a href="https://cherreshenka1.github.io/portfolio/content-calendar-ops/" target="_blank" rel="noreferrer">Live</a>
+        <a href="https://github.com/cherreshenka1/portfolio/tree/main/content-calendar-ops" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </article>
+          </div>
+        </div>
+      </section>
 
-    <footer class="bg-black py-8 text-center text-xs text-zinc-500">
-      © 2026 Артём Бычков • Портфолио обновлено в апреле 2026
+      <section id="experience">
+        <div class="container process">
+          <aside class="profile-card">
+            <h3>Как я работаю</h3>
+            <p>Беру задачу, уточняю сценарий пользователя, собираю понятную структуру, делаю адаптив, проверяю состояния и оставляю код так, чтобы его можно было продолжать.</p>
+            <div class="skills">
+              <span>React</span><span>JavaScript</span><span>HTML/CSS</span><span>REST API</span><span>SQL</span><span>Python</span><span>Figma</span><span>Git</span><span>Analytics</span><span>WordPress</span>
+            </div>
+          </aside>
+          <div class="timeline">
+            <article class="timeline-item">
+              <time>Маркетплейс «Первый Селлер»</time>
+              <div><h3>Автоматизация и боты</h3><p>Telegram-уведомления, webhook-интеграции, выгрузки в таблицы, парсинг конкурентов и рабочие дашборды для продавцов.</p></div>
+            </article>
+            <article class="timeline-item">
+              <time>Digital Agency St</time>
+              <div><h3>Frontend для коммерческих проектов</h3><p>Калькуляторы, формы, слайдеры, аналитика, e-commerce интерфейсы и оптимизация Core Web Vitals.</p></div>
+            </article>
+            <article class="timeline-item">
+              <time>Prostudio</time>
+              <div><h3>React, API и рефакторинг</h3><p>Промо-страницы, REST API, перенос legacy jQuery-поведения в React и поддержка UI-китов.</p></div>
+            </article>
+            <article class="timeline-item">
+              <time>D-project</time>
+              <div><h3>Адаптивная вёрстка</h3><p>Figma-to-HTML, WordPress-шаблоны, WebP, lazy loading и исправление мобильных UI-проблем.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="contact-card">
+            <div>
+              <h2>Давайте обсудим задачу</h2>
+              <p>Если вам нужен frontend-разработчик, который умеет делать интерфейсы для реальных процессов, напишите мне в Telegram или на почту. Я быстро пойму контекст и предложу следующий шаг.</p>
+            </div>
+            <div class="contact-links">
+              <a class="button" href="https://t.me/cherreshenkaw" target="_blank" rel="noreferrer">Telegram</a>
+              <a class="button" href="mailto:bychkov.artem.24@gmail.com">Email</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">© 2026 Артём Бычков. Frontend, интерфейсы и автоматизация процессов. bychkov.artem.24@gmail.com</div>
     </footer>
   </body>
 </html>

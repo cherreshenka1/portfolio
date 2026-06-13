@@ -3,534 +3,196 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Планировщик мероприятий: смета, подрядчики, дедлайны, платежи и риск выхода за бюджет." />
+    <meta name="description" content="Смета, подрядчики, платежи и риск выхода за бюджет." />
     <title>Event Budget Studio | Portfolio demo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&display=swap");
-      :root {
-        --accent: #facc15;
-        --accent-2: #ca8a04;
-        --bg: #090908;
-        --paper: #191816;
-        --panel: #141311;
-        --text: #fffce8;
-        --muted: #d8c77a;
-        --border: #4e4320;
-        --radius: 10px;
-        --shadow: 0 26px 80px rgba(250,204,21,.10);
-        --button-text: #1d1600;
-      }
+      :root { --bg:#fff8e7; --ink:#33280c; --muted:#6b6258; --line:#ded4c4; --card:#fffdf7; --accent:#b45309; --soft: color-mix(in srgb, var(--accent) 10%, white); }
       * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: "Archivo", "Inter", sans-serif;
-        background: var(--bg);
-        color: var(--text);
-      }
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        background:
-          radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 30%),
-          linear-gradient(135deg, color-mix(in srgb, var(--bg) 92%, white), var(--bg));
-      }
-      a { color: inherit; text-decoration: none; }
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 18px;
-        padding: 18px clamp(18px, 4vw, 54px);
-        border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-        background: color-mix(in srgb, var(--bg) 88%, transparent);
-        backdrop-filter: blur(18px);
-      }
-      .back-link, .chrome-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 800;
-      }
-      .page {
-        width: min(1440px, calc(100% - 36px));
-        margin: 0 auto;
-        padding: clamp(24px, 4vw, 56px) 0 64px;
-      }
-      .hero {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(300px, 440px);
-        gap: 24px;
-        align-items: stretch;
-      }
-      .hero-copy, .control-panel, .panel, .stat-card, .flow-step {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-      .hero-copy { padding: clamp(28px, 5vw, 60px); }
-      .brand-icon {
-        width: 58px;
-        height: 58px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: calc(var(--radius) * .72 + 10px);
-        background: var(--accent);
-        color: var(--button-text);
-        font-size: 24px;
-        margin-bottom: 34px;
-      }
-      h1 {
-        margin: 0;
-        max-width: 860px;
-        font-size: clamp(42px, 7.2vw, 104px);
-        line-height: .9;
-        letter-spacing: -.075em;
-        font-weight: 900;
-      }
-      .description {
-        max-width: 780px;
-        margin: 24px 0 0;
-        color: var(--muted);
-        font-size: clamp(16px, 2vw, 20px);
-        line-height: 1.7;
-      }
-      .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-      .chips span {
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        padding: 10px 14px;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 800;
-      }
-      .control-panel {
-        padding: 28px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 360px;
-      }
-      .metric-label, label span {
-        display: block;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 900;
-      }
-      .metric-line { display: flex; align-items: end; gap: 10px; margin-top: 12px; }
-      #mainMetric { font-size: clamp(44px, 5vw, 70px); line-height: .9; letter-spacing: -.07em; font-weight: 900; }
-      #mainUnit { color: var(--accent); font-size: 22px; font-weight: 900; padding-bottom: 8px; }
-      #metricHint { color: var(--muted); line-height: 1.6; margin-top: 18px; }
-      input[type="range"] { width: 100%; accent-color: var(--accent); margin-top: 12px; }
-      .run-button {
-        border: 0;
-        border-radius: calc(var(--radius) * .72 + 10px);
-        background: var(--accent);
-        color: var(--button-text);
-        padding: 16px 18px;
-        font: inherit;
-        font-weight: 900;
-        cursor: pointer;
-      }
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
-        margin-top: 24px;
-      }
-      .stat-card { padding: 20px; }
-      .stat-card span { color: var(--accent); font-weight: 900; font-size: 12px; }
-      .stat-card strong { display: block; margin-top: 12px; font-size: 20px; line-height: 1.15; letter-spacing: -.04em; }
-      .workspace {
-        display: grid;
-        grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
-        grid-template-areas:
-          "queue chart"
-          "flow flow";
-        gap: 24px;
-        margin-top: 24px;
-      }
-      .queue-panel { grid-area: queue; }
-      .chart-panel { grid-area: chart; }
-      .flow-panel { grid-area: flow; }
-      .panel { padding: 24px; }
-      .panel-head { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
-      h2 { margin: 0; font-size: clamp(24px, 3vw, 34px); letter-spacing: -.05em; }
-      .panel-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
-      #filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
-      .status-button {
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        background: transparent;
-        color: var(--muted);
-        padding: 9px 12px;
-        font: inherit;
-        font-size: 12px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-      .status-button.active { background: var(--accent); border-color: var(--accent); color: var(--button-text); }
-      #items { display: grid; gap: 12px; }
-      .item-row {
-        border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-        border-radius: calc(var(--radius) * .8 + 8px);
-        background: color-mix(in srgb, var(--paper) 72%, transparent);
-        padding: 16px;
-      }
-      .row-top { display: flex; justify-content: space-between; gap: 16px; }
-      .item-row h3 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
-      .item-row p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
-      .item-row em {
-        align-self: flex-start;
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--accent) 17%, transparent);
-        color: var(--accent);
-        padding: 7px 10px;
-        font-style: normal;
-        font-size: 11px;
-        font-weight: 900;
-        white-space: nowrap;
-      }
-      .progress { height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--border) 42%, transparent); margin-top: 14px; overflow: hidden; }
-      .progress b { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-      #chart { height: 280px; display: flex; align-items: end; gap: 12px; padding-top: 18px; }
-      .chart-col { display: flex; flex: 1; flex-direction: column; justify-content: end; align-items: center; gap: 10px; height: 100%; }
-      .bar { width: 100%; min-height: 20px; border-radius: calc(var(--radius) * .45 + 5px) calc(var(--radius) * .45 + 5px) 4px 4px; background: linear-gradient(180deg, var(--accent), var(--accent-2)); }
-      .chart-col span { color: var(--muted); font-size: 11px; font-weight: 900; }
-      .flow-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
-      .flow-step { padding: 18px; box-shadow: none; }
-      .flow-step span { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; border-radius: 999px; background: var(--accent); color: var(--button-text); font-weight: 900; }
-      .flow-step strong { display: block; margin-top: 14px; line-height: 1.25; }
-      .dashboard-visual, .phone-visual, .map-visual, .schedule-visual, .road-visual {
-        min-height: 260px;
-        margin-top: 30px;
-        border: 1px solid var(--border);
-        border-radius: calc(var(--radius) * .9 + 8px);
-        background: color-mix(in srgb, var(--paper) 72%, transparent);
-        overflow: hidden;
-      }
-      .dashboard-visual { display: grid; grid-template-columns: .85fr 1.15fr; gap: 18px; padding: 22px; }
-      .visual-bars { display: flex; align-items: end; gap: 8px; height: 100%; }
-      .visual-bars i, .mini-bars i { flex: 1; border-radius: 999px 999px 4px 4px; background: var(--accent); opacity: .78; }
-      .visual-lines { display: grid; gap: 10px; align-content: center; }
-      .visual-lines p { margin: 0; display: flex; justify-content: space-between; gap: 12px; border: 1px solid var(--border); border-radius: calc(var(--radius) * .65 + 6px); padding: 12px; color: var(--muted); }
-      .visual-lines b { color: var(--accent); }
-      .phone-visual { width: min(330px, 100%); margin-left: auto; margin-right: auto; padding: 22px; text-align: center; border-radius: 42px; }
-      .phone-top { width: 82px; height: 8px; margin: 0 auto 24px; border-radius: 999px; background: var(--border); }
-      .ring { width: 150px; height: 150px; display: grid; place-items: center; margin: 0 auto; border-radius: 50%; background: conic-gradient(var(--accent) 72%, color-mix(in srgb, var(--border) 55%, transparent) 0); }
-      .ring span { width: 112px; height: 112px; display: grid; place-items: center; border-radius: 50%; background: var(--paper); font-size: 30px; font-weight: 900; }
-      .mini-bars { height: 72px; display: flex; align-items: end; gap: 7px; margin-top: 22px; }
-      .map-visual { position: relative; min-height: 300px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 15%, transparent), transparent), var(--paper); }
-      .map-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 38px 38px; opacity: .42; }
-      .map-visual span { position: absolute; display: inline-flex; border-radius: 999px; background: var(--accent); color: var(--button-text); padding: 10px 12px; font-weight: 900; box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 28%, transparent); }
-      .schedule-visual { display: grid; gap: 10px; padding: 18px; }
-      .schedule-visual div { display: grid; grid-template-columns: 80px 1fr; gap: 12px; border-left: 6px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); border-radius: 12px; padding: 16px; }
-      .schedule-visual span { color: var(--muted); font-weight: 900; }
-      .road-visual { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 18px; align-items: stretch; }
-      .road-visual div { border: 1px dashed var(--border); border-radius: 18px; padding: 16px; background: color-mix(in srgb, var(--accent) 7%, transparent); }
-      .road-visual span { color: var(--accent); font-weight: 900; }
-      .road-visual strong { display: block; margin-top: 12px; line-height: 1.2; }
-      .toast {
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        z-index: 50;
-        max-width: 360px;
-        padding: 18px;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        background: var(--panel);
-        box-shadow: var(--shadow);
-        transform: translateY(18px);
-        opacity: 0;
-        pointer-events: none;
-        transition: .24s ease;
-      }
-      .toast.show { transform: translateY(0); opacity: 1; }
-      .toast p { margin: 0; }
-      .toast .muted { margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.5; }
-
-      body.terminal .page { border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding-left: 20px; padding-right: 20px; }
-      body.terminal h1 { text-transform: uppercase; max-width: 760px; }
-      body.terminal .workspace { grid-template-columns: 1fr 1fr; }
-      body.terminal .hero-copy::after { content: "auto reconciliation / risk watch / cash forecast"; display: block; margin-top: 28px; color: var(--accent); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
-
-      body.kanban .hero { grid-template-columns: 300px 1fr; grid-template-areas: "control copy"; }
-      body.kanban .hero-copy { grid-area: copy; }
-      body.kanban .control-panel { grid-area: control; }
-      body.kanban .workspace { grid-template-columns: 1fr; grid-template-areas: "queue" "chart" "flow"; }
-      body.kanban #items { grid-template-columns: repeat(4, minmax(190px, 1fr)); align-items: start; }
-      body.kanban .item-row { min-height: 150px; }
-
-      body.tickets::before { background: linear-gradient(90deg, rgba(255,247,237,.05) 1px, transparent 1px), linear-gradient(var(--bg), var(--bg)); background-size: 28px 28px; }
-      body.tickets .hero { grid-template-columns: 1fr; }
-      body.tickets .hero-copy { display: grid; grid-template-columns: 1fr minmax(280px, 430px); gap: 34px; align-items: center; }
-      body.tickets .control-panel { min-height: auto; }
-      body.tickets .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      body.tickets #items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      body.tickets .item-row { background: #fff7ed; color: #24130b; border-style: dashed; }
-      body.tickets .item-row p { color: #8a4b24; }
-
-      body.brutalist .hero-copy, body.brutalist .control-panel, body.brutalist .panel, body.brutalist .stat-card, body.brutalist .flow-step { border-width: 2px; text-transform: uppercase; }
-      body.brutalist .hero { grid-template-columns: .9fr 1.1fr; }
-      body.brutalist h1 { letter-spacing: -.045em; }
-      body.brutalist .workspace { grid-template-columns: .9fr 1.1fr; }
-      body.brutalist .status-button, body.brutalist .run-button { border-radius: 0; }
-
-      body.wellness .hero { grid-template-columns: minmax(280px, 430px) 1fr; grid-template-areas: "control copy"; }
-      body.wellness .hero-copy { grid-area: copy; }
-      body.wellness .control-panel { grid-area: control; }
-      body.wellness .workspace { grid-template-columns: .8fr 1.2fr; }
-      body.wellness h1 { letter-spacing: -.06em; }
-
-      body.roadmap .hero { grid-template-columns: 1fr; }
-      body.roadmap .hero-copy { display: grid; grid-template-columns: 1fr minmax(320px, 560px); gap: 30px; }
-      body.roadmap .stats { grid-template-columns: repeat(4, 1fr); }
-      body.roadmap .workspace { grid-template-columns: 1fr; grid-template-areas: "flow" "queue" "chart"; }
-      body.roadmap .flow-grid { grid-template-columns: repeat(5, 1fr); }
-
-      body.maproom .hero { grid-template-columns: 1.05fr .95fr; }
-      body.maproom .workspace { grid-template-columns: .95fr 1.05fr; }
-      body.maproom .panel, body.maproom .hero-copy, body.maproom .control-panel { backdrop-filter: blur(16px); }
-
-      body.clinic .hero { grid-template-columns: 1fr 390px; }
-      body.clinic .workspace { grid-template-columns: 1.1fr .9fr; }
-      body.clinic .item-row { border-left: 6px solid var(--accent); }
-      body.clinic #chart { background: color-mix(in srgb, var(--accent) 5%, white); border-radius: 18px; padding: 16px; }
-
-      body.production .page { width: min(1320px, calc(100% - 28px)); }
-      body.production .hero { grid-template-columns: 1fr; }
-      body.production .hero-copy { border-top: 8px solid var(--accent); }
-      body.production .workspace { grid-template-columns: 1.2fr .8fr; }
-      body.production .stat-card strong { color: var(--accent); }
-
-      body.editorial .hero { grid-template-columns: 1fr; }
-      body.editorial .hero-copy { display: grid; grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr); gap: 34px; align-items: center; }
-      body.editorial .workspace { grid-template-columns: .75fr 1.25fr; }
-      body.editorial #items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      body.editorial .panel-head { border-bottom: 1px solid var(--border); padding-bottom: 18px; }
-
-      @media (max-width: 980px) {
-        .hero, body.kanban .hero, body.tickets .hero-copy, body.wellness .hero, body.roadmap .hero-copy, body.editorial .hero-copy, .workspace {
-          display: block;
-        }
-        .control-panel, .panel, .stats, .workspace { margin-top: 18px; }
-        .stats, .flow-grid, body.tickets #items, body.kanban #items, body.editorial #items, .road-visual { grid-template-columns: 1fr; }
-        .panel-head { display: block; }
-        #filters { justify-content: flex-start; margin-top: 14px; }
-        h1 { font-size: clamp(40px, 14vw, 76px); }
-      }
+      html { scroll-behavior: smooth; }
+      body { margin:0; font-family:"Manrope", system-ui, sans-serif; color:var(--ink); background:var(--bg); }
+      body::before { content:""; position:fixed; inset:0; z-index:-1; opacity:.55; background: radial-gradient(circle at 12% 10%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 26%), linear-gradient(90deg, rgba(23,23,23,.035) 1px, transparent 1px); background-size:auto, 38px 38px; }
+      a { color:inherit; text-decoration:none; }
+      .container { width:min(1160px, calc(100% - 36px)); margin:0 auto; }
+      .topbar { position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(16px); border-bottom:1px solid color-mix(in srgb, var(--accent) 16%, var(--line)); }
+      .topbar .container { min-height:68px; display:flex; align-items:center; justify-content:space-between; gap:18px; font-weight:800; }
+      .topbar a { color:var(--muted); }
+      .topbar a:hover { color:var(--ink); }
+      .hero { padding:70px 0 40px; }
+      .hero-grid { display:grid; grid-template-columns:minmax(0, 1fr) minmax(320px,.72fr); gap:38px; align-items:stretch; }
+      .story-card, .control-card, .panel, .before-after article { background:var(--card); border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line)); border-radius:30px; box-shadow:0 22px 70px rgba(57,47,35,.10); }
+      .story-card { padding:clamp(28px,5vw,56px); }
+      .domain { display:inline-flex; gap:10px; align-items:center; font-weight:900; color:var(--accent); margin-bottom:26px; }
+      .domain::before { content:""; width:11px; height:11px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 13%, transparent); }
+      h1 { margin:0; font-family:"Onest", system-ui, sans-serif; font-size:clamp(42px,7vw,92px); line-height:.92; letter-spacing:-.07em; text-wrap:balance; }
+      .lead { max-width:760px; margin:24px 0 0; color:var(--muted); font-size:19px; line-height:1.7; }
+      .story { margin-top:28px; padding:18px; border-radius:20px; background:var(--soft); color:var(--ink); font-weight:700; line-height:1.55; }
+      .control-card { padding:28px; display:flex; flex-direction:column; justify-content:space-between; gap:26px; }
+      .metric-label, label span { color:var(--muted); font-weight:900; font-size:13px; }
+      .metric { display:flex; align-items:end; gap:8px; margin-top:10px; }
+      #mainMetric { font-family:"Onest"; font-size:54px; line-height:.9; letter-spacing:-.06em; font-weight:800; }
+      #mainUnit { color:var(--accent); font-weight:900; padding-bottom:7px; }
+      #metricHint { color:var(--muted); line-height:1.5; }
+      input[type=range] { width:100%; accent-color:var(--accent); margin-top:10px; }
+      button { font:inherit; }
+      .run-button { border:0; border-radius:999px; padding:15px 18px; background:var(--ink); color:white; font-weight:900; cursor:pointer; transition:.2s ease; }
+      .run-button:hover { background:var(--accent); }
+      .workspace { display:grid; grid-template-columns:1.08fr .92fr; gap:22px; margin-top:28px; }
+      .panel { padding:24px; }
+      .panel-head { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; margin-bottom:20px; }
+      h2 { margin:0; font-family:"Onest"; font-size:34px; letter-spacing:-.05em; }
+      .panel-head p { margin:8px 0 0; color:var(--muted); line-height:1.55; }
+      #filters { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px; }
+      .status-button { border:1px solid var(--line); border-radius:999px; background:white; padding:8px 11px; color:var(--muted); font-size:12px; font-weight:900; cursor:pointer; }
+      .status-button.active { border-color:var(--accent); background:var(--accent); color:white; }
+      #items { display:grid; gap:12px; }
+      .work-row { display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; padding:15px; border:1px solid var(--line); border-radius:18px; background:color-mix(in srgb, var(--bg) 35%, white); }
+      .work-row strong { display:block; }
+      .work-row span { display:block; margin-top:4px; color:var(--muted); font-size:13px; }
+      .work-row em { font-style:normal; color:var(--accent); font-weight:900; font-size:12px; white-space:nowrap; }
+      .work-row i { grid-column:1 / -1; height:7px; border-radius:999px; background:color-mix(in srgb, var(--accent) 12%, white); overflow:hidden; }
+      .work-row b { display:block; height:100%; background:var(--accent); border-radius:inherit; }
+      #chart { height:260px; display:flex; align-items:end; gap:12px; margin-top:16px; }
+      .chart-col { flex:1; display:flex; height:100%; flex-direction:column; justify-content:end; align-items:center; gap:9px; }
+      .bar { width:100%; min-height:20px; border-radius:14px 14px 4px 4px; background:linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 72%, black)); }
+      .chart-col span { color:var(--muted); font-size:12px; font-weight:900; }
+      .before-after { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:24px; }
+      .before-after article { padding:22px; box-shadow:none; }
+      .before-after h3 { margin:0 0 10px; font-size:18px; }
+      .before-after p { margin:0; color:var(--muted); line-height:1.55; }
+      .flow { margin:28px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+      .flow li { padding:18px; border:1px solid var(--line); border-radius:20px; background:var(--card); font-weight:900; }
+      .flow span { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; border-radius:999px; margin-right:8px; background:var(--accent); color:white; }
+      .toast { position:fixed; right:20px; bottom:20px; max-width:360px; padding:18px; border-radius:22px; background:var(--ink); color:white; box-shadow:0 22px 70px rgba(23,23,23,.22); transform:translateY(18px); opacity:0; pointer-events:none; transition:.24s ease; }
+      .toast.show { transform:translateY(0); opacity:1; }
+      .toast p { margin:0; }
+      .toast p + p { margin-top:6px; color:rgba(255,255,255,.76); font-size:13px; line-height:1.5; }
+      footer { padding:44px 0; color:var(--muted); }
+      @media (max-width:900px) { .hero-grid,.workspace,.before-after { grid-template-columns:1fr; } .flow { grid-template-columns:repeat(2,1fr); } }
+      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .panel-head { display:block; } #filters { justify-content:flex-start; margin-top:12px; } .flow { grid-template-columns:1fr; } }
     </style>
   </head>
-  <body class="production">
+  <body class="event">
     <nav class="topbar">
-      <a href="../index.html#projects" class="back-link"><i class="fa-solid fa-arrow-left"></i> Портфолио</a>
-      <span class="chrome-label">Budget studio · Event Ops + Budget Control</span>
+      <div class="container">
+        <a href="../index.html#work"><i class="fa-solid fa-arrow-left"></i> Портфолио</a>
+        <span>Ивенты · Budget, vendors, deadlines</span>
+      </div>
     </nav>
-
-    <main class="page">
+    <main>
       <section class="hero">
-        <article class="hero-copy">
-          <div>
-            <div class="brand-icon"><i class="fa-solid fa-calendar-check"></i></div>
+        <div class="container hero-grid">
+          <article class="story-card">
+            <div class="domain">Ивенты</div>
             <h1>Event Budget Studio</h1>
-            <p class="description">Планировщик мероприятий: смета, подрядчики, дедлайны, платежи и риск выхода за бюджет.</p>
-            <div class="chips">
-              <span>Бюджет события и подрядчики</span>
-              <span>ивент-агентства, продюсеры, проекты</span>
-            </div>
-          </div>
-          <div class="dashboard-visual">
-    <div class="visual-bars"><i style="height:28%"></i><i style="height:36%"></i><i style="height:45%"></i><i style="height:53%"></i><i style="height:66%"></i><i style="height:72%"></i><i style="height:81%"></i></div>
-    <div class="visual-lines"><p><span>Площадка</span><b>Готово</b></p><p><span>Кейтеринг</span><b>В работе</b></p><p><span>Свет</span><b>Риск бюджета</b></p></div>
-  </div>
-        </article>
-
-        <aside class="control-panel">
-          <div>
-            <span class="metric-label">Бюджет освоен</span>
-            <div class="metric-line">
-              <strong id="mainMetric"></strong>
-              <span id="mainUnit"></span>
-            </div>
-            <p id="metricHint"></p>
-          </div>
-          <label>
-            <span>Новых гостей</span>
-            <input id="volume" type="range" min="10" max="400" value="180" />
-          </label>
-          <button id="runButton" class="run-button"><i class="fa-solid fa-bolt"></i> Собрать смету</button>
-        </aside>
-      </section>
-
-      <section class="stats"><article class="stat-card">
-        <span>01</span>
-        <strong>14 подрядчиков</strong>
-      </article><article class="stat-card">
-        <span>02</span>
-        <strong>3 платежа</strong>
-      </article><article class="stat-card">
-        <span>03</span>
-        <strong>6 дедлайнов</strong>
-      </article><article class="stat-card">
-        <span>04</span>
-        <strong>8% резерв</strong>
-      </article></section>
-
-      <section class="workspace">
-        <article class="panel queue-panel">
-          <div class="panel-head">
+            <p class="lead">Смета, подрядчики, платежи и риск выхода за бюджет.</p>
+            <p class="story">Продюсер видит, какие подрядчики ждут оплаты, где перерасход и что критично закрыть до дня события.</p>
+          </article>
+          <aside class="control-card">
             <div>
-              <h2>Рабочая очередь</h2>
-              <p>Фильтр меняет список и пересчитывает видимый процесс.</p>
+              <span class="metric-label">Бюджет освоен</span>
+              <div class="metric"><strong id="mainMetric"></strong><span id="mainUnit"></span></div>
+              <p id="metricHint"></p>
             </div>
+            <label><span>Новых гостей</span><input id="volume" type="range" min="10" max="400" value="180" /></label>
+            <button id="runButton" class="run-button">Запустить сценарий</button>
+          </aside>
+        </div>
+      </section>
+      <section class="container workspace">
+        <article class="panel">
+          <div class="panel-head">
+            <div><h2>Рабочая очередь</h2><p>Фильтр показывает, как меняется фокус менеджера в течение дня.</p></div>
             <div id="filters"></div>
           </div>
-          <div id="items"></div>
-        </article>
-
-        <article class="panel chart-panel">
-          <div class="panel-head">
-            <div>
-              <h2>Динамика недели</h2>
-              <p>График реагирует на объём входящих задач.</p>
-            </div>
-          </div>
-          <div id="chart"></div>
-        </article>
-
-        <article class="panel flow-panel">
-          <div class="panel-head">
-            <div>
-              <h2>Автоматизированный сценарий</h2>
-              <p>Импорт данных, правила, уведомления и контроль результата.</p>
-            </div>
-            <p id="selectedStatus"></p>
-          </div>
-          <div class="flow-grid"><article class="flow-step">
-        <span>1</span>
-        <strong>Бриф</strong>
-      </article><article class="flow-step">
-        <span>2</span>
-        <strong>Смета</strong>
-      </article><article class="flow-step">
-        <span>3</span>
-        <strong>Подрядчики</strong>
-      </article><article class="flow-step">
-        <span>4</span>
-        <strong>Платежи</strong>
-      </article><article class="flow-step">
-        <span>5</span>
-        <strong>День события</strong>
+          <div id="items"><article class="work-row" data-status="Готово">
+        <div><strong>Площадка</strong><span>Договор</span></div>
+        <em>Готово</em>
+        <i><b style="width:100%"></b></i>
+      </article><article class="work-row" data-status="В работе">
+        <div><strong>Кейтеринг</strong><span>Меню</span></div>
+        <em>В работе</em>
+        <i><b style="width:58%"></b></i>
+      </article><article class="work-row" data-status="Риск бюджета">
+        <div><strong>Свет</strong><span>Смета</span></div>
+        <em>Риск бюджета</em>
+        <i><b style="width:31%"></b></i>
+      </article><article class="work-row" data-status="План">
+        <div><strong>Ведущий</strong><span>Бриф</span></div>
+        <em>План</em>
+        <i><b style="width:15%"></b></i>
       </article></div>
         </article>
+        <article class="panel">
+          <h2>Динамика</h2>
+          <p class="lead">Слайдер меняет нагрузку и пересчитывает прогноз.</p>
+          <div id="chart"></div>
+        </article>
+      </section>
+      <section class="container">
+        <div class="before-after">
+          <article><h3>До</h3><p>Смета и дедлайны живут отдельно.</p></article>
+          <article><h3>После</h3><p>Бюджет, задачи и риски сходятся в один план.</p></article>
+        </div>
+        <ol class="flow"><li><span>1</span>Бриф</li><li><span>2</span>Смета</li><li><span>3</span>Подрядчики</li><li><span>4</span>Платежи</li></ol>
       </section>
     </main>
-
-    <div id="toast" class="toast">
-      <p><strong>Автоматизация запущена</strong></p>
-      <p id="toastText" class="muted"></p>
-    </div>
-
+    <div id="toast" class="toast"><p><strong>Сценарий запущен</strong></p><p id="toastText"></p></div>
+    <footer><div class="container"><a href="../index.html#contact">Вернуться к контактам</a></div></footer>
     <script>
-      const demo = {"slug":"event-budget-studio","title":"Event Budget Studio","short":"Бюджет события и подрядчики","stack":"Event Ops + Budget Control","icon":"fa-solid fa-calendar-check","accent":"#facc15","accent2":"#ca8a04","description":"Планировщик мероприятий: смета, подрядчики, дедлайны, платежи и риск выхода за бюджет.","audience":"ивент-агентства, продюсеры, проекты","actionLabel":"Собрать смету","primaryMetric":"Бюджет освоен","unit":"%","base":62,"sliderLabel":"Новых гостей","sliderMin":10,"sliderMax":400,"sliderValue":180,"multiplier":0.06,"kpis":["14 подрядчиков","3 платежа","6 дедлайнов","8% резерв"],"statuses":["План","В работе","Риск бюджета","Готово"],"items":[["Площадка","Договор","Готово",100],["Кейтеринг","Меню","В работе",58],["Свет","Смета","Риск бюджета",31],["Ведущий","Бриф","План",15]],"flow":["Бриф","Смета","Подрядчики","Платежи","День события"],"chart":[28,36,45,53,66,72,81]};
+      const demo = {"slug":"event-budget-studio","title":"Event Budget Studio","kind":"Ивенты","stack":"Budget, vendors, deadlines","description":"Смета, подрядчики, платежи и риск выхода за бюджет.","story":"Продюсер видит, какие подрядчики ждут оплаты, где перерасход и что критично закрыть до дня события.","accent":"#b45309","bg":"#fff8e7","ink":"#33280c","theme":"event","primaryMetric":"Бюджет освоен","unit":"%","base":62,"sliderLabel":"Новых гостей","sliderMin":10,"sliderMax":400,"sliderValue":180,"multiplier":0.06,"statuses":["План","В работе","Риск бюджета","Готово"],"items":[["Площадка","Договор","Готово",100],["Кейтеринг","Меню","В работе",58],["Свет","Смета","Риск бюджета",31],["Ведущий","Бриф","План",15]],"flow":["Бриф","Смета","Подрядчики","Платежи"],"chart":[28,36,45,53,66,72,81],"before":"Смета и дедлайны живут отдельно.","after":"Бюджет, задачи и риски сходятся в один план."};
       let selected = "Все";
       const volume = document.querySelector("#volume");
       const mainMetric = document.querySelector("#mainMetric");
       const mainUnit = document.querySelector("#mainUnit");
-      const visualMetric = document.querySelector("#visualMetric");
       const metricHint = document.querySelector("#metricHint");
       const filters = document.querySelector("#filters");
       const items = document.querySelector("#items");
       const chart = document.querySelector("#chart");
-      const selectedStatus = document.querySelector("#selectedStatus");
       const toast = document.querySelector("#toast");
       const toastText = document.querySelector("#toastText");
-
-      function formatNumber(value) {
-        return Math.round(value).toLocaleString("ru-RU");
-      }
-
-      function currentValue() {
-        return demo.base + Number(volume.value) * demo.multiplier;
-      }
-
+      function formatNumber(value) { return Math.round(value).toLocaleString("ru-RU"); }
+      function currentValue() { return demo.base + Number(volume.value) * demo.multiplier; }
       function renderMetric() {
-        const value = formatNumber(currentValue());
-        mainMetric.textContent = value;
+        mainMetric.textContent = formatNumber(currentValue());
         mainUnit.textContent = demo.unit;
-        if (visualMetric) visualMetric.textContent = value + demo.unit;
-        metricHint.textContent = demo.sliderLabel + ": " + volume.value + ". Автопрогноз пересчитан по текущей нагрузке.";
+        metricHint.textContent = demo.sliderLabel + ": " + volume.value + ". Прогноз обновлён.";
       }
-
       function renderFilters() {
-        const all = ["Все", ...demo.statuses];
-        filters.innerHTML = all.map((status) => {
-          const active = status === selected ? " active" : "";
-          return '<button class="status-button' + active + '" data-status="' + status + '">' + status + '</button>';
-        }).join("");
+        filters.innerHTML = ["Все", ...demo.statuses].map((status) => '<button class="status-button' + (status === selected ? ' active' : '') + '" data-status="' + status + '">' + status + '</button>').join("");
       }
-
       function renderItems() {
         const boost = Number(volume.value) / Number(demo.sliderMax);
         const visible = demo.items.filter((item) => selected === "Все" || item[2] === selected);
         items.innerHTML = visible.map((item) => {
-          const progress = Math.min(100, Math.round(item[3] + boost * 12));
-          return '<article class="item-row">' +
-            '<div class="row-top">' +
-              '<div><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>' +
-              '<em>' + item[2] + '</em>' +
-            '</div>' +
-            '<div class="progress"><b style="width:' + progress + '%"></b></div>' +
-          '</article>';
-        }).join("") || '<div class="item-row"><h3>Нет задач</h3><p>Переключите фильтр или запустите автоматизацию.</p></div>';
-        selectedStatus.textContent = selected === "Все" ? "Показаны все статусы" : "Фокус: " + selected;
+          const progress = Math.min(100, Math.round(item[3] + boost * 10));
+          return '<article class="work-row"><div><strong>' + item[0] + '</strong><span>' + item[1] + '</span></div><em>' + item[2] + '</em><i><b style="width:' + progress + '%"></b></i></article>';
+        }).join("") || '<article class="work-row"><div><strong>Нет задач</strong><span>Выберите другой статус.</span></div><em>Пусто</em><i><b style="width:0%"></b></i></article>';
       }
-
       function renderChart() {
-        const lift = Number(volume.value) / Number(demo.sliderMax) * 14;
+        const lift = Number(volume.value) / Number(demo.sliderMax) * 12;
         chart.innerHTML = demo.chart.map((value, index) => {
           const height = Math.min(100, value + lift);
-          return '<div class="chart-col">' +
-            '<div class="bar" style="height:' + height + '%; opacity:' + (0.62 + index * .05) + '"></div>' +
-            '<span>' + ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"][index] + '</span>' +
-          '</div>';
+          return '<div class="chart-col"><div class="bar" style="height:' + height + '%"></div><span>' + ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"][index] + '</span></div>';
         }).join("");
       }
-
-      function render() {
-        renderMetric();
-        renderFilters();
-        renderItems();
-        renderChart();
-      }
-
+      function render() { renderMetric(); renderFilters(); renderItems(); renderChart(); }
       filters.addEventListener("click", (event) => {
         const button = event.target.closest("button[data-status]");
         if (!button) return;
         selected = button.dataset.status;
         render();
       });
-
       volume.addEventListener("input", render);
       document.querySelector("#runButton").addEventListener("click", () => {
-        const recommended = demo.flow[Math.min(demo.flow.length - 1, Math.floor(Number(volume.value) / Number(demo.sliderMax) * demo.flow.length))];
-        toastText.textContent = "Следующий приоритет: " + recommended + ". Текущий прогноз: " + formatNumber(currentValue()) + demo.unit + ".";
+        const step = demo.flow[Math.min(demo.flow.length - 1, Math.floor(Number(volume.value) / Number(demo.sliderMax) * demo.flow.length))];
+        toastText.textContent = "Следующий шаг: " + step + ". Текущий прогноз: " + formatNumber(currentValue()) + demo.unit + ".";
         toast.classList.add("show");
         setTimeout(() => toast.classList.remove("show"), 2800);
       });
-
       render();
     </script>
   </body>
