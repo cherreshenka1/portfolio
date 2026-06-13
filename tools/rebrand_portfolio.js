@@ -430,11 +430,13 @@ const allProjects = [
   ...oldProjects.map((project) => ({
     ...project,
     preview: `previews/${project.slug}.svg`,
+    casePath: `projects/${project.slug}/`,
     group: "project",
   })),
   ...demos.map((demo) => ({
     ...demo,
     preview: `previews/${demo.slug}.svg`,
+    casePath: `projects/${demo.slug}/`,
     live: `${pagesBase}/${demo.slug}/`,
     code: `${repoBase}/${demo.slug}`,
     group: "demo",
@@ -449,6 +451,65 @@ const featuredSlugs = [
   "academy-progress-map",
   "warehouse-dispatch-board",
 ];
+
+const projectProfiles = {
+  "react-store-lab": {
+    audience: "Небольшой магазин, которому нужен понятный каталог без тяжёлой админки.",
+    problem: "Пользователь должен быстро найти товар, собрать корзину и не потерять выбор после обновления страницы.",
+    solution: "Каталог разбит на понятные карточки, фильтры и корзину с сохранением состояния в браузере.",
+    features: ["Каталог с карточками товаров", "Фильтрация и быстрый просмотр", "Корзина с пересчётом суммы", "Сохранение выбранных товаров"],
+    states: ["Пустая корзина", "Добавленный товар", "Изменение количества", "Возврат к сохранённой сессии"],
+  },
+  "marketplace-sales-dashboard": {
+    audience: "Продавец маркетплейса или менеджер, который следит за продажами каждый день.",
+    problem: "KPI, заказы и просадки часто лежат в разных таблицах, поэтому риск видно слишком поздно.",
+    solution: "Дашборд собирает ключевые показатели, графики, статусы заказов и быстрые действия в одном рабочем экране.",
+    features: ["KPI-панель", "Графики динамики", "Фильтры заказов", "Экспорт и уведомления"],
+    states: ["Рост продаж", "Падение конверсии", "Новый заказ", "Заказ требует внимания"],
+  },
+  "optimized-ecommerce-store": {
+    audience: "Интернет-магазин, где важны скорость загрузки, удобная покупка и измеримая аналитика.",
+    problem: "Медленные страницы и тяжёлые изображения снижают конверсию даже при хорошем дизайне.",
+    solution: "Интерфейс выстроен вокруг быстрых карточек, lazy loading, Web Vitals и понятного checkout flow.",
+    features: ["Оптимизированные изображения", "Корзина и доставка", "Lazy loading", "Аналитика пользовательского пути"],
+    states: ["Первый визит", "Добавление в корзину", "Оформление доставки", "Проверка Web Vitals"],
+  },
+  "interactive-calculator": {
+    audience: "Лендинг услуги, где посетителю нужно быстро понять цену и оставить заявку.",
+    problem: "Статичный прайс не отвечает на индивидуальные вопросы и плохо доводит пользователя до контакта.",
+    solution: "Калькулятор считает результат вживую, объясняет стоимость и аккуратно ведёт к форме заявки.",
+    features: ["Live-расчёт", "Валидация формы", "Сохранение результата", "Мягкая анимация переходов"],
+    states: ["Начальный расчёт", "Ошибка в форме", "Успешная заявка", "Возврат к сохранённому результату"],
+  },
+  "smart-booking-calendar": {
+    audience: "Сервис записи, салон, специалист или небольшой кабинет услуг.",
+    problem: "Клиенту трудно выбрать свободное время, а менеджеру приходится подтверждать всё вручную.",
+    solution: "Календарь показывает услугу, дату, свободные слоты, данные клиента и ближайшие записи.",
+    features: ["Выбор услуги", "Свободные слоты", "Карточка клиента", "Список ближайших записей"],
+    states: ["Нет свободных слотов", "Выбранное время", "Запись создана", "Перенос записи"],
+  },
+  "support-ticket-center": {
+    audience: "Команда поддержки, которой важно не пропустить срочные обращения.",
+    problem: "Тикеты без приоритета и SLA превращаются в общую очередь, где сложно понять следующий шаг.",
+    solution: "Центр поддержки показывает статусы, SLA, поиск, приоритеты и чат оператора рядом с задачей.",
+    features: ["Очередь тикетов", "SLA-индикаторы", "Поиск и фильтры", "Чат оператора"],
+    states: ["Просроченный SLA", "Новый тикет", "Ответ оператора", "Закрытие обращения"],
+  },
+  "email-campaign-studio": {
+    audience: "Маркетолог, который собирает рассылку и хочет видеть прогноз до отправки.",
+    problem: "Шаблоны, сегменты и метрики часто настраиваются в разных местах, из-за чего легко ошибиться.",
+    solution: "Студия кампаний объединяет шаблоны, A/B тему письма, сегменты и предпросмотр результата.",
+    features: ["Шаблоны писем", "A/B тема", "Сегменты аудитории", "Прогноз открытий и кликов"],
+    states: ["Черновик", "Сегмент выбран", "Предпросмотр", "Готово к отправке"],
+  },
+  "marketplace-ops-crm": {
+    audience: "Операционная команда маркетплейса, продавцы и менеджеры ассортимента.",
+    problem: "Заказы, товары, продавцы и webhook-события живут отдельно, поэтому сложно быстро найти причину проблемы.",
+    solution: "CRM собирает операционные данные, KPI и SQL-консоль в браузере, чтобы быстро проверять гипотезы.",
+    features: ["Заказы и продавцы", "KPI и статусы", "Webhook-события", "SQL-консоль на SQLite/WASM"],
+    states: ["Новый заказ", "Проблема продавца", "SQL-запрос", "Операционный отчёт"],
+  },
+};
 
 function esc(value) {
   return String(value)
@@ -465,8 +526,9 @@ function write(filePath, content) {
 
 function projectCard(project, featured = false) {
   const sizeClass = featured ? "case-card featured-case" : "case-card";
+  const casePath = project.casePath || project.live;
   return `<article class="${sizeClass}">
-    <a href="${project.live}" target="_blank" rel="noreferrer" class="case-media" aria-label="Открыть ${esc(project.title)}">
+    <a href="${casePath}" class="case-media" aria-label="Открыть кейс ${esc(project.title)}">
       <img src="${project.preview}" alt="${esc(project.title)} preview" loading="lazy" />
     </a>
     <div class="case-body">
@@ -474,10 +536,11 @@ function projectCard(project, featured = false) {
         <span>${esc(project.kind)}</span>
         <span>${esc(project.stack)}</span>
       </div>
-      <h3>${esc(project.title)}</h3>
+      <h3><a href="${casePath}">${esc(project.title)}</a></h3>
       <p>${esc(project.description)}</p>
       <p class="case-impact">${esc(project.impact || project.story || "")}</p>
       <div class="case-actions">
+        <a href="${casePath}">Кейс</a>
         <a href="${project.live}" target="_blank" rel="noreferrer">Live</a>
         <a href="${project.code}" target="_blank" rel="noreferrer">GitHub</a>
       </div>
@@ -1040,12 +1103,23 @@ function demoVisual(demo) {
     )
     .join("");
   const steps = demo.flow.map((step, index) => `<li><span>${index + 1}</span>${esc(step)}</li>`).join("");
-  return { compactRows, steps };
+  const opsCards = [
+    ["Входные данные", demo.flow[0], `Система собирает события из процесса: ${demo.sliderLabel.toLowerCase()}, статусы и текущую очередь.`],
+    ["Автоматическое решение", demo.flow[1], `Пересчитывает ${demo.primaryMetric.toLowerCase()} и поднимает в фокус самые важные элементы.`],
+    ["Контроль менеджера", demo.flow[2], `Фильтры, прогресс и уведомление помогают понять, что делать прямо сейчас.`],
+    ["Результат", demo.flow[3], demo.after],
+  ]
+    .map((card) => `<article><span>${esc(card[0])}</span><strong>${esc(card[1])}</strong><p>${esc(card[2])}</p></article>`)
+    .join("");
+  const checkRows = demo.statuses
+    .map((status, index) => `<li><b>${esc(status)}</b><span>${esc(demo.items[index % demo.items.length][0])}</span></li>`)
+    .join("");
+  return { compactRows, steps, opsCards, checkRows };
 }
 
 function demoHtml(demo) {
   const data = JSON.stringify(demo).replace(/</g, "\\u003c");
-  const { compactRows, steps } = demoVisual(demo);
+  const { compactRows, steps, opsCards, checkRows } = demoVisual(demo);
   return `<!doctype html>
 <html lang="ru">
   <head>
@@ -1114,13 +1188,25 @@ function demoHtml(demo) {
       .flow { margin:28px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
       .flow li { padding:18px; border:1px solid var(--line); border-radius:20px; background:var(--card); font-weight:900; }
       .flow span { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; border-radius:999px; margin-right:8px; background:var(--accent); color:white; }
+      .demo-section { margin-top:28px; }
+      .section-kicker { margin:0 0 10px; color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.12em; }
+      .ops-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:18px; }
+      .ops-grid article, .quality-panel { border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line)); border-radius:22px; background:var(--card); padding:18px; }
+      .ops-grid span { color:var(--muted); font-size:12px; font-weight:900; }
+      .ops-grid strong { display:block; margin-top:12px; font-size:18px; }
+      .ops-grid p, .quality-panel p { margin:10px 0 0; color:var(--muted); line-height:1.55; font-size:14px; }
+      .quality-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+      .quality-panel ul { margin:16px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+      .quality-panel li { display:flex; justify-content:space-between; gap:12px; padding:12px; border-radius:14px; background:color-mix(in srgb, var(--bg) 45%, white); }
+      .quality-panel b { color:var(--ink); }
+      .quality-panel span { color:var(--muted); text-align:right; }
       .toast { position:fixed; right:20px; bottom:20px; max-width:360px; padding:18px; border-radius:22px; background:var(--ink); color:white; box-shadow:0 22px 70px rgba(23,23,23,.22); transform:translateY(18px); opacity:0; pointer-events:none; transition:.24s ease; }
       .toast.show { transform:translateY(0); opacity:1; }
       .toast p { margin:0; }
       .toast p + p { margin-top:6px; color:rgba(255,255,255,.76); font-size:13px; line-height:1.5; }
       footer { padding:44px 0; color:var(--muted); }
-      @media (max-width:900px) { .hero-grid,.workspace,.before-after { grid-template-columns:1fr; } .flow { grid-template-columns:repeat(2,1fr); } }
-      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .panel-head { display:block; } #filters { justify-content:flex-start; margin-top:12px; } .flow { grid-template-columns:1fr; } }
+      @media (max-width:900px) { .hero-grid,.workspace,.before-after,.quality-grid { grid-template-columns:1fr; } .flow,.ops-grid { grid-template-columns:repeat(2,1fr); } }
+      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .panel-head { display:block; } #filters { justify-content:flex-start; margin-top:12px; } .flow,.ops-grid { grid-template-columns:1fr; } }
     </style>
   </head>
   <body class="${demo.theme}">
@@ -1170,6 +1256,26 @@ function demoHtml(demo) {
           <article><h3>После</h3><p>${esc(demo.after)}</p></article>
         </div>
         <ol class="flow">${steps}</ol>
+      </section>
+      <section class="container demo-section">
+        <p class="section-kicker">Что автоматизирует</p>
+        <h2>Мини-продукт, который закрывает весь рабочий цикл</h2>
+        <div class="ops-grid">${opsCards}</div>
+      </section>
+      <section class="container demo-section">
+        <p class="section-kicker">Проверяемые состояния</p>
+        <div class="quality-grid">
+          <article class="quality-panel">
+            <h2>Сценарии пользователя</h2>
+            <p>Интерфейс показывает не только идеальный экран, но и разные статусы очереди, пересчёт нагрузки, пустой результат фильтра и подтверждение запуска сценария.</p>
+            <ul>${checkRows}</ul>
+          </article>
+          <article class="quality-panel">
+            <h2>Почему это похоже на реальную работу</h2>
+            <p>Есть понятная роль пользователя, KPI, изменяемая нагрузка, список задач, статусы, прогресс, график и обратная связь после действия. Такой прототип можно обсуждать с заказчиком и развивать в полноценный продукт.</p>
+            <p>Главная идея: человек не должен искать следующий шаг в чатах и таблицах. Интерфейс сам собирает контекст и подсказывает, куда смотреть.</p>
+          </article>
+        </div>
       </section>
     </main>
     <div id="toast" class="toast"><p><strong>Сценарий запущен</strong></p><p id="toastText"></p></div>
@@ -1232,6 +1338,228 @@ function demoHtml(demo) {
 `;
 }
 
+function caseProfile(project) {
+  if (project.group === "demo") {
+    return {
+      audience: `Команда или специалист в домене «${project.kind}», которому нужен быстрый рабочий экран вместо ручного контроля.`,
+      problem: project.before,
+      solution: project.after,
+      features: [
+        `Изменяемый показатель: ${project.sliderLabel}`,
+        `KPI: ${project.primaryMetric}`,
+        `Статусы: ${project.statuses.join(", ")}`,
+        `Сценарий: ${project.flow.join(" → ")}`,
+      ],
+      states: [
+        "Фильтрация очереди по статусу",
+        "Пересчёт KPI от нагрузки",
+        "Пустой результат фильтра",
+        "Toast-подтверждение запуска сценария",
+      ],
+    };
+  }
+  return projectProfiles[project.slug] || {
+    audience: "Команда, которой нужен понятный интерфейс для конкретного рабочего сценария.",
+    problem: project.description,
+    solution: project.impact,
+    features: ["Понятная структура экрана", "Работа с состояниями", "Адаптивная верстка", "Живая ссылка и исходный код"],
+    states: ["Первый экран", "Основной сценарий", "Изменение данных", "Проверка на мобильном"],
+  };
+}
+
+function listMarkup(items) {
+  return items.map((item) => `<li>${esc(item)}</li>`).join("");
+}
+
+function caseHtml(project) {
+  const profile = caseProfile(project);
+  const preview = `../../${project.preview}`;
+  const liveText = project.group === "demo" ? "Открыть интерактив" : "Открыть Live";
+  const demoNote =
+    project.group === "demo"
+      ? `<a class="button primary" href="../../${project.slug}/">Интерактивный прототип</a>`
+      : "";
+  const flow =
+    project.group === "demo"
+      ? project.flow
+      : ["Контекст", "Структура", "Интерфейс", "Публикация"];
+  const flowMarkup = flow
+    .map((step, index) => `<article><span>0${index + 1}</span><strong>${esc(step)}</strong><p>${esc(index === 0 ? "Понимаю, что пользователь пытается сделать." : index === 1 ? "Разбиваю процесс на понятные зоны и состояния." : index === 2 ? "Собираю экран, который можно проверить руками." : "Оставляю рабочую ссылку, код и понятное продолжение.")}</p></article>`)
+    .join("");
+  const rows =
+    project.group === "demo"
+      ? project.items
+          .map((item) => `<tr><td>${esc(item[0])}</td><td>${esc(item[1])}</td><td>${esc(item[2])}</td><td>${item[3]}%</td></tr>`)
+          .join("")
+      : profile.states.map((state, index) => `<tr><td>${index + 1}</td><td>${esc(state)}</td><td>Проверяемый UI-state</td><td>Готово</td></tr>`).join("");
+  return `<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="${esc(project.title)}: кейс портфолио Артёма Бычкова." />
+    <title>${esc(project.title)} | Кейс Артёма Бычкова</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+      :root { --paper:${project.bg || "#f7f3ea"}; --ink:${project.ink || "#171717"}; --muted:#6b6258; --line:#ded4c4; --card:#fffdf7; --accent:${project.accent || "#2457d6"}; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; font-family:"Manrope",system-ui,sans-serif; color:var(--ink); background:linear-gradient(90deg, rgba(23,23,23,.035) 1px, transparent 1px), var(--paper); background-size:40px 40px; }
+      body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.45; background:radial-gradient(circle at 14% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 25%), radial-gradient(circle at 90% 4%, rgba(47,109,85,.10), transparent 24%); }
+      a { color:inherit; text-decoration:none; }
+      img { max-width:100%; display:block; }
+      .container { width:min(1160px, calc(100% - 36px)); margin:0 auto; }
+      .nav { position:sticky; top:0; z-index:20; border-bottom:1px solid rgba(23,23,23,.1); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(18px); }
+      .nav .container { min-height:68px; display:flex; align-items:center; justify-content:space-between; gap:18px; font-weight:900; }
+      .nav a { color:var(--muted); }
+      .nav a:hover { color:var(--ink); }
+      .hero { padding:70px 0 48px; }
+      .hero-grid { display:grid; grid-template-columns:minmax(0, .95fr) minmax(330px, .82fr); gap:34px; align-items:stretch; }
+      .hero-copy, .media-card, .panel, .flow article, .state-table { border:1px solid color-mix(in srgb, var(--accent) 14%, var(--line)); background:var(--card); border-radius:30px; box-shadow:0 22px 70px rgba(57,47,35,.10); }
+      .hero-copy { padding:clamp(28px,5vw,56px); }
+      .kicker { display:inline-flex; align-items:center; gap:10px; color:var(--accent); font-weight:900; margin-bottom:24px; }
+      .kicker::before { content:""; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 12%, transparent); }
+      h1 { margin:0; font-family:"Onest",system-ui,sans-serif; font-size:clamp(44px,7vw,92px); line-height:.92; letter-spacing:-.07em; text-wrap:balance; }
+      h2 { margin:0; font-family:"Onest",system-ui,sans-serif; font-size:clamp(32px,4vw,54px); line-height:1; letter-spacing:-.055em; text-wrap:balance; }
+      h3 { margin:0; font-size:20px; letter-spacing:-.035em; }
+      p { color:var(--muted); line-height:1.68; }
+      .lead { font-size:19px; margin:22px 0 0; }
+      .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+      .button { display:inline-flex; align-items:center; justify-content:center; gap:10px; border-radius:999px; padding:14px 18px; font-weight:900; border:1px solid var(--line); background:rgba(255,255,255,.54); }
+      .button.primary { border-color:var(--ink); background:var(--ink); color:white; }
+      .button:hover { border-color:var(--accent); color:var(--accent); }
+      .button.primary:hover { background:var(--accent); color:white; }
+      .media-card { overflow:hidden; }
+      .media-card img { width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--paper); }
+      .meta-strip { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border-top:1px solid var(--line); }
+      .meta-strip div { background:var(--card); padding:18px; }
+      .meta-strip span { display:block; color:var(--muted); font-size:12px; font-weight:900; }
+      .meta-strip strong { display:block; margin-top:6px; font-size:18px; }
+      section { padding:38px 0; }
+      .section-head { display:grid; grid-template-columns:minmax(0,.82fr) minmax(260px,.58fr); gap:28px; align-items:end; margin-bottom:22px; }
+      .panels { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+      .panel { padding:24px; box-shadow:0 14px 45px rgba(57,47,35,.07); }
+      .panel span { color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; }
+      .panel ul { margin:18px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+      .panel li { padding:12px 0; border-top:1px solid var(--line); color:#3d3730; font-weight:700; }
+      .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+      .flow article { padding:20px; box-shadow:none; }
+      .flow span { color:var(--accent); font-weight:900; }
+      .flow strong { display:block; margin-top:14px; font-size:19px; }
+      .state-table { overflow:hidden; box-shadow:none; }
+      table { width:100%; border-collapse:collapse; background:var(--card); }
+      th, td { padding:16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+      th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.1em; }
+      td { font-weight:700; }
+      .footer-cta { margin:40px 0 56px; padding:clamp(28px,5vw,52px); border-radius:34px; background:#171717; color:#fffaf1; display:grid; grid-template-columns:1fr auto; gap:22px; align-items:end; }
+      .footer-cta p { color:#d8cfc0; max-width:660px; }
+      .footer-cta .button { background:#fffaf1; color:#171717; }
+      footer { padding:0 0 36px; color:var(--muted); font-size:13px; }
+      @media (max-width:920px) { .hero-grid,.section-head,.panels,.flow,.footer-cta { grid-template-columns:1fr; } .media-card { order:-1; } }
+      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .nav .container { align-items:flex-start; flex-direction:column; padding:14px 0; } .meta-strip { grid-template-columns:1fr; } th,td { padding:12px; } }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container">
+        <a href="../../index.html#work"><i class="fa-solid fa-arrow-left"></i> Все проекты</a>
+        <span>${esc(project.kind)} · ${esc(project.stack)}</span>
+      </div>
+    </nav>
+    <main>
+      <header class="hero">
+        <div class="container hero-grid">
+          <article class="hero-copy">
+            <div class="kicker">${project.group === "demo" ? "Интерактивная автоматизация" : "Проект портфолио"}</div>
+            <h1>${esc(project.title)}</h1>
+            <p class="lead">${esc(project.description)}</p>
+            <p>${esc(project.impact || project.story || profile.solution)}</p>
+            <div class="actions">
+              ${demoNote}
+              <a class="button primary" href="${project.live}" target="_blank" rel="noreferrer">${liveText}</a>
+              <a class="button" href="${project.code}" target="_blank" rel="noreferrer">GitHub</a>
+              <a class="button" href="../../index.html#contact">Связаться</a>
+            </div>
+          </article>
+          <aside class="media-card">
+            <img src="${preview}" alt="${esc(project.title)} preview" />
+            <div class="meta-strip">
+              <div><span>Роль</span><strong>Frontend + UX логика</strong></div>
+              <div><span>Формат</span><strong>${project.group === "demo" ? "Статический интерактив" : "Live-проект"}</strong></div>
+              <div><span>Домен</span><strong>${esc(project.kind)}</strong></div>
+              <div><span>Стек</span><strong>${esc(project.stack)}</strong></div>
+            </div>
+          </aside>
+        </div>
+      </header>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Зачем нужен этот проект</h2>
+            <p>${esc(profile.audience)}</p>
+          </div>
+          <div class="panels">
+            <article class="panel"><span>Проблема</span><p>${esc(profile.problem)}</p></article>
+            <article class="panel"><span>Решение</span><p>${esc(profile.solution)}</p></article>
+            <article class="panel"><span>Что демонстрирует</span><p>Умение разложить пользовательский процесс на интерфейс, состояния, данные и понятный следующий шаг.</p></article>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Что внутри</h2>
+            <p>Каждый кейс описывает не только внешний вид, но и рабочие состояния, которые можно проверить руками.</p>
+          </div>
+          <div class="panels">
+            <article class="panel"><span>Функции</span><ul>${listMarkup(profile.features)}</ul></article>
+            <article class="panel"><span>Состояния</span><ul>${listMarkup(profile.states)}</ul></article>
+            <article class="panel"><span>Качество</span><ul>${listMarkup(["Адаптивная структура", "Понятные CTA", "Живая публикация", "Исходный код рядом с демо"])}</ul></article>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Пользовательский сценарий</h2>
+            <p>Кейс читается как маленький продукт: от контекста до результата, а не как одиночный скриншот.</p>
+          </div>
+          <div class="flow">${flowMarkup}</div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Данные и состояния</h2>
+            <p>Таблица фиксирует, какие элементы интерфейса стоит проверять при просмотре проекта.</p>
+          </div>
+          <div class="state-table">
+            <table>
+              <thead><tr><th>Элемент</th><th>Контекст</th><th>Статус</th><th>Прогресс</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <section class="footer-cta">
+          <div>
+            <h2>Этот кейс можно развивать дальше</h2>
+            <p>Если задача похожа на ваш процесс, я могу собрать прототип, довести интерфейс до адаптива и подключить реальные данные или API.</p>
+          </div>
+          <a class="button" href="../../index.html#contact">Обсудить задачу</a>
+        </section>
+      </div>
+    </main>
+    <footer><div class="container">© ${currentYear} Артём Бычков · ${contact.email}</div></footer>
+  </body>
+</html>
+`;
+}
+
 function notFoundHtml() {
   return `<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Страница не найдена | Артём Бычков</title><style>body{margin:0;font-family:system-ui,sans-serif;background:#f7f3ea;color:#171717;display:grid;min-height:100dvh;place-items:center}.box{width:min(680px,calc(100% - 40px));padding:40px;border:1px solid #ded4c4;border-radius:28px;background:#fffdf7}h1{font-size:64px;line-height:.95;letter-spacing:-.06em;margin:0 0 18px}p{color:#6b6258;line-height:1.6}a{display:inline-flex;margin-top:20px;color:white;background:#171717;border-radius:999px;padding:14px 18px;text-decoration:none;font-weight:800}</style></head><body><main class="box"><h1>Такой страницы нет</h1><p>Возможно, ссылка устарела или GitHub Pages ещё обновляет публикацию. Вернитесь в портфолио и выберите проект из списка.</p><a href="/portfolio/">В портфолио</a></main></body></html>`;
 }
@@ -1241,11 +1569,12 @@ function run() {
   write(path.join(root, "404.html"), notFoundHtml());
   for (const project of allProjects) {
     write(path.join(root, "previews", `${project.slug}.svg`), previewSvg(project));
+    write(path.join(root, "projects", project.slug, "index.html"), caseHtml(project));
   }
   for (const demo of demos) {
     write(path.join(root, demo.slug, "index.html"), demoHtml(demo));
   }
-  console.log(`Rebranded portfolio with ${allProjects.length} projects and ${demos.length} demos.`);
+  console.log(`Rebranded portfolio with ${allProjects.length} projects, ${allProjects.length} case pages and ${demos.length} demos.`);
 }
 
 run();

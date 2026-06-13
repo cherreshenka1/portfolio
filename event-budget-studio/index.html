@@ -66,13 +66,25 @@
       .flow { margin:28px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
       .flow li { padding:18px; border:1px solid var(--line); border-radius:20px; background:var(--card); font-weight:900; }
       .flow span { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; border-radius:999px; margin-right:8px; background:var(--accent); color:white; }
+      .demo-section { margin-top:28px; }
+      .section-kicker { margin:0 0 10px; color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.12em; }
+      .ops-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:18px; }
+      .ops-grid article, .quality-panel { border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line)); border-radius:22px; background:var(--card); padding:18px; }
+      .ops-grid span { color:var(--muted); font-size:12px; font-weight:900; }
+      .ops-grid strong { display:block; margin-top:12px; font-size:18px; }
+      .ops-grid p, .quality-panel p { margin:10px 0 0; color:var(--muted); line-height:1.55; font-size:14px; }
+      .quality-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+      .quality-panel ul { margin:16px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+      .quality-panel li { display:flex; justify-content:space-between; gap:12px; padding:12px; border-radius:14px; background:color-mix(in srgb, var(--bg) 45%, white); }
+      .quality-panel b { color:var(--ink); }
+      .quality-panel span { color:var(--muted); text-align:right; }
       .toast { position:fixed; right:20px; bottom:20px; max-width:360px; padding:18px; border-radius:22px; background:var(--ink); color:white; box-shadow:0 22px 70px rgba(23,23,23,.22); transform:translateY(18px); opacity:0; pointer-events:none; transition:.24s ease; }
       .toast.show { transform:translateY(0); opacity:1; }
       .toast p { margin:0; }
       .toast p + p { margin-top:6px; color:rgba(255,255,255,.76); font-size:13px; line-height:1.5; }
       footer { padding:44px 0; color:var(--muted); }
-      @media (max-width:900px) { .hero-grid,.workspace,.before-after { grid-template-columns:1fr; } .flow { grid-template-columns:repeat(2,1fr); } }
-      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .panel-head { display:block; } #filters { justify-content:flex-start; margin-top:12px; } .flow { grid-template-columns:1fr; } }
+      @media (max-width:900px) { .hero-grid,.workspace,.before-after,.quality-grid { grid-template-columns:1fr; } .flow,.ops-grid { grid-template-columns:repeat(2,1fr); } }
+      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .panel-head { display:block; } #filters { justify-content:flex-start; margin-top:12px; } .flow,.ops-grid { grid-template-columns:1fr; } }
     </style>
   </head>
   <body class="event">
@@ -138,6 +150,26 @@
           <article><h3>После</h3><p>Бюджет, задачи и риски сходятся в один план.</p></article>
         </div>
         <ol class="flow"><li><span>1</span>Бриф</li><li><span>2</span>Смета</li><li><span>3</span>Подрядчики</li><li><span>4</span>Платежи</li></ol>
+      </section>
+      <section class="container demo-section">
+        <p class="section-kicker">Что автоматизирует</p>
+        <h2>Мини-продукт, который закрывает весь рабочий цикл</h2>
+        <div class="ops-grid"><article><span>Входные данные</span><strong>Бриф</strong><p>Система собирает события из процесса: новых гостей, статусы и текущую очередь.</p></article><article><span>Автоматическое решение</span><strong>Смета</strong><p>Пересчитывает бюджет освоен и поднимает в фокус самые важные элементы.</p></article><article><span>Контроль менеджера</span><strong>Подрядчики</strong><p>Фильтры, прогресс и уведомление помогают понять, что делать прямо сейчас.</p></article><article><span>Результат</span><strong>Платежи</strong><p>Бюджет, задачи и риски сходятся в один план.</p></article></div>
+      </section>
+      <section class="container demo-section">
+        <p class="section-kicker">Проверяемые состояния</p>
+        <div class="quality-grid">
+          <article class="quality-panel">
+            <h2>Сценарии пользователя</h2>
+            <p>Интерфейс показывает не только идеальный экран, но и разные статусы очереди, пересчёт нагрузки, пустой результат фильтра и подтверждение запуска сценария.</p>
+            <ul><li><b>План</b><span>Площадка</span></li><li><b>В работе</b><span>Кейтеринг</span></li><li><b>Риск бюджета</b><span>Свет</span></li><li><b>Готово</b><span>Ведущий</span></li></ul>
+          </article>
+          <article class="quality-panel">
+            <h2>Почему это похоже на реальную работу</h2>
+            <p>Есть понятная роль пользователя, KPI, изменяемая нагрузка, список задач, статусы, прогресс, график и обратная связь после действия. Такой прототип можно обсуждать с заказчиком и развивать в полноценный продукт.</p>
+            <p>Главная идея: человек не должен искать следующий шаг в чатах и таблицах. Интерфейс сам собирает контекст и подсказывает, куда смотреть.</p>
+          </article>
+        </div>
       </section>
     </main>
     <div id="toast" class="toast"><p><strong>Сценарий запущен</strong></p><p id="toastText"></p></div>

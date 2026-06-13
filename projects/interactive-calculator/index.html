@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Interactive Calculator: кейс портфолио Артёма Бычкова." />
+    <title>Interactive Calculator | Кейс Артёма Бычкова</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+      :root { --paper:#fff0f0; --ink:#171717; --muted:#6b6258; --line:#ded4c4; --card:#fffdf7; --accent:#dc2626; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; font-family:"Manrope",system-ui,sans-serif; color:var(--ink); background:linear-gradient(90deg, rgba(23,23,23,.035) 1px, transparent 1px), var(--paper); background-size:40px 40px; }
+      body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.45; background:radial-gradient(circle at 14% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 25%), radial-gradient(circle at 90% 4%, rgba(47,109,85,.10), transparent 24%); }
+      a { color:inherit; text-decoration:none; }
+      img { max-width:100%; display:block; }
+      .container { width:min(1160px, calc(100% - 36px)); margin:0 auto; }
+      .nav { position:sticky; top:0; z-index:20; border-bottom:1px solid rgba(23,23,23,.1); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(18px); }
+      .nav .container { min-height:68px; display:flex; align-items:center; justify-content:space-between; gap:18px; font-weight:900; }
+      .nav a { color:var(--muted); }
+      .nav a:hover { color:var(--ink); }
+      .hero { padding:70px 0 48px; }
+      .hero-grid { display:grid; grid-template-columns:minmax(0, .95fr) minmax(330px, .82fr); gap:34px; align-items:stretch; }
+      .hero-copy, .media-card, .panel, .flow article, .state-table { border:1px solid color-mix(in srgb, var(--accent) 14%, var(--line)); background:var(--card); border-radius:30px; box-shadow:0 22px 70px rgba(57,47,35,.10); }
+      .hero-copy { padding:clamp(28px,5vw,56px); }
+      .kicker { display:inline-flex; align-items:center; gap:10px; color:var(--accent); font-weight:900; margin-bottom:24px; }
+      .kicker::before { content:""; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 12%, transparent); }
+      h1 { margin:0; font-family:"Onest",system-ui,sans-serif; font-size:clamp(44px,7vw,92px); line-height:.92; letter-spacing:-.07em; text-wrap:balance; }
+      h2 { margin:0; font-family:"Onest",system-ui,sans-serif; font-size:clamp(32px,4vw,54px); line-height:1; letter-spacing:-.055em; text-wrap:balance; }
+      h3 { margin:0; font-size:20px; letter-spacing:-.035em; }
+      p { color:var(--muted); line-height:1.68; }
+      .lead { font-size:19px; margin:22px 0 0; }
+      .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+      .button { display:inline-flex; align-items:center; justify-content:center; gap:10px; border-radius:999px; padding:14px 18px; font-weight:900; border:1px solid var(--line); background:rgba(255,255,255,.54); }
+      .button.primary { border-color:var(--ink); background:var(--ink); color:white; }
+      .button:hover { border-color:var(--accent); color:var(--accent); }
+      .button.primary:hover { background:var(--accent); color:white; }
+      .media-card { overflow:hidden; }
+      .media-card img { width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--paper); }
+      .meta-strip { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border-top:1px solid var(--line); }
+      .meta-strip div { background:var(--card); padding:18px; }
+      .meta-strip span { display:block; color:var(--muted); font-size:12px; font-weight:900; }
+      .meta-strip strong { display:block; margin-top:6px; font-size:18px; }
+      section { padding:38px 0; }
+      .section-head { display:grid; grid-template-columns:minmax(0,.82fr) minmax(260px,.58fr); gap:28px; align-items:end; margin-bottom:22px; }
+      .panels { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+      .panel { padding:24px; box-shadow:0 14px 45px rgba(57,47,35,.07); }
+      .panel span { color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; }
+      .panel ul { margin:18px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+      .panel li { padding:12px 0; border-top:1px solid var(--line); color:#3d3730; font-weight:700; }
+      .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+      .flow article { padding:20px; box-shadow:none; }
+      .flow span { color:var(--accent); font-weight:900; }
+      .flow strong { display:block; margin-top:14px; font-size:19px; }
+      .state-table { overflow:hidden; box-shadow:none; }
+      table { width:100%; border-collapse:collapse; background:var(--card); }
+      th, td { padding:16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+      th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.1em; }
+      td { font-weight:700; }
+      .footer-cta { margin:40px 0 56px; padding:clamp(28px,5vw,52px); border-radius:34px; background:#171717; color:#fffaf1; display:grid; grid-template-columns:1fr auto; gap:22px; align-items:end; }
+      .footer-cta p { color:#d8cfc0; max-width:660px; }
+      .footer-cta .button { background:#fffaf1; color:#171717; }
+      footer { padding:0 0 36px; color:var(--muted); font-size:13px; }
+      @media (max-width:920px) { .hero-grid,.section-head,.panels,.flow,.footer-cta { grid-template-columns:1fr; } .media-card { order:-1; } }
+      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .nav .container { align-items:flex-start; flex-direction:column; padding:14px 0; } .meta-strip { grid-template-columns:1fr; } th,td { padding:12px; } }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container">
+        <a href="../../index.html#work"><i class="fa-solid fa-arrow-left"></i> Все проекты</a>
+        <span>Калькуляторы · Forms, validation, animations</span>
+      </div>
+    </nav>
+    <main>
+      <header class="hero">
+        <div class="container hero-grid">
+          <article class="hero-copy">
+            <div class="kicker">Проект портфолио</div>
+            <h1>Interactive Calculator</h1>
+            <p class="lead">Live-расчёт, сохранение результатов и форма заявки с валидацией.</p>
+            <p>Практичный формат для лендингов, услуг, квизов и коммерческих форм.</p>
+            <div class="actions">
+              
+              <a class="button primary" href="https://cherreshenka1.github.io/interactive-calculator/" target="_blank" rel="noreferrer">Открыть Live</a>
+              <a class="button" href="https://github.com/cherreshenka1/interactive-calculator" target="_blank" rel="noreferrer">GitHub</a>
+              <a class="button" href="../../index.html#contact">Связаться</a>
+            </div>
+          </article>
+          <aside class="media-card">
+            <img src="../../previews/interactive-calculator.svg" alt="Interactive Calculator preview" />
+            <div class="meta-strip">
+              <div><span>Роль</span><strong>Frontend + UX логика</strong></div>
+              <div><span>Формат</span><strong>Live-проект</strong></div>
+              <div><span>Домен</span><strong>Калькуляторы</strong></div>
+              <div><span>Стек</span><strong>Forms, validation, animations</strong></div>
+            </div>
+          </aside>
+        </div>
+      </header>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Зачем нужен этот проект</h2>
+            <p>Лендинг услуги, где посетителю нужно быстро понять цену и оставить заявку.</p>
+          </div>
+          <div class="panels">
+            <article class="panel"><span>Проблема</span><p>Статичный прайс не отвечает на индивидуальные вопросы и плохо доводит пользователя до контакта.</p></article>
+            <article class="panel"><span>Решение</span><p>Калькулятор считает результат вживую, объясняет стоимость и аккуратно ведёт к форме заявки.</p></article>
+            <article class="panel"><span>Что демонстрирует</span><p>Умение разложить пользовательский процесс на интерфейс, состояния, данные и понятный следующий шаг.</p></article>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Что внутри</h2>
+            <p>Каждый кейс описывает не только внешний вид, но и рабочие состояния, которые можно проверить руками.</p>
+          </div>
+          <div class="panels">
+            <article class="panel"><span>Функции</span><ul><li>Live-расчёт</li><li>Валидация формы</li><li>Сохранение результата</li><li>Мягкая анимация переходов</li></ul></article>
+            <article class="panel"><span>Состояния</span><ul><li>Начальный расчёт</li><li>Ошибка в форме</li><li>Успешная заявка</li><li>Возврат к сохранённому результату</li></ul></article>
+            <article class="panel"><span>Качество</span><ul><li>Адаптивная структура</li><li>Понятные CTA</li><li>Живая публикация</li><li>Исходный код рядом с демо</li></ul></article>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Пользовательский сценарий</h2>
+            <p>Кейс читается как маленький продукт: от контекста до результата, а не как одиночный скриншот.</p>
+          </div>
+          <div class="flow"><article><span>01</span><strong>Контекст</strong><p>Понимаю, что пользователь пытается сделать.</p></article><article><span>02</span><strong>Структура</strong><p>Разбиваю процесс на понятные зоны и состояния.</p></article><article><span>03</span><strong>Интерфейс</strong><p>Собираю экран, который можно проверить руками.</p></article><article><span>04</span><strong>Публикация</strong><p>Оставляю рабочую ссылку, код и понятное продолжение.</p></article></div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Данные и состояния</h2>
+            <p>Таблица фиксирует, какие элементы интерфейса стоит проверять при просмотре проекта.</p>
+          </div>
+          <div class="state-table">
+            <table>
+              <thead><tr><th>Элемент</th><th>Контекст</th><th>Статус</th><th>Прогресс</th></tr></thead>
+              <tbody><tr><td>1</td><td>Начальный расчёт</td><td>Проверяемый UI-state</td><td>Готово</td></tr><tr><td>2</td><td>Ошибка в форме</td><td>Проверяемый UI-state</td><td>Готово</td></tr><tr><td>3</td><td>Успешная заявка</td><td>Проверяемый UI-state</td><td>Готово</td></tr><tr><td>4</td><td>Возврат к сохранённому результату</td><td>Проверяемый UI-state</td><td>Готово</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <section class="footer-cta">
+          <div>
+            <h2>Этот кейс можно развивать дальше</h2>
+            <p>Если задача похожа на ваш процесс, я могу собрать прототип, довести интерфейс до адаптива и подключить реальные данные или API.</p>
+          </div>
+          <a class="button" href="../../index.html#contact">Обсудить задачу</a>
+        </section>
+      </div>
+    </main>
+    <footer><div class="container">© 2026 Артём Бычков · bychkov.artem.24@gmail.com</div></footer>
+  </body>
+</html>
