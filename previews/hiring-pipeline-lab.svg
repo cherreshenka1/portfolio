@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="506" viewBox="0 0 900 506">
   <rect width="900" height="506" fill="#f2fbf5"/>
-  <rect x="36" y="34" width="828" height="438" rx="34" fill="#fffdf7" stroke="#ded4c4"/>
+  <rect x="36" y="34" width="828" height="438" rx="34" fill="#ffffff" stroke="#d8e2ea"/>
   <circle cx="760" cy="92" r="118" fill="#15803d" opacity=".12"/>
   <text x="72" y="92" fill="#102719" font-family="Arial" font-size="38" font-weight="900">Hiring Pipeline Lab</text>
   <text x="72" y="126" fill="#6b6258" font-family="Arial" font-size="18" font-weight="700">HR</text>
-  <rect x="72" y="166" width="290" height="218" rx="24" fill="#f2fbf5" stroke="#ded4c4"/>
+  <rect x="72" y="166" width="290" height="218" rx="24" fill="#f2fbf5" stroke="#d8e2ea"/>
   <rect x="398" y="166" width="394" height="58" rx="18" fill="#15803d" opacity=".14"/>
   <rect x="422" y="187" width="178" height="15" rx="8" fill="#15803d" opacity=".76"/>
-  <rect x="398" y="246" width="394" height="58" rx="18" fill="#f7f3ea" stroke="#ded4c4"/>
+  <rect x="398" y="246" width="394" height="58" rx="18" fill="#f4f8fb" stroke="#d8e2ea"/>
   <rect x="422" y="267" width="248" height="15" rx="8" fill="#15803d" opacity=".52"/>
-  <rect x="398" y="326" width="394" height="58" rx="18" fill="#f7f3ea" stroke="#ded4c4"/>
+  <rect x="398" y="326" width="394" height="58" rx="18" fill="#f4f8fb" stroke="#d8e2ea"/>
   <rect x="422" y="347" width="132" height="15" rx="8" fill="#15803d" opacity=".42"/>
   <path d="M102 334 C146 248 190 302 232 220 C272 142 306 210 336 178" fill="none" stroke="#15803d" stroke-width="9" stroke-linecap="round"/>
   <circle cx="102" cy="334" r="11" fill="#15803d"/><circle cx="232" cy="220" r="11" fill="#15803d"/><circle cx="336" cy="178" r="11" fill="#15803d"/>

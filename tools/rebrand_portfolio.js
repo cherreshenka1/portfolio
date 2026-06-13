@@ -566,9 +566,9 @@ function indexHtml() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Портфолио Артёма Бычкова: frontend-разработка, React-интерфейсы, CRM, личные кабинеты, дашборды и автоматизация бизнес-процессов." />
     <meta property="og:title" content="Артём Бычков | Frontend-разработчик" />
-    <meta property="og:description" content="Делаю понятные интерфейсы для бизнеса: кабинеты, CRM, дашборды, формы и автоматизацию рутины." />
+    <meta property="og:description" content="Frontend для рабочих сервисов, кабинетов, дашбордов, форм и автоматизации рутинных процессов." />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#f7f3ea" />
+    <meta name="theme-color" content="#f4f8fb" />
     <title>Артём Бычков | Frontend-разработчик</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -576,17 +576,17 @@ function indexHtml() {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <style>
       :root {
-        --paper: #f7f3ea;
-        --paper-2: #fffaf1;
+        --paper: #f4f8fb;
+        --paper-2: #ffffff;
         --ink: #171717;
-        --muted: #6b6258;
-        --line: #ded4c4;
-        --card: #fffdf7;
+        --muted: #66717d;
+        --line: #d8e2ea;
+        --card: #ffffff;
         --accent: #2457d6;
         --accent-2: #163a92;
         --green: #2f6d55;
         --radius: 22px;
-        --shadow: 0 24px 80px rgba(57, 47, 35, .12);
+        --shadow: 0 24px 80px rgba(32, 48, 64, .11);
       }
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
@@ -595,7 +595,7 @@ function indexHtml() {
         font-family: "Manrope", system-ui, sans-serif;
         color: var(--ink);
         background:
-          linear-gradient(90deg, rgba(23,23,23,.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(38,65,90,.045) 1px, transparent 1px),
           linear-gradient(var(--paper), var(--paper));
         background-size: 40px 40px;
       }
@@ -607,8 +607,8 @@ function indexHtml() {
         pointer-events: none;
         opacity: .38;
         background-image:
-          radial-gradient(circle at 20% 10%, rgba(36,87,214,.12), transparent 26%),
-          radial-gradient(circle at 86% 0%, rgba(47,109,85,.11), transparent 26%);
+          radial-gradient(circle at 20% 10%, rgba(36,87,214,.10), transparent 26%),
+          radial-gradient(circle at 86% 0%, rgba(47,109,85,.08), transparent 26%);
       }
       a { color: inherit; text-decoration: none; }
       img { display: block; max-width: 100%; }
@@ -629,7 +629,7 @@ function indexHtml() {
         top: 0;
         z-index: 40;
         border-bottom: 1px solid rgba(23,23,23,.1);
-        background: rgba(247,243,234,.86);
+        background: rgba(244,248,251,.88);
         backdrop-filter: blur(18px);
       }
       .nav-inner {
@@ -657,15 +657,15 @@ function indexHtml() {
         font-weight: 800;
       }
       .hero {
-        min-height: calc(100dvh - 72px);
-        padding: 72px 0 48px;
+        min-height: auto;
+        padding: 56px 0 42px;
         display: grid;
         align-items: center;
       }
       .hero-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1.08fr) minmax(310px, .72fr);
-        gap: 52px;
+        grid-template-columns: minmax(0, .92fr) minmax(330px, .78fr);
+        gap: 46px;
         align-items: center;
       }
       .availability {
@@ -686,11 +686,11 @@ function indexHtml() {
       }
       h1 {
         margin: 0;
-        max-width: 820px;
+        max-width: 680px;
         font-family: "Onest", system-ui, sans-serif;
-        font-size: clamp(44px, 7.3vw, 96px);
-        line-height: .92;
-        letter-spacing: -.075em;
+        font-size: clamp(38px, 5.2vw, 72px);
+        line-height: .98;
+        letter-spacing: -.055em;
         text-wrap: balance;
       }
       .hero-copy {
@@ -730,19 +730,6 @@ function indexHtml() {
         object-fit: cover;
         border-radius: 26px;
       }
-      .portrait-note {
-        position: absolute;
-        left: -28px;
-        bottom: 28px;
-        width: min(270px, 78%);
-        padding: 18px;
-        border-radius: 18px;
-        background: #fff;
-        border: 1px solid var(--line);
-        box-shadow: 0 18px 40px rgba(57,47,35,.14);
-        font-weight: 800;
-        line-height: 1.35;
-      }
       .metrics {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -754,7 +741,7 @@ function indexHtml() {
         margin-top: 54px;
       }
       .metric {
-        background: rgba(255,253,247,.78);
+        background: rgba(255,255,255,.86);
         padding: 22px;
       }
       .metric strong {
@@ -792,7 +779,7 @@ function indexHtml() {
         border-radius: var(--radius);
         background: var(--card);
         border: 1px solid var(--line);
-        box-shadow: 0 14px 45px rgba(57,47,35,.07);
+        box-shadow: 0 14px 45px rgba(32,48,64,.07);
       }
       .service-card i { color: var(--accent); font-size: 26px; }
       .service-card h3 { margin: 28px 0 12px; font-size: 21px; letter-spacing: -.04em; }
@@ -807,14 +794,14 @@ function indexHtml() {
         border-radius: 28px;
         background: var(--card);
         border: 1px solid var(--line);
-        box-shadow: 0 18px 60px rgba(57,47,35,.08);
+        box-shadow: 0 18px 60px rgba(32,48,64,.08);
       }
       .case-card:hover .case-media img { transform: scale(1.025); }
       .case-media {
         display: block;
         aspect-ratio: 16 / 9;
         overflow: hidden;
-        background: #ebe1d1;
+        background: #e5edf4;
       }
       .case-media img {
         width: 100%;
@@ -827,7 +814,7 @@ function indexHtml() {
       .case-meta span {
         padding: 7px 10px;
         border-radius: 999px;
-        background: #f1eadf;
+        background: #eef4f8;
         color: var(--muted);
         font-size: 12px;
         font-weight: 900;
@@ -863,7 +850,7 @@ function indexHtml() {
         border: 1px solid var(--line);
         border-radius: 28px;
         background: var(--card);
-        box-shadow: 0 18px 60px rgba(57,47,35,.07);
+        box-shadow: 0 18px 60px rgba(32,48,64,.07);
       }
       .profile-card { padding: 26px; position: sticky; top: 100px; }
       .profile-card h3 { margin: 0 0 12px; font-size: 25px; letter-spacing: -.04em; }
@@ -891,7 +878,7 @@ function indexHtml() {
         border-radius: 999px;
         background: rgba(255,255,255,.45);
         font-weight: 800;
-        color: #4d463f;
+        color: #3e4b58;
       }
       .contact {
         padding-bottom: 36px;
@@ -904,13 +891,13 @@ function indexHtml() {
         padding: clamp(28px, 5vw, 56px);
         border-radius: 34px;
         background: #171717;
-        color: #fffaf1;
+        color: #f7fbff;
         box-shadow: var(--shadow);
       }
       .contact-card h2 { color: inherit; margin: 0; font-size: clamp(38px, 6vw, 78px); line-height: .95; letter-spacing: -.07em; }
-      .contact-card p { max-width: 620px; color: #d8cfc0; line-height: 1.7; }
+      .contact-card p { max-width: 620px; color: #cbd6e2; line-height: 1.7; }
       .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
-      .contact-links a { background: #fffaf1; color: #171717; }
+      .contact-links a { background: #ffffff; color: #171717; }
       footer {
         padding: 28px 0 42px;
         color: var(--muted);
@@ -920,7 +907,6 @@ function indexHtml() {
         .hero-grid, .section-head, .process, .contact-card { grid-template-columns: 1fr; }
         .services, .metrics { grid-template-columns: repeat(2, 1fr); }
         .case-grid, .project-shelf { grid-template-columns: 1fr; }
-        .portrait-note { position: static; width: auto; margin-top: 12px; }
         .profile-card { position: static; }
         .timeline-item { grid-template-columns: 1fr; gap: 10px; }
       }
@@ -953,8 +939,8 @@ function indexHtml() {
         <div class="container hero-grid">
           <div>
             <div class="availability">Открыт к frontend-задачам и проектной работе</div>
-            <h1>Делаю понятные интерфейсы для бизнеса, где важны данные, скорость и аккуратность.</h1>
-            <p class="hero-copy">Я frontend-разработчик с коммерческим опытом. Собираю кабинеты, CRM, дашборды, формы, калькуляторы и автоматизацию рутинных процессов: от первого прототипа до адаптива и публикации.</p>
+            <h1>Frontend для рабочих сервисов, кабинетов и автоматизации.</h1>
+            <p class="hero-copy">Я frontend-разработчик с коммерческим опытом. Собираю CRM, дашборды, формы, калькуляторы и интерфейсы для рутинных процессов: от первого прототипа до адаптива и публикации.</p>
             <div class="hero-actions">
               <a class="button primary" href="#work">Смотреть кейсы</a>
               <a class="button secondary" href="mailto:${contact.email}">Написать на email</a>
@@ -963,12 +949,11 @@ function indexHtml() {
               <div class="metric"><strong>2+</strong><span>года коммерческого опыта</span></div>
               <div class="metric"><strong>18</strong><span>живых демо и проектов</span></div>
               <div class="metric"><strong>10</strong><span>сценариев автоматизации</span></div>
-              <div class="metric"><strong>1</strong><span>человек, который доводит до результата</span></div>
+              <div class="metric"><strong>1</strong><span>фокус: довести до результата</span></div>
             </div>
           </div>
           <aside class="portrait-wrap" aria-label="Фото Артёма Бычкова">
             <img src="IMG_6567.JPG" alt="Артём Бычков" />
-            <div class="portrait-note">Не просто верстаю экраны. Помогаю превратить задачу бизнеса в интерфейс, которым реально можно пользоваться.</div>
           </aside>
         </div>
       </header>
@@ -977,7 +962,6 @@ function indexHtml() {
         <div class="container">
           <div class="section-head">
             <h2>Что я могу закрыть для команды</h2>
-            <p>Работодателю важно не только знание React, а способность брать понятную часть продукта и доводить её до рабочего состояния.</p>
           </div>
           <div class="services">
             ${serviceCard("Кабинеты и CRM", "Списки, фильтры, карточки, статусы, формы, роли и понятные рабочие очереди.", "fa-solid fa-table-columns")}
@@ -992,7 +976,6 @@ function indexHtml() {
         <div class="container">
           <div class="section-head">
             <h2>Избранные кейсы</h2>
-            <p>Я оставил проекты не как абстрактную сетку, а как набор сценариев: что болит у пользователя и как интерфейс помогает это решить.</p>
           </div>
           <div class="case-grid">
             ${featured.map((project) => projectCard(project, true)).join("\n")}
@@ -1004,7 +987,6 @@ function indexHtml() {
         <div class="container">
           <div class="section-head">
             <h2>Ещё проекты и прототипы</h2>
-            <p>Разные домены, чтобы было видно: я могу менять визуальный язык под задачу, а не красить один шаблон.</p>
           </div>
           <div class="project-shelf">
             ${rest.map((project) => projectCard(project)).join("\n")}
@@ -1070,20 +1052,20 @@ function previewSvg(project) {
   const title = esc(project.title);
   const kind = esc(project.kind);
   const accent = project.accent || "#2457d6";
-  const bg = project.bg || "#f7f3ea";
+  const bg = project.bg || "#f4f8fb";
   const ink = project.ink || "#171717";
   return `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="506" viewBox="0 0 900 506">
   <rect width="900" height="506" fill="${bg}"/>
-  <rect x="36" y="34" width="828" height="438" rx="34" fill="#fffdf7" stroke="#ded4c4"/>
+  <rect x="36" y="34" width="828" height="438" rx="34" fill="#ffffff" stroke="#d8e2ea"/>
   <circle cx="760" cy="92" r="118" fill="${accent}" opacity=".12"/>
   <text x="72" y="92" fill="${ink}" font-family="Arial" font-size="38" font-weight="900">${title}</text>
   <text x="72" y="126" fill="#6b6258" font-family="Arial" font-size="18" font-weight="700">${kind}</text>
-  <rect x="72" y="166" width="290" height="218" rx="24" fill="${bg}" stroke="#ded4c4"/>
+  <rect x="72" y="166" width="290" height="218" rx="24" fill="${bg}" stroke="#d8e2ea"/>
   <rect x="398" y="166" width="394" height="58" rx="18" fill="${accent}" opacity=".14"/>
   <rect x="422" y="187" width="178" height="15" rx="8" fill="${accent}" opacity=".76"/>
-  <rect x="398" y="246" width="394" height="58" rx="18" fill="#f7f3ea" stroke="#ded4c4"/>
+  <rect x="398" y="246" width="394" height="58" rx="18" fill="#f4f8fb" stroke="#d8e2ea"/>
   <rect x="422" y="267" width="248" height="15" rx="8" fill="${accent}" opacity=".52"/>
-  <rect x="398" y="326" width="394" height="58" rx="18" fill="#f7f3ea" stroke="#ded4c4"/>
+  <rect x="398" y="326" width="394" height="58" rx="18" fill="#f4f8fb" stroke="#d8e2ea"/>
   <rect x="422" y="347" width="132" height="15" rx="8" fill="${accent}" opacity=".42"/>
   <path d="M102 334 C146 248 190 302 232 220 C272 142 306 210 336 178" fill="none" stroke="${accent}" stroke-width="9" stroke-linecap="round"/>
   <circle cx="102" cy="334" r="11" fill="${accent}"/><circle cx="232" cy="220" r="11" fill="${accent}"/><circle cx="336" cy="178" r="11" fill="${accent}"/>
@@ -1404,7 +1386,7 @@ function caseHtml(project) {
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <style>
-      :root { --paper:${project.bg || "#f7f3ea"}; --ink:${project.ink || "#171717"}; --muted:#6b6258; --line:#ded4c4; --card:#fffdf7; --accent:${project.accent || "#2457d6"}; }
+      :root { --paper:${project.bg || "#f4f8fb"}; --ink:${project.ink || "#171717"}; --muted:#66717d; --line:#d8e2ea; --card:#ffffff; --accent:${project.accent || "#2457d6"}; }
       * { box-sizing:border-box; }
       html { scroll-behavior:smooth; }
       body { margin:0; font-family:"Manrope",system-ui,sans-serif; color:var(--ink); background:linear-gradient(90deg, rgba(23,23,23,.035) 1px, transparent 1px), var(--paper); background-size:40px 40px; }
@@ -1454,9 +1436,9 @@ function caseHtml(project) {
       th, td { padding:16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
       th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.1em; }
       td { font-weight:700; }
-      .footer-cta { margin:40px 0 56px; padding:clamp(28px,5vw,52px); border-radius:34px; background:#171717; color:#fffaf1; display:grid; grid-template-columns:1fr auto; gap:22px; align-items:end; }
+      .footer-cta { margin:40px 0 56px; padding:clamp(28px,5vw,52px); border-radius:34px; background:#171717; color:#f7fbff; display:grid; grid-template-columns:1fr auto; gap:22px; align-items:end; }
       .footer-cta p { color:#d8cfc0; max-width:660px; }
-      .footer-cta .button { background:#fffaf1; color:#171717; }
+      .footer-cta .button { background:#ffffff; color:#171717; }
       footer { padding:0 0 36px; color:var(--muted); font-size:13px; }
       @media (max-width:920px) { .hero-grid,.section-head,.panels,.flow,.footer-cta { grid-template-columns:1fr; } .media-card { order:-1; } }
       @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .nav .container { align-items:flex-start; flex-direction:column; padding:14px 0; } .meta-strip { grid-template-columns:1fr; } th,td { padding:12px; } }
@@ -1561,7 +1543,7 @@ function caseHtml(project) {
 }
 
 function notFoundHtml() {
-  return `<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Страница не найдена | Артём Бычков</title><style>body{margin:0;font-family:system-ui,sans-serif;background:#f7f3ea;color:#171717;display:grid;min-height:100dvh;place-items:center}.box{width:min(680px,calc(100% - 40px));padding:40px;border:1px solid #ded4c4;border-radius:28px;background:#fffdf7}h1{font-size:64px;line-height:.95;letter-spacing:-.06em;margin:0 0 18px}p{color:#6b6258;line-height:1.6}a{display:inline-flex;margin-top:20px;color:white;background:#171717;border-radius:999px;padding:14px 18px;text-decoration:none;font-weight:800}</style></head><body><main class="box"><h1>Такой страницы нет</h1><p>Возможно, ссылка устарела или GitHub Pages ещё обновляет публикацию. Вернитесь в портфолио и выберите проект из списка.</p><a href="/portfolio/">В портфолио</a></main></body></html>`;
+  return `<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Страница не найдена | Артём Бычков</title><style>body{margin:0;font-family:system-ui,sans-serif;background:#f4f8fb;color:#171717;display:grid;min-height:100dvh;place-items:center}.box{width:min(680px,calc(100% - 40px));padding:40px;border:1px solid #d8e2ea;border-radius:28px;background:#ffffff}h1{font-size:64px;line-height:.95;letter-spacing:-.06em;margin:0 0 18px}p{color:#66717d;line-height:1.6}a{display:inline-flex;margin-top:20px;color:white;background:#171717;border-radius:999px;padding:14px 18px;text-decoration:none;font-weight:800}</style></head><body><main class="box"><h1>Такой страницы нет</h1><p>Возможно, ссылка устарела или GitHub Pages ещё обновляет публикацию. Вернитесь в портфолио и выберите проект из списка.</p><a href="/portfolio/">В портфолио</a></main></body></html>`;
 }
 
 function run() {
