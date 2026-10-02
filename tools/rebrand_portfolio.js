@@ -12,6 +12,9 @@ const contact = {
 };
 
 const currentYear = "2026";
+const briefs = require('./project-briefs');
+const renderDomainDemo = require('./domain-demo');
+const renderCase = require('./case-render');
 
 const oldProjects = [
   {
@@ -104,7 +107,7 @@ const oldProjects = [
     kind: "CRM маркетплейса",
     stack: "React, SQL.js, SQLite/WASM",
     description: "Заказы, продавцы, товары, webhook-события, KPI и SQL-консоль в браузере.",
-    impact: "Самый сильный проект для разговора про данные, операции и автоматизацию.",
+    impact: "Заказ меняет статус, история фиксирует действие, SQL-консоль помогает проверить данные.",
     live: "https://cherreshenka1.github.io/marketplace-ops-crm/",
     code: "https://github.com/cherreshenka1/marketplace-ops-crm",
     accent: "#0f172a",
@@ -426,22 +429,25 @@ const demos = [
   },
 ];
 
+oldProjects.push({slug:'p2p-usdt-platform',title:'USDT Desk',kind:'Операционная платформа',stack:'Node.js, JavaScript, роли и журнал',description:'Учебный путь заявки: поступление, проверка, резерв и сверка.',impact:'Разные роли работают с одной заявкой, а каждое действие остаётся в журнале.',live:'https://cherreshenka1.github.io/p2p-usdt-platform/',code:'https://github.com/cherreshenka1/p2p-usdt-platform',accent:'#0f766e',bg:'#edf7f5'});
 const allProjects = [
   ...oldProjects.map((project) => ({
     ...project,
-    preview: `previews/${project.slug}.svg`,
+    preview: `previews/${project.slug}.png`,
     casePath: `projects/${project.slug}/`,
     group: "project",
   })),
   ...demos.map((demo) => ({
     ...demo,
-    preview: `previews/${demo.slug}.svg`,
+    preview: `previews/${demo.slug}.png`,
     casePath: `projects/${demo.slug}/`,
     live: `${pagesBase}/${demo.slug}/`,
     code: `${repoBase}/${demo.slug}`,
     group: "demo",
   })),
 ];
+
+for (const project of allProjects) { if (project.group === 'demo') project.stack = 'JavaScript, CSS, localStorage'; project.description = briefs[project.slug].task; project.impact = require('./project-solutions')[project.slug]; }
 
 const featuredSlugs = [
   "marketplace-ops-crm",
@@ -453,6 +459,7 @@ const featuredSlugs = [
 ];
 
 const projectProfiles = {
+ "p2p-usdt-platform": {audience:"Оператор",problem:"Контроль этапов заявки",solution:"Роли и журнал",features:["Роли","Заявки","Сверка"],states:["Создана","Проверена","Завершена"]},
   "react-store-lab": {
     audience: "Небольшой магазин, которому нужен понятный каталог без тяжёлой админки.",
     problem: "Пользователь должен быстро найти товар, собрать корзину и не потерять выбор после обновления страницы.",
@@ -529,7 +536,7 @@ function projectCard(project, featured = false) {
   const casePath = project.casePath || project.live;
   return `<article class="${sizeClass}">
     <a href="${casePath}" class="case-media" aria-label="Открыть кейс ${esc(project.title)}">
-      <img src="${project.preview}" alt="${esc(project.title)} preview" loading="lazy" />
+      <img src="${project.preview}" alt="Интерфейс ${esc(project.title)}" loading="lazy" />
     </a>
     <div class="case-body">
       <div class="case-meta">
@@ -947,9 +954,9 @@ function indexHtml() {
             </div>
             <div class="metrics">
               <div class="metric"><strong>2+</strong><span>года коммерческого опыта</span></div>
-              <div class="metric"><strong>18</strong><span>живых демо и проектов</span></div>
-              <div class="metric"><strong>10</strong><span>сценариев автоматизации</span></div>
-              <div class="metric"><strong>1</strong><span>фокус: довести до результата</span></div>
+              <div class="metric"><strong>19</strong><span>проектов с открытым кодом</span></div>
+              <div class="metric"><strong>10</strong><span>интерактивных прототипов</span></div>
+              <div class="metric"><strong>UI + API</strong><span>интерфейсы и интеграции</span></div>
             </div>
           </div>
           <aside class="portrait-wrap" aria-label="Фото Артёма Бычкова">
@@ -1000,25 +1007,25 @@ function indexHtml() {
             <h3>Как я работаю</h3>
             <p>Беру задачу, уточняю сценарий пользователя, собираю понятную структуру, делаю адаптив, проверяю состояния и оставляю код так, чтобы его можно было продолжать.</p>
             <div class="skills">
-              <span>React</span><span>JavaScript</span><span>HTML/CSS</span><span>REST API</span><span>SQL</span><span>Python</span><span>Figma</span><span>Git</span><span>Analytics</span><span>WordPress</span>
+              <span>React</span><span>JavaScript</span><span>HTML/CSS</span><span>REST API</span><span>SQL</span><span>Python</span><span>Figma</span><span>Git</span><span>Jest</span><span>Core Web Vitals</span><span>Webhooks</span><span>WordPress</span>
             </div>
           </aside>
           <div class="timeline">
             <article class="timeline-item">
-              <time>Маркетплейс «Первый Селлер»</time>
-              <div><h3>Автоматизация и боты</h3><p>Telegram-уведомления, webhook-интеграции, выгрузки в таблицы, парсинг конкурентов и рабочие дашборды для продавцов.</p></div>
+              <time>Маркетплейс «Первый Селлер»<br><small>Сентябрь 2025 — март 2026</small></time>
+              <div><h3>Автоматизация и боты</h3><p>Разработал Telegram-бота для уведомлений продавцам о новых заказах и изменениях в карточках товаров. Автоматизировал ежедневные отчёты о продажах в Google Таблицах и Excel. Собирал открытые данные о ценах и ассортименте конкурентов; настроил webhook-интеграции с внутренними системами маркетплейса.</p></div>
             </article>
             <article class="timeline-item">
-              <time>Digital Agency St</time>
-              <div><h3>Frontend для коммерческих проектов</h3><p>Калькуляторы, формы, слайдеры, аналитика, e-commerce интерфейсы и оптимизация Core Web Vitals.</p></div>
+              <time>Digital Agency St<br><small>Январь — сентябрь 2025</small></time>
+              <div><h3>Frontend для коммерческих проектов</h3><p>Разрабатывал калькуляторы стоимости, слайдеры и формы обратной связи для клиентских сайтов. Подключал Яндекс Метрику и Google Analytics на фронтенде. Дорабатывал интернет-магазины и корпоративные сайты, оптимизировал загрузку страниц и LCP. Уточнял требования вместе с дизайнерами и менеджерами проектов.</p></div>
             </article>
             <article class="timeline-item">
-              <time>Prostudio</time>
-              <div><h3>React, API и рефакторинг</h3><p>Промо-страницы, REST API, перенос legacy jQuery-поведения в React и поддержка UI-китов.</p></div>
+              <time>Prostudio<br><small>Сентябрь — декабрь 2024 · стажировка</small></time>
+              <div><h3>React, API и рефакторинг</h3><p>Разрабатывал промо-страницы и лендинги на React. Подключал получение товаров и отправку форм через REST API. Переносил компоненты с jQuery на React, писал модульные тесты на Jest и адаптировал UI-киты агентства под задачи клиентов.</p></div>
             </article>
             <article class="timeline-item">
               <time>D-project</time>
-              <div><h3>Адаптивная вёрстка</h3><p>Figma-to-HTML, WordPress-шаблоны, WebP, lazy loading и исправление мобильных UI-проблем.</p></div>
+              <div><h3>Адаптивная вёрстка</h3><p>Верстал страницы по макетам Figma и адаптировал их для мобильных экранов. Дорабатывал WordPress-шаблоны, оптимизировал изображения с помощью WebP и отложенной загрузки. Исправлял ошибки вёрстки и поведения интерфейса на небольших экранах.</p></div>
             </article>
           </div>
         </div>
@@ -1467,7 +1474,7 @@ function caseHtml(project) {
             </div>
           </article>
           <aside class="media-card">
-            <img src="${preview}" alt="${esc(project.title)} preview" />
+            <img src="${preview}" alt="Интерфейс ${esc(project.title)}" />
             <div class="meta-strip">
               <div><span>Роль</span><strong>Frontend + UX логика</strong></div>
               <div><span>Формат</span><strong>${project.group === "demo" ? "Статический интерактив" : "Live-проект"}</strong></div>
@@ -1550,11 +1557,11 @@ function run() {
   write(path.join(root, "index.html"), indexHtml());
   write(path.join(root, "404.html"), notFoundHtml());
   for (const project of allProjects) {
-    write(path.join(root, "previews", `${project.slug}.svg`), previewSvg(project));
-    write(path.join(root, "projects", project.slug, "index.html"), caseHtml(project));
+    // Preview PNGs are actual browser captures, never generated illustrations.
+    write(path.join(root, "projects", project.slug, "index.html"), renderCase(project, caseHtml(project)));
   }
   for (const demo of demos) {
-    write(path.join(root, demo.slug, "index.html"), demoHtml(demo));
+    write(path.join(root, demo.slug, "index.html"), renderDomainDemo(demo, demoHtml(demo)));
   }
   console.log(`Rebranded portfolio with ${allProjects.length} projects, ${allProjects.length} case pages and ${demos.length} demos.`);
 }

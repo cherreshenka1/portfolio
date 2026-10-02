@@ -1,0 +1,58 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Пройти учебную заявку от создания до сверки и завершения."><title>USDT Desk · Артём Бычков</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@500;700;800&display=swap" rel="stylesheet"><style>:root { --paper:#edf7f5; --ink:#171717; --muted:#66717d; --line:#d8e2ea; --card:#ffffff; --accent:#0f766e; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; font-family:"Manrope",system-ui,sans-serif; color:var(--ink); background:linear-gradient(90deg, rgba(23,23,23,.035) 1px, transparent 1px), var(--paper); background-size:40px 40px; }
+      body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.45; background:radial-gradient(circle at 14% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 25%), radial-gradient(circle at 90% 4%, rgba(47,109,85,.10), transparent 24%); }
+      a { color:inherit; text-decoration:none; }
+      img { max-width:100%; display:block; }
+      .container { width:min(1160px, calc(100% - 36px)); margin:0 auto; }
+      .nav { position:sticky; top:0; z-index:20; border-bottom:1px solid rgba(23,23,23,.1); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(18px); }
+      .nav .container { min-height:68px; display:flex; align-items:center; justify-content:space-between; gap:18px; font-weight:900; }
+      .nav a { color:var(--muted); }
+      .nav a:hover { color:var(--ink); }
+      .hero { padding:70px 0 48px; }
+      .hero-grid { display:grid; grid-template-columns:minmax(0, .95fr) minmax(330px, .82fr); gap:34px; align-items:stretch; }
+      .hero-copy, .media-card, .panel, .flow article, .state-table { border:1px solid color-mix(in srgb, var(--accent) 14%, var(--line)); background:var(--card); border-radius:30px; box-shadow:0 22px 70px rgba(57,47,35,.10); }
+      .hero-copy { padding:clamp(28px,5vw,56px); }
+      .kicker { display:inline-flex; align-items:center; gap:10px; color:var(--accent); font-weight:900; margin-bottom:24px; }
+      .kicker::before { content:""; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 12%, transparent); }
+      h1 { margin:0; font-family:"Onest",system-ui,sans-serif; font-size:clamp(44px,7vw,92px); line-height:.92; letter-spacing:-.07em; text-wrap:balance; }
+      h2 { margin:0; font-family:"Onest",system-ui,sans-serif; font-size:clamp(32px,4vw,54px); line-height:1; letter-spacing:-.055em; text-wrap:balance; }
+      h3 { margin:0; font-size:20px; letter-spacing:-.035em; }
+      p { color:var(--muted); line-height:1.68; }
+      .lead { font-size:19px; margin:22px 0 0; }
+      .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+      .button { display:inline-flex; align-items:center; justify-content:center; gap:10px; border-radius:999px; padding:14px 18px; font-weight:900; border:1px solid var(--line); background:rgba(255,255,255,.54); }
+      .button.primary { border-color:var(--ink); background:var(--ink); color:white; }
+      .button:hover { border-color:var(--accent); color:var(--accent); }
+      .button.primary:hover { background:var(--accent); color:white; }
+      .media-card { overflow:hidden; }
+      .media-card img { width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--paper); }
+      .meta-strip { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border-top:1px solid var(--line); }
+      .meta-strip div { background:var(--card); padding:18px; }
+      .meta-strip span { display:block; color:var(--muted); font-size:12px; font-weight:900; }
+      .meta-strip strong { display:block; margin-top:6px; font-size:18px; }
+      section { padding:38px 0; }
+      .section-head { display:grid; grid-template-columns:minmax(0,.82fr) minmax(260px,.58fr); gap:28px; align-items:end; margin-bottom:22px; }
+      .panels { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+      .panel { padding:24px; box-shadow:0 14px 45px rgba(57,47,35,.07); }
+      .panel span { color:var(--accent); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; }
+      .panel ul { margin:18px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+      .panel li { padding:12px 0; border-top:1px solid var(--line); color:#3d3730; font-weight:700; }
+      .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+      .flow article { padding:20px; box-shadow:none; }
+      .flow span { color:var(--accent); font-weight:900; }
+      .flow strong { display:block; margin-top:14px; font-size:19px; }
+      .state-table { overflow:hidden; box-shadow:none; }
+      table { width:100%; border-collapse:collapse; background:var(--card); }
+      th, td { padding:16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+      th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.1em; }
+      td { font-weight:700; }
+      .footer-cta { margin:40px 0 56px; padding:clamp(28px,5vw,52px); border-radius:34px; background:#171717; color:#f7fbff; display:grid; grid-template-columns:1fr auto; gap:22px; align-items:end; }
+      .footer-cta p { color:#d8cfc0; max-width:660px; }
+      .footer-cta .button { background:#ffffff; color:#171717; }
+      footer { padding:0 0 36px; color:var(--muted); font-size:13px; }
+      @media (max-width:920px) { .hero-grid,.section-head,.panels,.flow,.footer-cta { grid-template-columns:1fr; } .media-card { order:-1; } }
+      @media (max-width:620px) { .container { width:min(100% - 24px, 1160px); } .nav .container { align-items:flex-start; flex-direction:column; padding:14px 0; } .meta-strip { grid-template-columns:1fr; } th,td { padding:12px; } }
+  .facts{display:grid;gap:12px;padding:20px}.facts div{display:flex;justify-content:space-between;gap:16px}.facts span{color:var(--muted)}.facts strong{font-size:13px}h2,h3{font-family:Onest,Manrope,system-ui,sans-serif}.case-cover img{width:100%;height:auto;border-radius:14px;display:block}.case-cover a{display:block}.case-cover{min-width:0}.scope-note{font-size:13px!important;line-height:1.6!important;border-left:2px solid var(--accent);padding-left:14px}.steps p{line-height:1.7}.hero h1{font-size:clamp(32px,3.5vw,48px)}.panels p{line-height:1.75}.case-reference{padding:18px 0;color:var(--muted);font-size:13px}.case-reference a{text-decoration:underline}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  </style></head><body><nav class="nav"><div class="container"><a href="../../index.html#work">← Все проекты</a><span>Операционная платформа</span></div></nav><main><section class="hero"><div class="container hero-grid"><article class="hero-copy"><div class="kicker">Личный проект · интерактивный прототип</div><h1>USDT Desk</h1><p class="lead">USDT Desk</p><p>Пройти учебную заявку от создания до сверки и завершения.</p><div class="actions"><a class="button primary" href="https://cherreshenka1.github.io/p2p-usdt-platform/" target="_blank" rel="noreferrer">Открыть проект ↗</a><a class="button secondary" href="https://github.com/cherreshenka1/p2p-usdt-platform" target="_blank" rel="noreferrer">Исходный код</a></div><p class="scope-note">Публичная версия — симулятор без реальных денег, платежей и переводов.</p></article><aside class="case-cover media-card"><a href="../../previews/p2p-usdt-platform.png" target="_blank"><img src="../../previews/p2p-usdt-platform.png" alt="Реальный интерфейс USDT Desk" width="1280" height="720"></a><div class="facts"><div><span>Работа</span><strong>Интерфейс и логика</strong></div><div><span>Формат</span><strong>Самостоятельный проект</strong></div><div><span>Стек</span><strong>Node.js, JavaScript, роли и журнал</strong></div></div></aside></div></section><section><div class="container"><div class="section-head"><h2>Задача и решение</h2></div><div class="panels"><article class="panel"><span>Задача пользователя</span><p>Пройти учебную заявку от создания до сверки и завершения.</p></article><article class="panel"><span>Как устроено</span><p>Роли разделяют создание заявки, подтверждение поступления, проверку и сверку. Переходы проверяют текущий статус; повторное действие не списывает резерв второй раз.</p></article><article class="panel"><span>Границы проекта</span><p>Публичная версия — симулятор без реальных денег, платежей и переводов. Самостоятельный прототип на вымышленных данных.</p></article></div></div></section><section><div class="container"><div class="section-head"><h2>Попробуйте сами</h2><p>Откройте демо и пройдите эти шаги.</p></div><div class="flow"><article><span>01</span><strong>Создать заявку</strong></article><article><span>02</span><strong>Подтвердить поступление</strong></article><article><span>03</span><strong>Проверить и провести</strong></article><article><span>04</span><strong>Выполнить сверку</strong></article></div></div></section><section><div class="container"><div class="section-head"><h2>Что важно в реализации</h2></div><div class="panels"><article class="panel"><span>Данные</span><p>Демонстрационные записи отделены от реальных интеграций. Суммы и статусы связаны с действиями пользователя.</p></article><article class="panel"><span>Состояния</span><p>Пустые результаты, незаполненные поля и обратная связь после действия помогают закончить задачу без догадок.</p></article><article class="panel"><span>Проверка</span><p>Основной сценарий проверяется на широком и мобильном экранах. Исходники доступны для просмотра деталей реализации.</p></article></div><p class="case-reference">Продуктовый ориентир: <a href="https://stripe.com/payments/features" target="_blank" rel="noreferrer">stripe.com</a> — статусы операции, роли и журнал. Собственная реализация; без копирования бренда и интерфейса.</p></div></section><div class="container"><section class="footer-cta"><div><h2>Нужен похожий интерфейс?</h2><p>Обсудим пользователей, данные и сценарий, который важно сделать удобнее.</p></div><a class="button" href="../../index.html#contact">Обсудить задачу</a></section></div></main><footer><div class="container">Артём Бычков · <a href="../../index.html#work">Портфолио</a></div></footer></body></html>
