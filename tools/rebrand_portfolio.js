@@ -19,7 +19,7 @@ const renderCase = require('./case-render');
 const oldProjects = [
   {
     slug: "react-store-lab",
-    title: "React Store Lab",
+    title: "Полка / книжный магазин",
     kind: "Интернет-магазин",
     stack: "React, Router, localStorage",
     description: "Каталог, фильтры, корзина и сохранение состояния для небольшого магазина.",
@@ -447,7 +447,8 @@ const allProjects = [
   })),
 ];
 
-for (const project of allProjects) { if (project.group === 'demo') project.stack = 'JavaScript, CSS, localStorage'; project.description = briefs[project.slug].task; project.impact = require('./project-solutions')[project.slug]; }
+const productNames={"cashflow-command-center": "Реестр / счета и оплаты", "hiring-pipeline-lab": "Состав / найм", "restaurant-prep-planner": "Смена / кухня", "warehouse-dispatch-board": "Маршрут / отгрузки", "habit-coach-dashboard": "Ритм / привычки", "academy-progress-map": "Практика / обучение", "real-estate-lead-room": "Адрес / недвижимость", "clinic-flow-console": "Приём / расписание", "event-budget-studio": "Смета / события", "content-calendar-ops": "Редакция / контент", "react-store-lab": "Полка / книжный магазин", "marketplace-sales-dashboard": "SellerDesk / аналитика продаж", "optimized-ecommerce-store": "Предмет / магазин", "interactive-calculator": "Расчёт / калькулятор", "smart-booking-calendar": "Встреча / онлайн-запись", "support-ticket-center": "Служба поддержки", "email-campaign-studio": "Письма / редактор", "marketplace-ops-crm": "Операции / CRM", "p2p-usdt-platform": "USDT Desk"};
+for (const project of allProjects) { project.title=productNames[project.slug]||project.title; if (project.group === 'demo') project.stack = 'JavaScript, CSS, localStorage'; project.description = briefs[project.slug].task; project.impact = require('./project-solutions')[project.slug]; }
 
 const featuredSlugs = [
   "marketplace-ops-crm",

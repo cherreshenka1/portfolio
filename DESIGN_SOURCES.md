@@ -1,0 +1,50 @@
+# Дизайн, фотографии и открытые данные
+
+Доработка 02.10.2026. Главная портфолио сохраняет композицию. У всех 19 приложений переработана оболочка: навигация, масштаб текста, плотность рабочих областей, формы, состояния и мобильная компоновка. Примеры ниже использованы как ориентиры структуры и сценариев; их бренды и исходники не копировались.
+
+## Направления
+
+| Проект | Ориентир | Применённый паттерн |
+|---|---|---|
+| `cashflow-command-center` | [Счета под контролем](https://stripe.com/invoicing) | реестр счетов, сроки и история оплаты |
+| `hiring-pipeline-lab` | [Кандидаты и встречи](https://www.ashbyhq.com/) | этапы найма и карточка кандидата |
+| `restaurant-prep-planner` | [Подготовка к смене](https://www.getmeez.com/) | техкарты и план заготовок |
+| `warehouse-dispatch-board` | [Отгрузки на сегодня](https://www.inflowinventory.com/) | очередь комплектации и контроль отправки |
+| `habit-coach-dashboard` | [Небольшие шаги каждый день](https://culturedcode.com/things/) | спокойный план на день |
+| `academy-progress-map` | [Учебная группа](https://www.khanacademy.org/teachers) | прогресс группы и очередь обратной связи |
+| `real-estate-lead-room` | [Подбор и показы](https://www.followupboss.com/) | критерии клиента рядом с объектами |
+| `clinic-flow-console` | [Расписание приёмов](https://www.cliniko.com/features/appointments/) | время, врач и статус визита |
+| `event-budget-studio` | [Смета события](https://planningpod.com/budgeting) | план, обязательства и факт оплаты |
+| `content-calendar-ops` | [Редакционный план](https://buffer.com/publish) | календарь публикаций и редактор |
+| `react-store-lab` | [Полка — книжный магазин](https://help.shopify.com/en/manual/fulfillment) | поиск товара и прозрачная корзина |
+| `marketplace-sales-dashboard` | [Продажи по дням](https://help.shopify.com/en/manual/reports-and-analytics) | один период для таблицы, графиков и KPI |
+| `optimized-ecommerce-store` | [Вещи для дома](https://www.muji.com/) | спокойная товарная витрина и доставка |
+| `interactive-calculator` | [Стоимость по составляющим](https://wise.com/gb/send-money/) | понятная разбивка расчёта |
+| `smart-booking-calendar` | [Выберите время встречи](https://cal.com/) | услуга → дата → свободное время → подтверждение |
+| `support-ticket-center` | [Обращения клиентов](https://linear.app/customer-requests) | очередь и переписка рядом |
+| `email-campaign-studio` | [Письмо перед отправкой](https://mailchimp.com/features/email/) | редактор и проверяемый предпросмотр |
+| `marketplace-ops-crm` | [Заказы и остатки](https://help.shopify.com/en/manual/fulfillment) | реестр, поиск и история изменения |
+| `p2p-usdt-platform` | [USDT Desk](https://stripe.com/payments/features) | статусы операции, роли и журнал |
+
+## Подлинные материалы
+
+- [Банк России](https://www.cbr.ru/development/SXML/): официальные справочные курсы на 02.10.2026. Это не курс обмена USDT и не расчётная ставка приложений.
+- [Open Library](https://openlibrary.org/developers/api): названия, авторы, годы и обложки пяти изданий; используются в книжном каталоге и полке для чтения. Цены в корзине учебные.
+- [GitLab / Greenhouse](https://boards-api.greenhouse.io/v1/boards/gitlab/jobs): публичные вакансии. Они не связаны с вымышленными кандидатами в воронке.
+- [TheMealDB](https://www.themealdb.com/api.php): рецепт Mediterranean Pasta Salad, ингредиенты и фото. Количества относятся к исходному рецепту; нормы заготовок в плане смены учебные.
+- [Open-Meteo](https://open-meteo.com/en/docs): прогноз для Казани — снимок 02.10.2026, не автоматически обновляемая погода. Географический справочник основан на GeoNames.
+- [Nager.Date](https://date.nager.at/): справочный календарь праздников России за 2026 год; график записи задаётся отдельно.
+- [GitHub REST API](https://docs.github.com/en/rest/repos/repos): публичные сведения React, Vite, Radix и TypeScript на дату снимка.
+- [Unsplash](https://unsplash.com/license): фотографии кухни, интерьеров и предметов. Точные URL сохранены в [photo-sources.json](data/photo-sources.json). Интерьеры иллюстрируют подбор, а не подтверждают существование учебных объектов недвижимости.
+
+Локальный снимок: [open-data.json](data/open-data.json). Изображения лежат в `assets/photos/`, а в отдельных React-проектах — в `public/photos/`. Превью кейсов — настоящие скриншоты работающих приложений в `previews/`, а не нарисованные макеты.
+
+## Границы
+
+Заказы, клиенты, кандидаты, визиты, платежи и цены — демонстрационные записи. Публичные данные не превращают прототип в подключённую CRM, платёжный сервис или медицинскую систему. У каждого кейса описаны рабочий сценарий и ограничения.
+
+## Проверка
+
+- Все 19 главных экранов просмотрены в браузере; мобильная ширина 390 px проверена на переполнение и битые изображения.
+- Сборки восьми React-приложений проходят. В USDT Desk проходят 10 тестов, включая защиту от повторного высвобождения резерва.
+- Основные действия проверяются через интерфейс: фильтрация, изменение статуса, расчёт, корзина, редактирование и локальное сохранение.

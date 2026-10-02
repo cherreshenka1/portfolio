@@ -12,7 +12,7 @@
 - [Расписание приёмов](prompts/clinic-flow-console.md) — время, врач и статус визита.
 - [Смета события](prompts/event-budget-studio.md) — план, обязательства и факт оплаты.
 - [Редакционный план](prompts/content-calendar-ops.md) — календарь публикаций и редактор.
-- [Каталог и корзина](prompts/react-store-lab.md) — поиск товара и прозрачная корзина.
+- [Полка — книжный магазин](prompts/react-store-lab.md) — поиск товара и прозрачная корзина.
 - [Продажи по дням](prompts/marketplace-sales-dashboard.md) — один период для таблицы, графиков и KPI.
 - [Вещи для дома](prompts/optimized-ecommerce-store.md) — спокойная товарная витрина и доставка.
 - [Стоимость по составляющим](prompts/interactive-calculator.md) — понятная разбивка расчёта.

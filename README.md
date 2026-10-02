@@ -28,7 +28,7 @@ Real Estate Lead Room, Clinic Flow Console, Event Budget Studio и Content Calen
 Всего 19 проектов, включая USDT Desk. Превью `previews/*.png` — снимки работающих
 интерфейсов, а не макеты. Опыт работы описан отдельно от самостоятельных проектов.
 
-[Индивидуальные промпты и референсы](PROJECT_PROMPTS.md) · [Проверки](QA_REPORT.md)
+[Индивидуальные промпты и референсы](PROJECT_PROMPTS.md) · [Проверки](QA_REPORT.md) · [Дизайн и источники материалов](DESIGN_SOURCES.md)
 
 ## Пересборка статики
 
@@ -47,5 +47,6 @@ node tools/local_static_server.js
 
 Источники содержания: `tools/project-briefs.js`, `tools/project-solutions.js`.
 Разметка кейсов: `tools/case-render.js`; оболочка встроенных демо: `tools/domain-demo.js`;
-поведение и стили: `assets/workspace.js`, `assets/workspace.css`.
+поведение и стили: `assets/workspace.js`, `assets/workspace.css`, `assets/product-shell.css`.
+Снимки открытых данных: `data/open-data.json`; источники изображений: `data/photo-sources.json`.
 Скриншоты обновляются вручную в браузере после проверки загрузки данных.
