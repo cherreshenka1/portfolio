@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-10-02",
+  "site": "https://kartonpay.com/",
+  "social_links_source": "Ссылки в подвале официального сайта, проверены в браузере.",
+  "social_links": {
+    "telegram": "https://telegram.me/kartonpay",
+    "vk": "https://vk.com/kartonpay",
+    "youtube": "https://www.youtube.com/@Картон.Платежный-Сервис",
+    "instagram": "https://www.instagram.com/karton.pay/",
+    "x": "https://x.com/kartonpay",
+    "pinterest": "https://ru.pinterest.com/kartonpayservice/"
+  },
+  "metrics": [
+    {
+      "name": "bot_monthly_users",
+      "value": 24050,
+      "source": "https://t.me/kartonpay_bot",
+      "method": "Публичный текст карточки, полученный веб-поиском; индекс источника указывал обход за 2 дня до проверки.",
+      "attribution": "Показатель сервиса, не индивидуальное достижение."
+    },
+    {
+      "name": "channel_subscribers",
+      "display": "около 2,8 тыс.",
+      "observations": [
+        2781,
+        2806
+      ],
+      "source": "https://telemetr.me/content/kartonpay",
+      "method": "Страница и поисковый индекс дают разные снимки; используем только округлённое значение."
+    },
+    {
+      "name": "views_per_post",
+      "value": 1470,
+      "source": "https://telemetr.me/content/kartonpay",
+      "method": "Показатель агрегатора, период расчёта публично не уточнён."
+    }
+  ],
+  "growth": "Нет сопоставимой июльской базы: рост в процентах не рассчитан.",
+  "role": "Реклама, контент, аналитика, воронка, SEO и оптимизация сайта: подтверждено владельцем портфолио.",
+  "work_period": "С июля 2026; месяц подтверждён пользователем, год согласуется с рабочими материалами августа 2026."
+}

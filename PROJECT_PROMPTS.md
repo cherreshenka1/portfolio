@@ -21,3 +21,7 @@
 - [Письмо перед отправкой](prompts/email-campaign-studio.md) — редактор и проверяемый предпросмотр.
 - [Заказы и остатки](prompts/marketplace-ops-crm.md) — реестр, поиск и история изменения.
 - [USDT Desk](prompts/p2p-usdt-platform.md) — статусы операции, роли и журнал.
+- [Karton Pay — маркетинг и оптимизация](prompts/karton-pay.md).
+- [Графика — шесть концепций](prompts/graphic-design.md).
+- [FIELD / 02 — предметная 3D-сцена](prompts/field-audio.md).
+- [Quiet Workspace — интерьерная 3D-сцена](prompts/quiet-workspace.md).

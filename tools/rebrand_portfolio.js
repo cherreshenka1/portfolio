@@ -15,6 +15,7 @@ const currentYear = "2026";
 const briefs = require('./project-briefs');
 const renderDomainDemo = require('./domain-demo');
 const renderCase = require('./case-render');
+const expansion = require('./portfolio-expansion');
 
 const oldProjects = [
   {
@@ -778,7 +779,7 @@ function indexHtml() {
       .section-head p { margin: 0; color: var(--muted); line-height: 1.7; }
       .services {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 16px;
       }
       .service-card {
@@ -948,16 +949,17 @@ function indexHtml() {
           <div>
             <div class="availability">Открыт к frontend-задачам и проектной работе</div>
             <h1>Frontend для рабочих сервисов, кабинетов и автоматизации.</h1>
-            <p class="hero-copy">Я frontend-разработчик с коммерческим опытом. Собираю CRM, дашборды, формы, калькуляторы и интерфейсы для рутинных процессов: от первого прототипа до адаптива и публикации.</p>
+            <p class="hero-copy">Я frontend-разработчик с коммерческим опытом. Собираю интерфейсы, продумываю дизайн и автоматизирую процессы. В Karton Pay отвечаю за маркетинг и оптимизацию: связываю продукт, аналитику и путь пользователя.</p>
             <div class="hero-actions">
               <a class="button primary" href="#work">Смотреть кейсы</a>
               <a class="button secondary" href="mailto:${contact.email}">Написать на email</a>
+              <a class="button secondary" href="resume/artem-bychkov-resume.pdf" target="_blank">Резюме PDF ↗</a>
             </div>
             <div class="metrics">
-              <div class="metric"><strong>2+</strong><span>года коммерческого опыта</span></div>
+              <div class="metric"><strong>2024</strong><span>в разработке с 2024 года</span></div>
               <div class="metric"><strong>19</strong><span>проектов с открытым кодом</span></div>
-              <div class="metric"><strong>10</strong><span>интерактивных прототипов</span></div>
-              <div class="metric"><strong>UI + API</strong><span>интерфейсы и интеграции</span></div>
+              <div class="metric"><strong>Дизайн</strong><span>интерфейсы, графика и 3D</span></div>
+              <div class="metric"><strong>Рост</strong><span>маркетинг и оптимизация</span></div>
             </div>
           </div>
           <aside class="portrait-wrap" aria-label="Фото Артёма Бычкова">
@@ -976,6 +978,8 @@ function indexHtml() {
             ${serviceCard("Дашборды и данные", "KPI, графики, таблицы, экспорт, подсветка рисков и интерфейсы для принятия решений.", "fa-solid fa-chart-line")}
             ${serviceCard("Формы и заявки", "Калькуляторы, квизы, валидация, сохранение состояния и аккуратный путь до отправки.", "fa-solid fa-pen-to-square")}
             ${serviceCard("Автоматизация рутины", "Telegram/webhook-сценарии, таблицы, уведомления, парсинг и интерфейсы поверх процессов.", "fa-solid fa-bolt")}
+            ${serviceCard("Дизайн и визуализация", "UI/UX, Figma, графические системы, типографика и композиция. 3D-моделирование, материалы и свет в Blender.", "fa-solid fa-pen-ruler")}
+            ${serviceCard("Маркетинг и оптимизация", "Позиционирование, контент, реклама и SEO. Аналитика воронки, путь пользователя и скорость посадочных страниц.", "fa-solid fa-magnifying-glass-chart")}
           </div>
         </div>
       </section>
@@ -1002,16 +1006,18 @@ function indexHtml() {
         </div>
       </section>
 
+      ${expansion.home()}
       <section id="experience">
         <div class="container process">
           <aside class="profile-card">
             <h3>Как я работаю</h3>
             <p>Беру задачу, уточняю сценарий пользователя, собираю понятную структуру, делаю адаптив, проверяю состояния и оставляю код так, чтобы его можно было продолжать.</p>
             <div class="skills">
-              <span>React</span><span>JavaScript</span><span>HTML/CSS</span><span>REST API</span><span>SQL</span><span>Python</span><span>Figma</span><span>Git</span><span>Jest</span><span>Core Web Vitals</span><span>Webhooks</span><span>WordPress</span>
+              <span>React</span><span>JavaScript</span><span>HTML/CSS</span><span>REST API</span><span>SQL</span><span>Python</span><span>Figma</span><span>Photoshop</span><span>Blender</span><span>Git</span><span>Jest</span><span>Core Web Vitals</span><span>Webhooks</span><span>WordPress</span><span>SEO</span><span>Веб-аналитика</span><span>Контент и реклама</span>
             </div>
           </aside>
           <div class="timeline">
+            ${expansion.timeline}
             <article class="timeline-item">
               <time>Маркетплейс «Первый Селлер»<br><small>Сентябрь 2025 — март 2026</small></time>
               <div><h3>Автоматизация и боты</h3><p>Разработал Telegram-бота для уведомлений продавцам о новых заказах и изменениях в карточках товаров. Автоматизировал ежедневные отчёты о продажах в Google Таблицах и Excel. Собирал открытые данные о ценах и ассортименте конкурентов; настроил webhook-интеграции с внутренними системами маркетплейса.</p></div>
@@ -1555,6 +1561,7 @@ function notFoundHtml() {
 }
 
 function run() {
+  expansion.write();
   write(path.join(root, "index.html"), indexHtml());
   write(path.join(root, "404.html"), notFoundHtml());
   for (const project of allProjects) {

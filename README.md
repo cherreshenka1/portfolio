@@ -25,8 +25,15 @@ Real Estate Lead Room, Clinic Flow Console, Event Budget Studio и Content Calen
 последовательность отгрузки, недельные отметки, проверка работ, подбор объектов,
 расписание врачей, смета или редактор публикаций. Изменения сохраняются в браузере.
 
-Всего 19 проектов, включая USDT Desk. Превью `previews/*.png` — снимки работающих
+Всего 19 веб-приложений, включая USDT Desk. Превью `previews/*.png` — снимки работающих
 интерфейсов, а не макеты. Опыт работы описан отдельно от самостоятельных проектов.
+
+Дополнительно: коммерческий кейс Karton Pay по маркетингу и оптимизации,
+шесть графических концепций в одном кейсе и два новых Blender-этюда с `.blend`.
+Итого 23 страницы кейсов. [Резюме PDF](resume/artem-bychkov-resume.pdf) и
+[редактируемая HTML-версия](resume/artem-bychkov-resume.html) основаны на опыте из hh.ru
+и уточнениях владельца. Цифры Karton Pay — показатели продукта, без вымышленной
+атрибуции индивидуального роста; источники в `data/karton-public-evidence.json`.
 
 [Индивидуальные промпты и референсы](PROJECT_PROMPTS.md) · [Проверки](QA_REPORT.md) · [Дизайн и источники материалов](DESIGN_SOURCES.md)
 
@@ -47,6 +54,8 @@ node tools/local_static_server.js
 
 Источники содержания: `tools/project-briefs.js`, `tools/project-solutions.js`.
 Разметка кейсов: `tools/case-render.js`; оболочка встроенных демо: `tools/domain-demo.js`;
-поведение и стили: `assets/workspace.js`, `assets/workspace.css`, `assets/product-shell.css`.
+поведение и стили: `assets/workspace.js`, `assets/workspace.css`, `assets/product-shell.css`, `assets/domain-layouts.css`.
+Новые направления: `tools/portfolio-expansion.js`; Blender: `tools/build_blender_studies.py`;
+резюме: `tools/build_resume.py` (ReportLab и Arial в Windows).
 Снимки открытых данных: `data/open-data.json`; источники изображений: `data/photo-sources.json`.
 Скриншоты обновляются вручную в браузере после проверки загрузки данных.
