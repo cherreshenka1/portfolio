@@ -24,9 +24,9 @@
       "id": "mts",
       "company": "Мобильные ТелеСистемы (МТС)",
       "role": "Веб-разработка и поддержка сайта",
-      "dates": "Февраль 2025 - настоящее время",
+      "dates": "Февраль 2025 - июнь 2026",
       "bullets": [
-        "Разрабатываю и дорабатываю клиентскую часть веб-приложения; поддерживаю работу сайта и исправляю выявленные ошибки."
+        "Разрабатывал и дорабатывал клиентскую часть веб-приложения; поддерживал работу сайта и исправлял выявленные ошибки."
       ]
     },
     {
@@ -70,29 +70,6 @@
       ]
     }
   ],
-  "projects": [
-    {
-      "name": "USDT Desk",
-      "stack": "JavaScript · интерфейс операций",
-      "description": "Ролевые сценарии заявок, проверки и сверки; контроль переходов между статусами и защита от повторного списания резерва.",
-      "demo": "https://cherreshenka1.github.io/p2p-usdt-platform/",
-      "code": "https://github.com/cherreshenka1/p2p-usdt-platform"
-    },
-    {
-      "name": "Операции / CRM",
-      "stack": "React · SQLite в браузере",
-      "description": "Заказы и партнёры, поиск и фильтры, журнал смены статусов; локальное сохранение базы и SELECT-консоль для проверки данных.",
-      "demo": "https://cherreshenka1.github.io/marketplace-ops-crm/",
-      "code": "https://github.com/cherreshenka1/marketplace-ops-crm"
-    },
-    {
-      "name": "SellerDesk / аналитика продаж",
-      "stack": "React · данные и отчёты",
-      "description": "Единые фильтры периода и статуса для заказов, KPI и графиков; исключение отмен из выручки и CSV-экспорт выбранных данных.",
-      "demo": "https://cherreshenka1.github.io/marketplace-sales-dashboard/",
-      "code": "https://github.com/cherreshenka1/marketplace-sales-dashboard"
-    }
-  ],
   "skills": [
     {"label": "Frontend", "text": "JavaScript ES6+, React, HTML5, CSS3, Flexbox, Grid; адаптивная и кроссбраузерная вёрстка, компоненты и состояние, формы и валидация, REST API, Git, GitHub, Jest, WordPress."},
     {"label": "Данные и автоматизация", "text": "Python, pandas, SQL, Telegram-боты, webhooks, Google Таблицы, Excel; сбор открытых данных, отчётность, поиск и фильтры, localStorage, CSV."},
@@ -107,6 +84,5 @@
     {"name": "1С: Технологии обработки информации", "provider": "КФУ", "year": 2025},
     {"name": "Яндекс Метрика: основы", "provider": "Яндекс Реклама", "year": null, "status": "Пройден", "url": "https://yandex.ru/adv/edu/online/metrika-yandex-kurs"}
   ],
-  "languages": "Русский - родной · Английский - B2",
-  "visual_work": "В портфолио также опубликованы самостоятельные графические концепции и новые Blender-этюды FIELD / 02 и Quiet Workspace."
+  "languages": "Русский - родной · Английский - B2"
 }
