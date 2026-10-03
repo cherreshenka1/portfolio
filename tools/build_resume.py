@@ -1,91 +1,148 @@
-"""Two-page, searchable resume with a matching editable HTML source."""
+"""Build the same two-page resume as a searchable PDF, semantic HTML and text."""
+import json
+import re
+from html import escape, unescape
 from pathlib import Path
-from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+
 from reportlab.lib.colors import HexColor
 from reportlab.lib.styles import ParagraphStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
-from html import escape
 
-ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'resume'; OUT.mkdir(exist_ok=True)
-pdfmetrics.registerFont(TTFont('Arial','C:/Windows/Fonts/arial.ttf'))
-pdfmetrics.registerFont(TTFont('ArialBold','C:/Windows/Fonts/arialbd.ttf'))
-pdfmetrics.registerFontFamily('Arial',normal='Arial',bold='ArialBold',italic='Arial',boldItalic='ArialBold')
-W,H=595.28,841.89
-c=canvas.Canvas(str(OUT/'artem-bychkov-resume.pdf'),pagesize=(W,H))
-c.setTitle('Артём Бычков | Frontend-разработчик'); c.setAuthor('Артём Бычков')
-style=ParagraphStyle('body',fontName='Arial',fontSize=10.2,leading=14.2,textColor=HexColor('#303a42'))
-small=ParagraphStyle('small',parent=style,fontSize=8.8,leading=12,textColor=HexColor('#68727b'))
-left=44; width=W-88; y=H-44; html=[]
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / 'resume'
+OUT.mkdir(exist_ok=True)
+content = json.loads((ROOT / 'tools/resume-content.json').read_text(encoding='utf-8'))
+pdfmetrics.registerFont(TTFont('Arial', 'C:/Windows/Fonts/arial.ttf'))
+pdfmetrics.registerFont(TTFont('ArialBold', 'C:/Windows/Fonts/arialbd.ttf'))
+pdfmetrics.registerFontFamily('Arial', normal='Arial', bold='ArialBold', italic='Arial', boldItalic='ArialBold')
+W, H = 595.28, 841.89
+LEFT, WIDTH = 42, W - 84
+c = canvas.Canvas(str(OUT / 'artem-bychkov-resume.pdf'), pagesize=(W, H))
+c.setTitle(content['name'] + ' | ' + content['role'])
+c.setAuthor(content['name'])
+body = ParagraphStyle('body', fontName='Arial', fontSize=10.2, leading=13.7, textColor=HexColor('#303a42'))
+small = ParagraphStyle('small', parent=body, fontSize=8.8, leading=11.8, textColor=HexColor('#5b6973'))
+heading = ParagraphStyle('heading', parent=body, fontName='ArialBold', textColor=HexColor('#152730'))
+html, plain = [], []
+y = H - 40
+page_number = 1
 
-def p(text,st=style,gap=7):
-    global y
-    a=Paragraph(text,st); _,h=a.wrap(width,1000)
-    if y-h<43:raise ValueError('Resume content overflows page')
-    a.drawOn(c,left,y-h);y-=h+gap
-    html.append('<p>'+text+'</p>')
-def title(text,size=15,gap=12):
-    global y
-    c.setFillColor(HexColor('#152730'));c.setFont('ArialBold',size);c.drawString(left,y-size,text);y-=size+gap
-    html.append('<h2>'+escape(text)+'</h2>')
-def job(company,role,dates,bullets):
-    p('<b>'+company+' · '+role+'</b>',gap=3);p(dates,small,gap=7)
-    for b in bullets:p('• '+b,gap=4)
-    global y
-    y-=8
-def footer(n):
-    c.setStrokeColor(HexColor('#d8dee2'));c.line(left,35,W-left,35)
-    c.setFont('Arial',8);c.setFillColor(HexColor('#68727b'));c.drawString(left,22,'Артём Бычков · Frontend / цифровые продукты');c.drawRightString(W-left,22,str(n)+' / 2')
 
-title('Артём Бычков',27,7)
-p('<b>Frontend-разработчик</b> · интерфейсы, дизайн и рост продукта',gap=11)
-p('<link href="mailto:bychkov.artem.24@gmail.com" color="#234f72">bychkov.artem.24@gmail.com</link> · <link href="https://t.me/cherreshenkaw" color="#234f72">@cherreshenkaw</link>',small,4)
-p('<link href="https://cherreshenka1.github.io/portfolio/" color="#234f72">Портфолио и работающие проекты</link> · <link href="https://github.com/cherreshenka1" color="#234f72">GitHub</link> · Удалённая работа',small,16)
-p('Разрабатываю интерфейсы на React и JavaScript: кабинеты, CRM, дашборды, магазины и формы. Соединяю разработку с дизайном, аналитикой и маркетингом: продумываю путь пользователя, подключаю события, работаю над скоростью страниц и конверсией. Есть опыт автоматизации процессов и Telegram-ботов.',gap=17)
+def clean(text):
+    return unescape(re.sub(r'<[^>]+>', '', text.replace('<br/>', '\n')))
+
+
+def link(label, url):
+    return f'<link href="{escape(url, quote=True)}" color="#234f72">{escape(label)}</link>'
+
+
+def p(text, style=body, gap=5):
+    global y
+    paragraph = Paragraph(text, style)
+    _, height = paragraph.wrap(WIDTH, 1000)
+    if y - height < 46:
+        raise ValueError(f'Resume page {page_number} overflows at: {clean(text)[:70]}')
+    paragraph.drawOn(c, LEFT, y - height)
+    y -= height + gap
+    html.append('<p>' + text.replace('<link ', '<a ').replace('</link>', '</a>') + '</p>')
+    plain.append(clean(text))
+
+
+def title(text, size=13.6, gap=9, level=2):
+    global y
+    text_style = ParagraphStyle('section', parent=heading, fontSize=size, leading=size + 3)
+    paragraph = Paragraph(escape(text), text_style)
+    _, height = paragraph.wrap(WIDTH, 1000)
+    if y - height < 46:
+        raise ValueError(f'Resume page {page_number} overflows at section {text}')
+    paragraph.drawOn(c, LEFT, y - height)
+    y -= height + gap
+    html.append(f'<h{level}>' + escape(text) + f'</h{level}>')
+    plain.extend(['', text])
+
+
+def job(job_id):
+    global y
+    item = next(item for item in content['jobs'] if item['id'] == job_id)
+    html.append('<article class="job">')
+    p('<b>' + escape(item['company']) + ' · ' + escape(item['role']) + '</b>', gap=2)
+    p(escape(item['dates']), small, gap=6)
+    for bullet in item['bullets']:
+        p('• ' + escape(bullet), gap=3.5)
+    if item.get('context'):
+        p(escape(item['context']), small, gap=4)
+    y -= 5
+    html.append('</article>')
+
+
+def footer(number):
+    c.setStrokeColor(HexColor('#d8dee2'))
+    c.line(LEFT, 34, W - LEFT, 34)
+    c.setFont('Arial', 8)
+    c.setFillColor(HexColor('#5b6973'))
+    c.drawString(LEFT, 21, content['name'] + ' · ' + content['role'])
+    c.drawRightString(W - LEFT, 21, str(number) + ' / 2')
+
+
+html.append('<section class="resume-page">')
+title(content['name'], size=26, gap=3, level=1)
+p('<b>' + escape(content['role']) + '</b>', gap=3)
+p(escape(content['focus']), gap=8)
+p(link(content['email'], 'mailto:' + content['email']) + ' · ' + link('@cherreshenkaw', content['telegram']), small, gap=3)
+p(link('Портфолио', content['portfolio']) + ' · ' + link('GitHub', content['github']) + ' · Удалённая работа', small, gap=12)
+plain.extend([content['portfolio'], content['github'], content['telegram']])
+p(escape(content['summary']), gap=10)
+p('<b>Посмотреть работу:</b> ' + ' · '.join(link(item['name'], item['demo']) for item in content['projects']), small, gap=16)
 title('Опыт работы')
-job('Karton Pay','маркетинг и оптимизация продукта','Июль 2026 - настоящее время',[
-'Отвечаю за рекламу, контент, аналитику, воронку, SEO и оптимизацию сайта. Работаю с привлечением, активацией и удержанием пользователей.',
-'Подготовил исследование рынка и конкурентов, сегментацию аудитории, позиционирование и контентную стратегию. Разработал сценарии коротких видео и план рекламных тестов.',
-'Прорабатываю путь от рекламного контакта и посадочной страницы до Telegram-бота; связываю гипотезы, события аналитики и критерии оценки.',
-'Масштаб продукта: около 24 тыс. пользователей бота за месяц по публичной карточке, проверенной 02.10.2026. Это показатель сервиса и результат команды.'
-])
-job('Первый Селлер','разработчик ботов и автоматизаций','Сентябрь 2025 - март 2026',[
-'Разработал Telegram-бота с уведомлениями о новых заказах и изменениях карточек товаров для продавцов маркетплейса.',
-'Автоматизировал ежедневные отчёты о продажах в Google Таблицах и Excel. Собирал открытые цены и ассортимент конкурентов.',
-'Настроил webhook-интеграции с внутренними системами маркетплейса.'
-])
-job('Digital Agency St','frontend-разработчик','Январь - сентябрь 2025',[
-'Разрабатывал калькуляторы стоимости, слайдеры и формы для клиентских сайтов; дорабатывал интернет-магазины и корпоративные страницы.',
-'Подключал Яндекс Метрику и Google Analytics. Оптимизировал загрузку и LCP; согласовывал задачи с дизайнерами и менеджерами.'
-])
-footer(1);c.showPage();y=H-44;html.append('<div class="page-break"></div>')
-title('Опыт и проекты',21,16)
-job('Prostudio','стажёр frontend-разработки','Сентябрь - декабрь 2024',[
-'Разрабатывал React-лендинги и промо-страницы, подключал товары и отправку форм через REST API.',
-'Переносил компоненты с jQuery на React, писал модульные тесты на Jest, адаптировал UI-киты агентства под клиентские задачи.'
-])
-job('D-project','проектная работа по вёрстке','Дополнительный опыт',[
-'Верстал по Figma и адаптировал страницы для мобильных устройств. Дорабатывал WordPress-шаблоны, WebP и lazy loading; исправлял ошибки вёрстки.'
-])
-title('Навыки')
-for t in [
-'<b>Frontend:</b> JavaScript ES6+, React, компоненты и состояние, HTML5, CSS3, Flexbox, Grid. Адаптивная вёрстка по Figma, формы и валидация, REST API, обработка ошибок и состояний загрузки. Git, Jest, WordPress.',
-'<b>Автоматизация и данные:</b> Python, SQL, Telegram-боты, webhooks, Google Таблицы, Excel. Сбор открытых данных, автоматизация отчётности; поиск, фильтры, localStorage и экспорт CSV в веб-приложениях.',
-'<b>Производительность:</b> оптимизация загрузки и LCP, Core Web Vitals, WebP, lazy loading, адаптация изображений и проверка интерфейсов на мобильных экранах.',
-'<b>Маркетинг и аналитика:</b> сегментация аудитории, анализ конкурентов, позиционирование, контент-стратегия, рекламные гипотезы и тесты. Воронки привлечения и активации, SEO, оптимизация конверсии, события в Яндекс Метрике и Google Analytics.',
-'<b>UI/UX и графика:</b> Figma, Photoshop, пользовательские сценарии, прототипирование, UI-киты, типографика и композиция. Айдентика, товарная графика, афиши и редакционная вёрстка.',
-'<b>3D:</b> Blender — моделирование, материалы, постановка света, композиция сцены и предметная визуализация.'
-]:p(t,gap=6)
-y-=3
-title('Избранные самостоятельные работы')
-p('<b>19 веб-проектов:</b> USDT Desk, CRM, аналитика, магазины, запись и поддержка. Рабочие прототипы с демо и исходниками в портфолио.',gap=6)
-p('<b>Дизайн и 3D:</b> самостоятельные концепции ТИХО, КРУГ, СДВИГ; новые Blender-этюды FIELD / 02 и Quiet Workspace. Макеты, рендеры и исходники доступны в портфолио.',gap=12)
-title('Образование')
-p('<b>Казанский федеральный университет</b><br/>Незаконченное высшее, ожидаемое окончание - 2027.',gap=8)
-p('Дополнительное обучение: Яндекс Практикум, 2026; «Код будущего», вёрстка и веб-разработка, ТГУ, 2025.',gap=10)
-footer(2);c.save()
-css='body{max-width:760px;margin:48px auto;padding:0 24px;font:16px/1.55 Arial;color:#303a42}h2{color:#152730;margin:28px 0 12px}a{color:#234f72}.page-break{border-top:1px solid #ddd;margin-top:40px}@media print{body{margin:0}.page-break{break-before:page;border:0}a{color:inherit}}'
-(OUT/'artem-bychkov-resume.html').write_text('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Артём Бычков — резюме</title><style>'+css+'</style><main>'+''.join(html).replace('<link ','<a ').replace('</link>','</a>')+'</main></html>',encoding='utf-8')
-print('Created resume PDF and editable HTML')
+for job_id in ['karton', 'mts', 'seller', 'agency']:
+    job(job_id)
+print(f'Page 1 content bottom: {y:.1f} pt')
+footer(1)
+c.showPage()
+page_number = 2
+y = H - 40
+html.append('</section><section class="resume-page">')
+
+title('Избранные проекты', size=17, gap=5)
+p('Самостоятельные рабочие прототипы из портфолио: демо и исходники доступны по ссылкам.', small, gap=8)
+for item in content['projects']:
+    p('<b>' + escape(item['name']) + '</b> · ' + escape(item['stack']) + ' · ' + link('Демо', item['demo']) + ' / ' + link('Код', item['code']), gap=2)
+    p(escape(item['description']), gap=8)
+    plain.extend(['Демо: ' + item['demo'], 'Код: ' + item['code']])
+
+title('Ранний опыт')
+for job_id in ['prostudio', 'dproject']:
+    job(job_id)
+title('Ключевые навыки')
+for item in content['skills']:
+    p('<b>' + escape(item['label']) + ':</b> ' + escape(item['text']), gap=5)
+p(escape(content['visual_work']), small, gap=9)
+title('Образование и дополнительное обучение')
+p(escape(content['education']), gap=5)
+for item in content['courses']:
+    course = escape(item['name'])
+    if item.get('url'):
+        course = link(item['name'], item['url'])
+    suffix = str(item['year']) if item['year'] else item.get('status', '')
+    p(course + ' · ' + escape(item['provider']) + ((' · ' + escape(suffix)) if suffix else ''), small, gap=2)
+p('<b>Языки:</b> ' + escape(content['languages']), small, gap=3)
+print(f'Page 2 content bottom: {y:.1f} pt')
+footer(2)
+c.save()
+html.append('</section>')
+
+css = '''
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#edf1f4;color:#303a42;font:16px/1.5 Arial,sans-serif}
+main{max-width:850px;margin:32px auto}.resume-page{padding:42px 48px;background:#fff;margin-bottom:24px;border:1px solid #d8dee2}
+h1,h2{color:#152730;line-height:1.2}h1{font-size:34px;margin:0 0 12px}h2{font-size:21px;margin:26px 0 12px}
+p{margin:0 0 10px}a{color:#234f72;text-underline-offset:3px}.job{margin-bottom:18px}.job p{margin-bottom:6px}
+@media(max-width:600px){main{margin:0}.resume-page{padding:28px 22px;border:0}h1{font-size:30px}p{overflow-wrap:anywhere}}
+@media print{@page{size:A4;margin:14mm}body{background:#fff;font-size:10.2pt;line-height:1.34}main{margin:0;max-width:none}.resume-page{border:0;padding:0;margin:0}.resume-page+.resume-page{break-before:page}.job{break-inside:avoid;margin-bottom:10px}h1{font-size:26pt}h2{font-size:13.6pt;margin:15px 0 8px}p{margin-bottom:5px}a{color:inherit}}
+'''
+document = '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escape(content['name'] + ' - резюме') + '</title><style>' + css + '</style></head><body><main>' + ''.join(html) + '</main></body></html>'
+(OUT / 'artem-bychkov-resume.html').write_text(document, encoding='utf-8')
+(OUT / 'artem-bychkov-resume.txt').write_text('\n\n'.join(plain).strip() + '\n', encoding='utf-8')
+print('Created resume PDF, HTML and text from tools/resume-content.json')
