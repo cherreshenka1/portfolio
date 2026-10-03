@@ -434,13 +434,13 @@ oldProjects.push({slug:'p2p-usdt-platform',title:'USDT Desk',kind:'Операц�
 const allProjects = [
   ...oldProjects.map((project) => ({
     ...project,
-    preview: `previews/${project.slug}.png`,
+    preview: `previews/${project.slug}.png?v=20261003`,
     casePath: `projects/${project.slug}/`,
     group: "project",
   })),
   ...demos.map((demo) => ({
     ...demo,
-    preview: `previews/${demo.slug}.png`,
+    preview: `previews/${demo.slug}.png?v=20261003`,
     casePath: `projects/${demo.slug}/`,
     live: `${pagesBase}/${demo.slug}/`,
     code: `${repoBase}/${demo.slug}`,
@@ -452,7 +452,7 @@ const productNames={"cashflow-command-center": "Реестр / счета и о�
 for (const project of allProjects) { project.title=productNames[project.slug]||project.title; if (project.group === 'demo') project.stack = 'JavaScript, CSS, localStorage'; project.description = briefs[project.slug].task; project.impact = require('./project-solutions')[project.slug]; }
 
 const featuredSlugs = [
-  "marketplace-ops-crm",
+  "p2p-usdt-platform",
   "cashflow-command-center",
   "clinic-flow-console",
   "restaurant-prep-planner",
