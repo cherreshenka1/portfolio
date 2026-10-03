@@ -90,7 +90,7 @@ section('Желаемая должность')
 story.append(Paragraph(escape(content['role']), position_style))
 html.append('<h3 class="position">' + escape(content['role']) + '</h3>')
 plain.append(content['role'])
-for text in ['Специализация: программист, разработчик', 'Тип занятости: полная, частичная, проектная работа', 'Формат работы: удалённо']:
+for text in ['Специализации: ' + content['specializations'], 'Тип занятости: полная, частичная, проектная работа', 'Формат работы: удалённо']:
     story.append(Paragraph(escape(text), body))
     html.append('<p>' + escape(text) + '</p>')
     plain.append(text)
